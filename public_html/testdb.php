@@ -1,8 +1,8 @@
 <?php
 require("config.php");
-$connection_string = "mysql:host=$dbhost;dbname=dbdatabase;charset=utf8mb4";
+$connection_String = "mysql:host=$dbhost;dbname=dbdatabase;charset=utf8mb4";
 try {
-    $db = new PDO($connection_string, $dbhost, $dbuser, $dbpass);
+    $db = new PDO($connection_String, $dbhost, $dbuser, $dbpass);
     $stmt = $db->prepare("CREATE TABLE `Users` (
                  `id` int auto_increment not null,
                  `email` varchar(100) not null unique,
