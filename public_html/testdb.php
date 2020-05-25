@@ -7,7 +7,8 @@ try {
                  `id` int auto_increment not null,
                  `email` varchar(100) not null unique,
                  `created` timestamp default current_timestamp,
-                 PRIMARY KEY (`id`)
+                 `modified` timestamp default current_timestamp on update current_timestamp,
+                PRIMARY KEY (`id`)
                  ) CHARACTER SET utf8 COLLATE utf8_general_ci");
     $r = $stmt->execute();
     echo var_export($stmt->errorInfo(), true);
