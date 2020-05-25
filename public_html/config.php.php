@@ -1,7 +1,19 @@
 <?php
-$cleardb_url      = parse_url(getenv("CLEARDB_DATABASE_URL"));
-$dbhost   = $cleardb_url["host"];
-$dbuser = $cleardb_url["user"];
-$dbpass = $cleardb_url["pass"];
-$dbdatabase       = substr($cleardb_url["path"],1);
+require("config.php");
+$connection_String = "mysql:host=$dbhost;dbname=dbdatabase;charset=utf8mb4";
+try {
+    $db = new PDO($connection_string, $dbuser, $dbpass);
+    $stmt = $db->prepare("CREATE TABLE `Users` (
+                 `id` int auto_increment not null,
+                 `email` varchar(100) not null unique,
+                 `created` timestamp default current_timestamp,
+                PRIMARY KEY (`id`)
+                 ) CHARACTER SET utf8 COLLATE utf8_general_ci");
+    $r = $stmt->execute();
+    echo var_export($stmt->errorInfo(), true);
+    echo var_export($r, true);
+}
+catch   (Exception $e){
+    echo $e->getMessage();
+}
 ?>
