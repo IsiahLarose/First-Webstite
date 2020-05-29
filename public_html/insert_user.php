@@ -6,7 +6,7 @@ try{
     $db = new PDO($connection_string, $dbuser, $dbpass);
     $stmt = $db->prepare("INSERT INTO Users (email) VALUES (:email)");
     $r = $stmt->execute(array(
-        ":email"=>"test@test.com"
+        ":email"=>"isiahlarose@test.com"
     ));
     echo var_export($stmt->errorInfo(), true);
     echo var_export($r, true);

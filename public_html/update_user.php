@@ -6,7 +6,7 @@ try{
     $db = new PDO($connection_string, $dbuser, $dbpass);
     $stmt = $db->prepare("UPDATE Users set email=:email WHERE email = :original");
     $stmt->bindValue(":email","newemail@test.com");
-    $stmt->bindValue(":original","test@test.com");
+    $stmt->bindValue(":original","isaihlarose@test.com");
     $r = $stmt->execute();
 
     echo var_export($stmt->errorInfo(), true);
