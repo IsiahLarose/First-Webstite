@@ -9,7 +9,7 @@
     <label for="cp">Confirm Password
         <input type="password" id="cp" name="cpassword"/>
     </label>
-    <input type="submit" name="register" value="Register"/>
+        <input type="submit" name="register" value="Register"/>
 </form>
 <?php
 
@@ -27,7 +27,7 @@ if(isset($_POST["register"])){
                 $stmt = $db->prepare("INSERT INTO Users (email, password) VALUES(:email, :password)");
                 $stmt->execute(array(
                     ":email" => $email,
-                    ":password" => $hash//Don't save the raw password $password
+                    ":password" => $hash
                 ));
                 $e = $stmt->errorInfo();
                 if($e[0] != "00000"){
