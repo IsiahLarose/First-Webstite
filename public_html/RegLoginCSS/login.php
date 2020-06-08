@@ -32,23 +32,30 @@ if(isset($_POST["login"])){
             if($e[0] != "00000"){
                 echo var_export($e, true);
             }
-            else{
+            else {
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                if ($result){
+                if ($result) {
                     $rpassword = $result["password"];
-                    if(password_verify($password, $rpassword)){
+                    if (password_verify($password, $rpassword)) {
                         echo "<div>Passwords matched! You are technically logged in!</div>";
-                    }
-                    else{
+                        $_SESSION["user"] = array(
+                            "id" => $result["id"],
+                            "email" => $result["email"],
+                            "first_name" => $result["first_name"],
+                            "last_name" => $result["last_name"]
+                        );
+                        echo var_export($_SESSION, true);
+                        header("Location: home.php");
+                    } else {
                         echo "<div>Invalid password!</div>";
                     }
                 }
-                else{
+                else {
                     echo "<div>Invalid user</div>";
                 }
                 //echo "<div>Successfully registered!</div>";
             }
-        }
+            }
         catch (Exception $e){
             echo $e->getMessage();
         }
