@@ -1,0 +1,14 @@
+/* Table that stores values for simply survey */
+/* Column values include First name, Last name, PersonID*/
+/*Simple survey will include approx 3 questions( subject to change)*/
+/* 3 response columns to hold responses of user selections when answering questions*/
+CREATE TABLE Responses(
+  PersonID int AUTO_INCREMENT,
+  Last_Name varchar(255) NOT NULL UNQIUE, /* varchar because repsonse selections will not include numbers*/
+  First_Name varchar(255) NOT NULL UNIQUE,
+  Response1 varchar(255) NOT NULL, /* NOT NULL included because responses must be recorded as they are the focus of the site */
+  Response2 varchar(255) NOT NULL,
+  Response3 varchar(255) NOT NULL,
+  Primary Key(PersonID),
+  FOREIGN KEY(First_Name) REFERENCES USERS(First_Name) /* foreign key links names in already created Users table on PhpMyadmin
+);
