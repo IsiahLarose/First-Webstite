@@ -4,6 +4,17 @@
     </title>
     <link rel="stylesheet" style="text/css" href="style.css">
 </head>
+<style>
+    li {
+        float: left;
+    }
+
+    a {
+        display: block;
+        padding: 8px;
+        background-color: #dddddd;
+    }
+</style>
 <?php
     require("config.php");
     session_start();
