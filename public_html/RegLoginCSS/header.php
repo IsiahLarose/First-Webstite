@@ -6,7 +6,7 @@
 </head>
 <style>
     li {
-        float: right;
+        float: left;
     }
 
     a {
@@ -26,6 +26,9 @@
     session_start();
 ?>
 <nav>
+    <p>
+        Welcome to my Simple Survey
+    </p>
     <ul>
         <li>
             <a href="home.php">Home</a>
