@@ -20,7 +20,9 @@ p{
     text-underline-color: black;
     font-size: large;
 }
-
+img{
+    float: inherit;
+}
 li{
     display: inline;
 }

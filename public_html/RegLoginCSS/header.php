@@ -26,8 +26,10 @@
     session_start();
 ?>
 <nav>
+    <img src="https://www.mycustomer.com/sites/default/files/styles/inline_banner/public/istock_blossomstar_survey.jpg?itok=MbTgDMVO">
+
     <p>
-        Welcome to my Simple Survey
+        Welcome to my Simple Survey!
     </p>
     <ul>
         <li>
