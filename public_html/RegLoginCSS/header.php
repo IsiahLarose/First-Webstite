@@ -5,12 +5,8 @@
     <link rel="stylesheet" style="text/css" href="style.css">
 </head>
 <style>
-    .center {
-        text-align-last: center;
-        border: 2px solid black;
-    }
     li {
-        float: inherit;
+        float: left;
     }
 
     a {
@@ -19,9 +15,10 @@
         background-color: none;
     }
     ul {
-        list-style-type: center;
+        list-style-type: none;
         margin: 0;
-        padding: 8px;
+        padding: 0;
+        overflow: hidden;
     }
 </style>
 <?php
