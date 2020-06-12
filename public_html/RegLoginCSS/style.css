@@ -12,6 +12,10 @@ form{
     margin-top: 11%;
     text-align: center;
 }
+.center {
+    text-align-last: center;
+    border: 2px solid black;
+}
 nav{
     overflow: hidden;
     background-color: darkgrey;

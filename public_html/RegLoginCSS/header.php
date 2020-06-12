@@ -5,8 +5,12 @@
     <link rel="stylesheet" style="text/css" href="style.css">
 </head>
 <style>
+    .center {
+        text-align-last: center;
+        border: 2px solid black;
+    }
     li {
-        float: left;
+        float: center;
     }
 
     a {
