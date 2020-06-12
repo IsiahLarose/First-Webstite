@@ -6,13 +6,18 @@
 </head>
 <style>
     li {
-        float: left;
+        float: middle;
     }
 
     a {
         display: block;
         padding: 8px;
         background-color: #dddddd;
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
     }
 </style>
 <?php
