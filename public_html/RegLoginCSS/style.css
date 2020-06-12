@@ -17,6 +17,8 @@ p{
     float: right;
     text-align: right;
     text-decoration-color: black;
+    text-underline-color: black;
+    font-size: large;
 }
 
 li{
