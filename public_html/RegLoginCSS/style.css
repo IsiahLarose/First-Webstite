@@ -22,7 +22,7 @@ p{
 }
 img{
     float: inherit;
-    image-resolution: 300dpi;
+    width: 30%;
 }
 li{
     display: inline;
