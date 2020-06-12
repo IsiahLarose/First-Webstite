@@ -6,7 +6,7 @@
 </head>
 <style>
     li {
-        float: middle;
+        float: left;
     }
 
     a {
