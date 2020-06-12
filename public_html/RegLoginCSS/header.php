@@ -12,10 +12,10 @@
     a {
         display: block;
         padding: 8px;
-        background-color: #dddddd;
+        background-color: none;
     }
     ul {
-        list-style-type: none;
+        list-style-type: center;
         margin: 0;
         padding: 0;
     }
