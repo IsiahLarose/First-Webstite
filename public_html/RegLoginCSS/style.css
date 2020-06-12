@@ -16,6 +16,9 @@ form{
     text-align-last: center;
     border: 2px solid black;
 }
+li{
+    display: inline;
+}
 nav{
     overflow: hidden;
     background-color: darkgrey;
