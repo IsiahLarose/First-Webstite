@@ -10,7 +10,7 @@
         border: 2px solid black;
     }
     li {
-        float: center;
+        float: inherit;
     }
 
     a {
