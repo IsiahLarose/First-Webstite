@@ -34,3 +34,6 @@ ul{
     padding: 0;
     float: right;
 }
+li{
+    float: left;
+}
