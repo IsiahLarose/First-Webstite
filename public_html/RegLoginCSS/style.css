@@ -1,32 +1,12 @@
 input {
-    background-color:blue;
+    background-color: aquamarine;
 }
-
-label{
+label {
     border: 1px dotted black;
 }
-form{
+form {
     width:80%;
     margin-left: auto;
-    margin-right:auto;
+    margin-right: auto;
     margin-top: 11%;
-    text-align: left;
-}
-p{
-    display:inherit;
-    float: right;
-    text-decoration-color: black;
-    text-underline-color: black;
-    font-size: large;
-}
-
-li{
-    display: inline;
-    float: left;
-}
-nav{
-    float: right;
-    overflow: hidden;
-    background-color: #483d8b;
-    text-align:center;
 }
