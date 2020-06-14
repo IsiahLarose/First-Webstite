@@ -10,6 +10,9 @@ form {
     margin-right: auto;
     margin-top: 11%;
     color: cornflowerblue;
+    list-style-type: none;
+    text-align:right;
+    display: inline;
 }
 p{
     text-align: left;
@@ -18,7 +21,8 @@ p{
 nav{
     background-color: darkslateblue;
 }
-li{
+/*li{
     text-align: right;
     display: inline;
-}
+    list-style-type: none;
+}*/
