@@ -39,7 +39,5 @@ nav li{
     float: left;
     display: inline-block;
     margin: 0 35px;
-    outline-color: black;
     text-underline-color: black;
-    background-color: white;
 }
