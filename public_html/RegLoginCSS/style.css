@@ -11,11 +11,14 @@ form {
     margin-top: 11%;
     color: cornflowerblue;
 }
+p{
+    text-align: right;
+    color: yellow;
+}
 nav{
     background-color: darkslateblue;
 }
 li{
     float: inherit;
     text-align: left;
-    margin: 70px;
 }
