@@ -19,6 +19,7 @@ p{
 }
 nav{
     background-color: green;
+    height: 10px;
 }
 nav::after{
     content:'';
