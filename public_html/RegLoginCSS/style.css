@@ -10,6 +10,9 @@ form {
     margin-right: auto;
     margin-top: 11%;
 }
+body{
+    background-color: black;
+}
 p{
     text-align: left;
     color: black;
