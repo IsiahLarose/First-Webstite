@@ -20,7 +20,7 @@ p{
     color: white;
 }
 nav{
-    background-color: #008000;
+    background-color: cornflowerblue;
     height: 22px;
 }
 nav::after{
