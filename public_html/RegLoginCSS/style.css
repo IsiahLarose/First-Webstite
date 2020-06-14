@@ -17,7 +17,7 @@ p{
 nav{
     background-color: green;
 }
-header::after{
+nav::after{
     content:'';
     display: table;
     clear: both;
