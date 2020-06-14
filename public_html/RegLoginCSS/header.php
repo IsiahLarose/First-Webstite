@@ -3,6 +3,11 @@
         IT 202 Simple survey
     </title>
     <link rel="stylesheet" style="text/css" href="style.css">
+    header {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+    }
 </head>
 <style>
     li {
