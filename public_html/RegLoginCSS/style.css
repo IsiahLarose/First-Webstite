@@ -13,7 +13,6 @@ form{
     text-align: center;
 }
 p{
-    display: inline;
     float: left;
     text-align: left;
     text-decoration-color: black;
@@ -27,7 +26,6 @@ li{
 nav{
     float: right;
     overflow: hidden;
-    background-color: darkslateblue;
+    background-color: #483d8b;
     text-align:center;
-    margin-left: 70px;
 }
