@@ -12,13 +12,13 @@ form {
     color: cornflowerblue;
 }
 p{
-    text-align: right;
-    color: yellow;
+    text-align: left;
+    color: black;
 }
 nav{
     background-color: darkslateblue;
 }
 li{
-    float: inherit;
-    text-align: left;
+    text-align: center;
+    float: right;
 }

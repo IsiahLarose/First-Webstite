@@ -7,7 +7,7 @@ require("config.php");
 session_start();
 ?>
 <p>
-    Welcome to my Simple Survey
+    Welcome to my Simple Survey!
 </p>
 <nav>
     <ul>
