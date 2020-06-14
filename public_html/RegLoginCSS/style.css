@@ -26,7 +26,7 @@ nav::after{
     display: table;
     clear: both;
 }
-ul{
+nav ul{
     list-style-type: none;
     color: black;
     text-underline-color: black;
@@ -34,6 +34,6 @@ ul{
     padding: 0;
     float: right;
 }
-li{
+nav li{
     float: left;
 }
