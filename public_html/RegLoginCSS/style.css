@@ -13,7 +13,7 @@ form{
     text-align: center;
 }
 p{
-    float: left;
+    float: right;
     text-align: left;
     text-decoration-color: black;
     text-underline-color: black;
@@ -21,7 +21,8 @@ p{
 }
 
 li{
-    float: right;
+    display: inline;
+    float: left;
 }
 nav{
     float: right;
