@@ -13,7 +13,7 @@ session_start();
 <nav>
     <ul>
         <li>
-            <a href="home.php" style="color: white>Home </a>
+            <a href="home.php"style="color: white" Home </a>
         </li>
         <li>
             <a href="login.php">Login</a>
