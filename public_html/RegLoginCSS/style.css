@@ -24,5 +24,6 @@ li{
     text-underline-color: black;
     list-style-type: none;
     margin: 70px;
+    padding: 0;
     float: right;
 }
