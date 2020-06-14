@@ -20,12 +20,10 @@ p{
     text-underline-color: black;
     font-size: large;
 }
-img{
-    float: inherit;
-    width: 15%;
-}
+
 li{
     display: inline;
+    float: inherit;
 }
 nav{
     overflow: hidden;
