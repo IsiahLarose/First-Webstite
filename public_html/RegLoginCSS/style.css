@@ -23,7 +23,7 @@ p{
 
 li{
     display: inline;
-    float: inherit;
+    float: right;
 }
 nav{
     float: right;
