@@ -15,7 +15,7 @@ form{
 p{
     display: inline;
     float: left;
-    text-align: right;
+    text-align: left;
     text-decoration-color: black;
     text-underline-color: black;
     font-size: large;
