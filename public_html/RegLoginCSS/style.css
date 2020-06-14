@@ -3,6 +3,8 @@ input {
 }
 label {
     border: 1px dotted black;
+    color: black;
+    text-underline-color: black;
 }
 form {
     width:80%;
@@ -19,7 +21,7 @@ p{
 }
 nav{
     background-color: green;
-    height: 15px;
+    height: 22px;
 }
 nav::after{
     content:'';
@@ -28,8 +30,6 @@ nav::after{
 }
 nav ul{
     list-style-type: none;
-    color: black;
-    text-underline-color: black;
     margin: 0;
     padding: 0;
     float: right;
