@@ -19,7 +19,7 @@ p{
 }
 nav{
     background-color: green;
-    height: 10px;
+    height: 15px;
 }
 nav::after{
     content:'';
