@@ -13,14 +13,14 @@ form {
     margin-top: 11%;
 }
 body{
-    background-color: black;
+    background-color: white;
 }
 p{
     text-align: left;
     color: white;
 }
 nav{
-    background-color: green;
+    background-color: #008000;
     height: 22px;
 }
 nav::after{
