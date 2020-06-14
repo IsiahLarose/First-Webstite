@@ -9,4 +9,13 @@ form {
     margin-left: auto;
     margin-right: auto;
     margin-top: 11%;
+    color: cornflowerblue;
+}
+nav{
+    background-color: darkslateblue;
+}
+li{
+    float: inherit;
+    text-align: left;
+    margin: 70px;
 }
