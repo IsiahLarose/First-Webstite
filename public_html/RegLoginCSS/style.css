@@ -15,9 +15,9 @@ form {
 body{
     background-color: black;
 }
-p{
+nav p{
     text-align: left;
-    color: black;
+    color: white;
 }
 nav{
     background-color: green;
@@ -33,6 +33,7 @@ nav ul{
     margin: 0;
     padding: 0;
     float: right;
+    text-decoration-color: black;
 }
 nav li{
     float: left;
