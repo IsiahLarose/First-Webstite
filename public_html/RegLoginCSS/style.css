@@ -18,11 +18,11 @@ nav{
     background-color: green;
 }
 li{
-    text-align: right;
     display: inline;
     list-style-type: none;
     color: black;
     text-underline-color: black;
     list-style-type: none;
     margin: 70px;
+    float: right;
 }
