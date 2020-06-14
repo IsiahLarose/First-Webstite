@@ -19,6 +19,5 @@ nav{
     background-color: darkslateblue;
 }
 li{
-    text-align: center;
-    float: right;
+    text-align: right;
 }
