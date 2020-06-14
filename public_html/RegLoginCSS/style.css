@@ -17,6 +17,11 @@ p{
 nav{
     background-color: green;
 }
+header::after{
+    content:'';
+    display: table;
+    clear: both;
+}
 li{
     display: inline;
     list-style-type: none;
