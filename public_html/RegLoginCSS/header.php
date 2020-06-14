@@ -11,9 +11,6 @@ session_start();
 </p>
 
 <nav>
-    <p>
-        Welcome to my Simple Survey!
-    </p>
     <ul>
         <li>
             <a href="home.php">Home</a>
