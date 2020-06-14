@@ -32,7 +32,8 @@ li{
     color: black;
     text-underline-color: black;
     list-style-type: none;
-    margin: 70px;
-    padding: 0;
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
     float: right;
 }
