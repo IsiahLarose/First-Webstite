@@ -25,7 +25,6 @@
     require("config.php");
     session_start();
 ?>
-<header>
     <nav>
         <p>
             Welcome to my Simple Survey!
@@ -45,4 +44,3 @@
             </li>
         </ul>
     </nav>
-</header>
