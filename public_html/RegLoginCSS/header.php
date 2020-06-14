@@ -1,30 +1,24 @@
-
 <head>
-    <title>
-        IT 202 Simple survey
-    </title>
-    <link rel="stylesheet" style="text/css" href="style.css">
+    <title>My site</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <?php
 require("config.php");
 session_start();
 ?>
 <nav>
-    <p>
-        Welcome to my Simple Survey!
-    </p>
     <ul>
         <li>
             <a href="home.php">Home</a>
         </li>
         <li>
-            <a href="login.php">login</a>
+            <a href="login.php">Login</a>
         </li>
         <li>
-            <a href="register.php">register</a>
+            <a href="register.php">Register</a>
         </li>
         <li>
-            <a href="logout.php">logout</a>
+            <a href="logout.php">Logout</a>
         </li>
-</ul>
+    </ul>
 </nav>
