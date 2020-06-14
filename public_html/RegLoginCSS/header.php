@@ -25,22 +25,24 @@
     require("config.php");
     session_start();
 ?>
-<nav>
-    <p>
-        Welcome to my Simple Survey!
-    </p>
-    <ul>
-        <li>
-            <a href="home.php">Home</a>
-        </li>
-        <li>
-            <a href="login.php">login</a>
-        </li>
-        <li>
-            <a href="register.php">register</a>
-        </li>
-        <li>
-            <a href="logout.php">logout</a>
-        </li>
-    </ul>
-</nav>
+<header>
+    <nav>
+        <p>
+            Welcome to my Simple Survey!
+        </p>
+        <ul>
+            <li>
+                <a href="home.php">Home</a>
+            </li>
+            <li>
+                <a href="login.php">login</a>
+            </li>
+            <li>
+                <a href="register.php">register</a>
+            </li>
+            <li>
+                <a href="logout.php">logout</a>
+            </li>
+        </ul>
+    </nav>
+</header>
