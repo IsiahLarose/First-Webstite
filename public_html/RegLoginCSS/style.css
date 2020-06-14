@@ -14,7 +14,7 @@ form{
 }
 p{
     display: inline;
-    float: right;
+    float: left;
     text-align: right;
     text-decoration-color: black;
     text-underline-color: black;
