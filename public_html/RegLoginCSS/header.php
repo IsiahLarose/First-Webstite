@@ -9,7 +9,6 @@
 require("config.php");
 session_start();
 ?>
-<style>
 <nav>
     <p>
         Welcome to my Simple Survey!
@@ -29,4 +28,3 @@ session_start();
         </li>
 </ul>
 </nav>
-  </style>
