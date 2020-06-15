@@ -17,7 +17,7 @@ body{
 }
 p{
     text-align: center;
-    color: royalblue;
+    color: forestgreen;
     font-size: 2em;
 }
 nav{
@@ -41,9 +41,9 @@ nav li{
     float: left;
     display: inline-block;
     margin: 0 35px;
-    font-size: 2em;
+    font-size: 10px;
 }
 a{
     color: white;
-    background-color: royalblue;
+    background-color: forestgreen;
 }
