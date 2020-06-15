@@ -1,5 +1,5 @@
 input {
-    background-color: darkslateblue;
+    background-color: white;
 }
 label {
     border: 1px dotted black;
@@ -14,7 +14,7 @@ form {
 body{
     background-color: white;
 }
-p{
+head p{
     font-family: "Calibri";
     text-align: center;
     color: darkslateblue;

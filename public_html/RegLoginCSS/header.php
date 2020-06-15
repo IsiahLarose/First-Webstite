@@ -1,14 +1,14 @@
 <head>
     <title>Simple Survey</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <p>
+        Welcome to My Simple Survey!
+    </p>
 </head>
 <?php
 require("config.php");
 session_start();
 ?>
-<p>
-    Welcome to my Simple Survey!
-</p>
 <nav>
     <ul>
         <li>
