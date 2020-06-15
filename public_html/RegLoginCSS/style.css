@@ -17,7 +17,7 @@ body{
 }
 p{
     text-align: center;
-    color: cornflowerblue;
+    color: royalblue;
     font-size: 2em;
 }
 nav{
@@ -44,5 +44,5 @@ nav li{
 }
 a{
     color: white;
-    background-color: cornflowerblue;
+    background-color: royalblue;
 }
