@@ -43,5 +43,6 @@ nav li{
     margin: 0 35px;
 }
 a{
-    color: cornflowerblue;
+    color: white;
+    background-color: cornflowerblue;
 }
