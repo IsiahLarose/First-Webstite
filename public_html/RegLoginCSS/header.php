@@ -9,7 +9,7 @@ session_start();
 <p>
     Welcome to my Simple Survey!
 </p>
-<img src="thinking.gif" alt="Thinking">
+<img src="https://drive.google.com/file/d/1nnHCwmO06JtuPlUIy3wbiC6WQw03J4SK/view?usp=sharing" alt="Thinking">
 <nav>
     <ul>
         <li>
