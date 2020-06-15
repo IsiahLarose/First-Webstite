@@ -10,6 +10,8 @@ form {
     width:80%;
     margin: auto;
     text-align: center;
+    border-style: dot-dash;
+    border-color: darkslateblue;
 }
 body{
     background-color: white;
