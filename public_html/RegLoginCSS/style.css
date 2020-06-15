@@ -22,7 +22,7 @@ p{
 }
 nav{
     background-color: tan;
-    height: 24px;
+    height: 35px;
 }
 nav::after{
     content:'';
@@ -41,9 +41,13 @@ nav li{
     float: left;
     display: inline-block;
     margin: 0 35px;
-    font-size: 24px;
+    font-size: 35px;
 }
 a{
     color: white;
     background-color: forestgreen;
+}
+img{
+    float:left;
+    size: 25px;
 }
