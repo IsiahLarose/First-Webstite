@@ -16,12 +16,12 @@ body{
     background-color: white;
 }
 p{
-    text-align: left;
-    color: black;
+    text-align: center;
+    color: cornflowerblue;
     font-size: 2em;
 }
 nav{
-    background-color: cornflowerblue;
+    background-color: tan;
     height: 24px;
 }
 nav::after{
@@ -43,5 +43,5 @@ nav li{
     margin: 0 35px;
 }
 a{
-    color: black;
+    color: cornflowerblue;
 }
