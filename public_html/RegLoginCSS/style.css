@@ -15,7 +15,7 @@ form {
 body{
     background-color: white;
 }
-nav p{
+nav ul p{
     text-align: left;
     color: black;
     font-size: 2em;
