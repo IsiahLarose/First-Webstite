@@ -17,8 +17,9 @@ body{
     background-color: tan;
 }
 p{
+    font-family: "Comic Sans MS";
     text-align: center;
-    color: forestgreen;
+    color: white;
     font-size: 2em;
 }
 nav{
