@@ -6,12 +6,11 @@
 require("config.php");
 session_start();
 ?>
+<p>
+    Welcome to my Simple Survey!
+</p>
 <nav>
-
     <ul>
-        <p>
-            Welcome to my Simple Survey!
-        </p>
         <li>
             <a href="home.php" Home </a>
         </li>

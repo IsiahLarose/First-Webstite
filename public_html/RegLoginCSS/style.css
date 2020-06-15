@@ -15,7 +15,7 @@ form {
 body{
     background-color: white;
 }
-nav p{
+p{
     text-align: left;
     color: black;
     font-size: 2em;
@@ -41,4 +41,7 @@ nav li{
     float: left;
     display: inline-block;
     margin: 0 35px;
+}
+a{
+    color: black;
 }
