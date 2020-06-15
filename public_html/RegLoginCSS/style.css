@@ -11,6 +11,8 @@ form {
     margin: auto;
     text-align: center;
     border-color: darkslateblue;
+    border-style: solid;
+    border-width: 1px;
 }
 body{
     background-color: white;
