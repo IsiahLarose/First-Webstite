@@ -1,5 +1,5 @@
 input {
-    background-color: tan;
+    background-color: forestgreen;
 }
 label {
     border: 1px dotted black;
@@ -14,7 +14,7 @@ form {
     align: left;
 }
 body{
-    background-color: white;
+    background-color: tan;
 }
 p{
     text-align: center;
@@ -22,7 +22,7 @@ p{
     font-size: 2em;
 }
 nav{
-    background-color: tan;
+    background-color: forestgreen;
     height: 35px;
 }
 nav::after{
