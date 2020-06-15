@@ -9,7 +9,7 @@ session_start();
 <p>
     Welcome to my Simple Survey!
 </p>
-<img src="https://cliply.co/wp-content/uploads/2019/09/391909180_THINKING_FACE_400px.gif">
+<img width="100" height="200" src="https://cliply.co/wp-content/uploads/2019/09/391909180_THINKING_FACE_400px.gif">
     <ul>
         <li>
             <a href="home.php"> Home </a>

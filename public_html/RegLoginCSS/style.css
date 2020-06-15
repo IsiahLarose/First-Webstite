@@ -1,5 +1,5 @@
 input {
-    background-color: #7fffd4;
+    background-color: tan;
 }
 label {
     border: 1px dotted black;
@@ -43,11 +43,7 @@ nav li{
     margin: 0 35px;
     font-size: 33px;
 }
-a{
+a {
     color: white;
     background-color: forestgreen;
-}
-img{
-    float:left;
-    size: 1px;
 }
