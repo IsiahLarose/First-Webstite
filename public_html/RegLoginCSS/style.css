@@ -22,7 +22,7 @@ p{
 }
 nav{
     background-color: cornflowerblue;
-    height: 22px;
+    height: 24px;
 }
 nav::after{
     content:'';
@@ -34,6 +34,8 @@ nav ul{
     margin: 0;
     padding: 0;
     float: right;
+    text-decoration-color: black;
+    color: black;
 }
 nav li{
     float: left;
