@@ -1,5 +1,5 @@
 <head>
-    <title>My site</title>
+    <title>Simple Survey</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <?php
