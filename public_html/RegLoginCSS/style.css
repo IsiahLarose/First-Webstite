@@ -41,6 +41,7 @@ nav li{
     float: left;
     display: inline-block;
     margin: 0 35px;
+    font-size: 2em;
 }
 a{
     color: white;
