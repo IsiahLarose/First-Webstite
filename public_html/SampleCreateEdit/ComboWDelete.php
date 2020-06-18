@@ -25,7 +25,7 @@ else{
 ?>
 
     <form method="POST">
-        <label for="Question">Survey Name
+        <label for="Question">Question Name
             <input type="text" id="Question" Question="Question" value="<?php echo get($result, "Question");?>" />
         </label>
         <label for="A">Answer

@@ -22,7 +22,7 @@ else{
 ?>
 
 <form method="POST">
-    <label for="Survey">Survey Name
+    <label for="Survey">Question Name
         <input type="text" id="Question" question="question" />
     </label>
     <label for="A"> Answer
