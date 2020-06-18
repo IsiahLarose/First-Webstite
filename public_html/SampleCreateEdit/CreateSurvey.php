@@ -1,6 +1,6 @@
 <form method="POST">
     <label for="Survey">Survey Question
-        <input type="text" id="Survey" Question="Question" />
+        <input type="text" id="Question" Question="Question" />
     </label>
     <label for="A">Answer
         <input type="Text" id="A" Question="Answer" />
