@@ -1,6 +1,6 @@
 <?php
 require("config.php");
-$connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+$connection_string = "mysql:host=$dbhost;dbquestion=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
 $thingId = -1;
 $result = array();
@@ -23,24 +23,24 @@ else{
 
 <form method="POST">
     <label for="Survey">Survey Name
-        <input type="text" id="Survey" name="name" />
+        <input type="text" id="Survey" question="question" />
     </label>
-    <label for="q">
-        <input type="Text" id="T" name="title" />
+    <label for="A"> Answer
+        <input type="Text" id="A" question="Answer" />
     </label>
-    <input type="submit" name="created" value="Create Survey"/>
+    <input type="submit" question="created" value="Create Survey"/>
 </form>
 
 <?php
 if(isset($_POST["updated"])){
-    $name = $_POST["name"];
-    $title= $_POST["title"];
-    if(!empty($name) && !empty($title)){
+    $question = $_POST["question"];
+    $Answer= $_POST["Answer"];
+    if(!empty($question) && !empty($Answer)){
         try{
-            $stmt = $db->prepare("UPDATE Things set name = :name, title=:title where id=:id");
+            $stmt = $db->prepare("UPDATE Things set question = :question, Answer=:Answer where id=:id");
             $result = $stmt->execute(array(
-                ":name" => $name,
-                ":title" => $title,
+                ":question" => $question,
+                ":Answer" => $Answer,
                 ":id" => $thingId
             ));
             $e = $stmt->errorInfo();
@@ -50,7 +50,7 @@ if(isset($_POST["updated"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully updated thing: " . $name;
+                    echo "Successfully updated thing: " . $question;
                 }
                 else{
                     echo "Error updating record";
@@ -62,7 +62,7 @@ if(isset($_POST["updated"])){
         }
     }
     else{
-        echo "Name and title must not be empty.";
+        echo "Name and Answer must not be empty.";
     }
 }
 ?>
