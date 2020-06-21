@@ -10,33 +10,33 @@ function get($arr, $key){
     }
     return "";
 }
-if(isset($_GET["QuestionId"])){
-    $questionId = $_GET["QuestionId"];
+if(isset($_GET["questionId"])){
+    $questionId = $_GET["questionId"];
     $stmt = $db->prepare("SELECT * FROM Questions where id = :id");
     $stmt->execute([":id"=>$questionId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 else{
-    echo "No QuestionId provided in url, don't forget this or sample won't work.";
+    echo "No questionId provided in url.";
 }
 ?>
 
 <form method="POST">
     <label for="Question">Question
-        <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" />"
+        <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" />
     </label>
-        <input type="submit" name="updated" value="Updated Question"/>
+        <input type="submit" name="updated" value="Update Question"/>
 </form>
 
 <?php
 if(isset($_POST["updated"])){
-    $Question = $_POST["Question"];
+    $question = $_POST["question"];
     if(!empty($Question)){
         try{
-            $stmt = $db->prepare("UPDATE Questions set Question = :question where id=:id");
+            $stmt = $db->prepare("UPDATE Questions set question = :question where id=:id");
             $result = $stmt->execute(array(
                 ":question" => $question,
-                ":id" => $QuestionId
+                ":id" => $questionId
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
