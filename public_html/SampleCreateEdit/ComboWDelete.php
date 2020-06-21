@@ -31,7 +31,7 @@ else{
         <?php if($QuestionId > 0):?>
             <input type="submit" Question="updated" value="Update Question"/>
             <input type="submit" Question="delete" value="Delete Question"/>
-        <?php elseif ($QuestionId < 0):?>
+        <?php elseif ($QuestionId > 0):?>
             <input type="submit" Question="created" value="Create Question"/>
         <?php endif;?>
     </form>
