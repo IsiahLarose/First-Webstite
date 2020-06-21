@@ -1,26 +1,26 @@
 <form method="POST">
     <label for="Survey">Survey Question
-        <input type="text" id="Question" Question="Question" />
+        <input type="text" id="Question" name="name" />
     </label>
     <label for="A">Answer
-        <input type="Text" id="A" Question="Answer" />
+        <input type="Text" id="A" name="Answer" />
     </label>
-    <input type="submit" Question="created" value="Create Survey"/>
+    <input type="submit" name="created" value="Create Survey"/>
 </form>
 
 <?php
 if(isset($_POST["created"])){
-    $Question = $_POST["Question"];
-    $Answer = $_POST["Answer"];
-    if(!empty($Question) && !empty($Answer)){
+    $Question = $_POST["name"];
+    $Answer = $_POST["text"];
+    if(!empty($Question) && !empty($text)){
         require("config.php");
-        $connection_string = "mysql:host=$dbhost;dbQuestion=$dbdatabase;charset=utf8mb4";
+        $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Survey (Question, Answer) VALUES (:Question, :Answer)");
+            $stmt = $db->prepare("INSERT INTO Survey (name, text) VALUES (:name , :text)");
             $result = $stmt->execute(array(
-                ":Question" => $Question,
-                ":Answer" => $Answer
+                ":name" => $name,
+                ":text" => $text
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -29,7 +29,7 @@ if(isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted new Answer: " . $Question;
+                    echo "Successfully inserted new Answer: " . $name;
                 }
                 else{
                     echo "Error inserting record";
