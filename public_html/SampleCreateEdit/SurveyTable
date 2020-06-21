@@ -1,6 +1,6 @@
 CREATE TABLE Survey(
     id int auto_increment,
-    name varchar(30) not null unique,
+    name varchar(250) not null unique,
     message_text varchar(250),
     visibility int,
 	created datetime default current_timestamp,
