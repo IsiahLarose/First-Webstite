@@ -1,20 +1,20 @@
 <form method="POST">
-    <label for="question_text">question_text
-        <input type="text" id="question_text" name="question_text" />
-    <input type="submit" name="created" value="Create question_text"/>
+    <label for="Question">Question
+        <input type="text" id="Question" name="Question" />
+    <input type="submit" name="created" value="Create Question"/>
 </form>
 
 <?php
 if(isset($_POST["created"])){
-    $question_text = $_POST["question_text"];
-    if(!empty($question_text)){
+    $Question = $_POST["Question"];
+    if(!empty($Question)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO question_texts (question_text) VALUES (:question_text,)");
+            $stmt = $db->prepare("INSERT INTO Questions (Question) VALUES (:Question,)");
             $result = $stmt->execute(array(
-                ":question_text" => $question_text,
+                ":Question" => $Question,
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -23,7 +23,7 @@ if(isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted new thing: " . $question_text;
+                    echo "Successfully inserted new thing: " . $Question;
                 }
                 else{
                     echo "Error inserting record";
@@ -35,7 +35,7 @@ if(isset($_POST["created"])){
         }
     }
     else{
-        echo "question_text must not be empty.";
+        echo "Question must not be empty.";
     }
 }
 ?>
