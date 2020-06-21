@@ -1,26 +1,26 @@
 <form method="POST">
-    <label for="Surveys">Question Name
-        <input type="text" id="Surveys" name="name" />
+    <label for="Question">Question Name
+        <input type="text" id="Question" Question="Question" />
     </label>
-    <label for="M">text
-        <input type="text" id="M" name="text" />
+    <label for="A">Answer
+        <input type="text" id="Answer" Question="Answer" />
     </label>
-    <input type="submit" name="created" value="Create Question"/>
+    <input type="submit" Question="created" value="Create Question"/>
 </form>
 
 <?php
 if(isset($_POST["created"])){
-    $name = $_POST["name"];
-    $text = $_POST["text"];
-    if(!empty($name) && !empty(text)){
+    $Question = $_POST["Question"];
+    $Answer = $_POST["Answer"];
+    if(!empty($Question) && !empty($Answer)){
         require("config.php");
-        $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+        $connection_string = "mysql:host=$dbhost;dbQuestion=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Survey (name, text) VALUES (:name, :text");
+            $stmt = $db->prepare("INSERT INTO Things (Question, Answer) VALUES (:Question, :Answer)");
             $result = $stmt->execute(array(
-                ":name" => $name,
-                ":text" => text
+                ":Question" => $Question,
+                ":Answer" => $Answer
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -29,7 +29,7 @@ if(isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted new Surveys: " . $name;
+                    echo "Successfully inserted new thing: " . $Question;
                 }
                 else{
                     echo "Error inserting record";
@@ -41,7 +41,7 @@ if(isset($_POST["created"])){
         }
     }
     else{
-        echo "Question and text must not be empty.";
+        echo "Name and Answer must not be empty.";
     }
 }
 ?>
