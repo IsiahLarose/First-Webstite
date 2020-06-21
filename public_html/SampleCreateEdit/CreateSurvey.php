@@ -17,7 +17,7 @@ if(isset($_POST["created"])){
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Survey (name, text) VALUES (:name , :text)");
+            $stmt = $db->prepare("INSERT INTO Survey (name, text) VALUES (:name, :text)");
             $result = $stmt->execute(array(
                 ":name" => $name,
                 ":text" => $text
@@ -29,7 +29,7 @@ if(isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted new Answer: " . $name;
+                    echo "Successfully inserted new question: " . $name;
                 }
                 else{
                     echo "Error inserting record";
