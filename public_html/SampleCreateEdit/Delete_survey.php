@@ -37,18 +37,12 @@ if(isset($_POST["delete"])){
     $delete= isset($_POST["delete"]);
     $Question = $_POST["Question"];
     if(!empty($Question)){
-        try {
-            if ($QuestionId > 0) {
-                if ($delete) {
+        try{
+            if($QuestionId > 0) {
+                if($delete){
                     $stmt = $db->prepare("DELETE from Questions where id=:id");
                     $result = $stmt->execute(array(
                         ":id" => $QuestionId
-                    ));
-                } else {
-                    $stmt = $db->prepare("UPDATE Things set Question = :Question where id=:id");
-                    $result = $stmt->execute(array(
-                        ":Question" => $Question,
-                        ":id" => $Question
                     ));
                 }
             }
