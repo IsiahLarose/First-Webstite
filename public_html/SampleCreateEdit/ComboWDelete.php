@@ -58,10 +58,9 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
                 }
             }
             else{
-                $stmt = $db->prepare("INSERT INTO Questions (Question, quantity) VALUES (:Question, :quantity)");
+                $stmt = $db->prepare("INSERT INTO Questions (Question) VALUES (:Question)");
                 $result = $stmt->execute(array(
                     ":Question" => $Question,
-                    ":quantity" => $quantity
                 ));
             }
             $e = $stmt->errorInfo();
