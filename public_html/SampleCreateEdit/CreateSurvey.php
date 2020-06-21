@@ -3,7 +3,7 @@
         <input type="text" id="Question" name="name" />
     </label>
     <label for="A">Answer
-        <input type="Text" id="A" name="Answer" />
+        <input type="text" id="A" name="name" />
     </label>
     <input type="submit" name="created" value="Create Survey"/>
 </form>
