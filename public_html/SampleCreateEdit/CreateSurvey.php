@@ -1,9 +1,9 @@
 <form method="POST">
     <label for="Question">Question Name
-        <input type="text" id="Question" Question="Question" />
+        <input type="text" id="Question" name="Question" />
     </label>
     <label for="A">Answer
-        <input type="text" id="Answer" Question="Answer" />
+        <input type="text" id="Answer" name="Answer" />
     </label>
     <input type="submit" Question="created" value="Create Question"/>
 </form>
