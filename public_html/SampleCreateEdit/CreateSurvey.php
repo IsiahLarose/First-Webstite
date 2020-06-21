@@ -10,7 +10,7 @@
 
 <?php
 if(isset($_POST["created"])){
-    $name = $_POST["name"];
+    $Question = $_POST["Question"];
     $Answer = $_POST["Answer"];
     if(!empty($name) && !empty($Answer)){
         require("config.php");
@@ -29,7 +29,7 @@ if(isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted new thing: " . $name;
+                    echo "Successfully inserted new thing: " . $Question;
                 }
                 else{
                     echo "Error inserting record";
