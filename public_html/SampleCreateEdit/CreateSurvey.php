@@ -3,16 +3,16 @@
         <input type="text" id="Question" name="name" />
     </label>
     <label for="A">Answer
-        <input type="text" id="A" name="name" />
+        <input type="text" id="" name="name" />
     </label>
-    <input type="submit" name="created" value="Create Survey"/>
+    <input type="submit" name="created" value="Create Question"/>
 </form>
 
 <?php
 if(isset($_POST["created"])){
-    $Question = $_POST["name"];
-    $Answer = $_POST["text"];
-    if(!empty($Question) && !empty($text)){
+    $name = $_POST["name"];
+    $text = $_POST["text"];
+    if(!empty($name) && !empty($text)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
