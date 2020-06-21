@@ -5,7 +5,7 @@
     <label for="M">text
         <input type="text" id="M" name="text" />
     </label>
-    <input type="submit" name="created" value="Create Thing"/>
+    <input type="submit" name="created" value="Create Question"/>
 </form>
 
 <?php
