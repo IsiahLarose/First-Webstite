@@ -1,26 +1,20 @@
 <form method="POST">
     <label for="Question">Question
         <input type="text" id="Question" name="Question" />
-    </label>
-    <label for="A">Answer
-        <input type="text" id="Answer" name="Answer" />
-    </label>
     <input type="submit" name="created" value="Create Question"/>
 </form>
 
 <?php
 if(isset($_POST["created"])){
     $Question = $_POST["Question"];
-    $Answer = $_POST["Answer"];
-    if(!empty($Question) && !empty($Answer)){
+    if(!empty($Question)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Survey (Question, Answer) VALUES (:Question, :Answer)");
+            $stmt = $db->prepare("INSERT INTO Survey (Question) VALUES (:Question,)");
             $result = $stmt->execute(array(
                 ":Question" => $Question,
-                ":Answer" => $Answer
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -41,7 +35,7 @@ if(isset($_POST["created"])){
         }
     }
     else{
-        echo "Name and Answer must not be empty.";
+        echo "Question must not be empty.";
     }
 }
 ?>
