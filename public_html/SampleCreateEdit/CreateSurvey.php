@@ -11,8 +11,8 @@
 <?php
 if(isset($_POST["created"])){
     $name = $_POST["name"];
-    $message_text = $_POST["message_text"];
-    if(!empty($name) && !empty($message_text)){
+    $text = $_POST["text"];
+    if(!empty($name) && !empty(text)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
@@ -20,7 +20,7 @@ if(isset($_POST["created"])){
             $stmt = $db->prepare("INSERT INTO Survey (name, message_text) VALUES (:name, :message_text)");
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":message_text" => $message_text
+                ":text" => text
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
