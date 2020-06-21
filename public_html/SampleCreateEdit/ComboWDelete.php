@@ -20,19 +20,22 @@ if(isset($_GET["QuestionId"])){
     }
 }
 else{
-    echo "No QuestionId provided in url.";
+    echo "No QuestionId provided in url, don't forget this or sample won't work.";
 }
 ?>
 
     <form method="POST">
-        <label for="Question">Question
+        <label for="Question">Question Name
             <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" />
         </label>
-        <?php if($QuestionId < 0):?>
-            <input type="submit" Question="updated" value="Update Question"/>
-            <input type="submit" Question="delete" value="Delete Question"/>
+        <label for="q">Question
+            <input type="number" id="q" name="quantity" value="<?php echo get($result, "quantity");?>" />
+        </label>
+        <?php if($QuestionId > 0):?>
+            <input type="submit" name="updated" value="Update Question"/>
+            <input type="submit" name="delete" value="Delete Question"/>
         <?php elseif ($QuestionId < 0):?>
-            <input type="submit" Question="created" value="Create Question"/>
+            <input type="submit" name="created" value="Create Question"/>
         <?php endif;?>
     </form>
 
@@ -40,7 +43,8 @@ else{
 if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"])){
     $delete = isset($_POST["delete"]);
     $Question = $_POST["Question"];
-    if(!empty($Question)){
+    $quantity = $_POST["quantity"];
+    if(!empty($Question) && !empty($quantity)){
         try{
             if($QuestionId > 0) {
                 if($delete){
@@ -50,17 +54,19 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
                     ));
                 }
                 else {
-                    $stmt = $db->prepare("UPDATE Questions set Question = :Question where id=:id");
+                    $stmt = $db->prepare("UPDATE Questions set Question = :Question, quantity=:quantity where id=:id");
                     $result = $stmt->execute(array(
                         ":Question" => $Question,
+                        ":quantity" => $quantity,
                         ":id" => $QuestionId
                     ));
                 }
             }
             else{
-                $stmt = $db->prepare("INSERT INTO Questions (Question) VALUES (:Question)");
+                $stmt = $db->prepare("INSERT INTO Questions (Question, quantity) VALUES (:Question, :quantity)");
                 $result = $stmt->execute(array(
                     ":Question" => $Question,
+                    ":quantity" => $quantity
                 ));
             }
             $e = $stmt->errorInfo();
@@ -82,7 +88,7 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
         }
     }
     else{
-        echo "Question must not be empty.";
+        echo "Name and quantity must not be empty.";
     }
 }
 ?>
