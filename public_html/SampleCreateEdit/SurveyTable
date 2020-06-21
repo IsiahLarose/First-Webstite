@@ -1,4 +1,4 @@
-CREATE TABLE Survey (
+CREATE TABLE Questions (
     id int auto_increment,
     Question varchar(20) not null unique,
     created datetime default current_timestamp,

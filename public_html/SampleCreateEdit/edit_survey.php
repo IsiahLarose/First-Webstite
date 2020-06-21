@@ -37,7 +37,7 @@ if(isset($_POST["updated"])){
     $Answer= $_POST["Answer"];
     if(!empty($question) && !empty($Answer)){
         try{
-            $stmt = $db->prepare("UPDATE Things set question = :question, Answer=:Answer where id=:id");
+            $stmt = $db->prepare("UPDATE Questions set question = :question, Answer=:Answer where id=:id");
             $result = $stmt->execute(array(
                 ":question" => $question,
                 ":Answer" => $Answer,
