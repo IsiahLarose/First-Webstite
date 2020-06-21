@@ -1,6 +1,9 @@
-CREATE TABLE Survey{
-id int auto_increment,
-title varchar(30) not null unique,
-description TEXT,
-accessed_date DATETIME default current_timestamp ,
-}
+CREATE TABLE Survey(
+    id int auto_increment,
+    title varchar(30) not null unique,
+    description TEXT,
+    visibility int,
+	created datetime default current_timestamp,
+    modified datetime default current_timestamp on update 		CURRENT_TIMESTAMP,
+    accessed_date DATETIME default current_timestamp
+)
