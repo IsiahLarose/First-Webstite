@@ -12,9 +12,9 @@ if(isset($_POST["created"])){
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Questions (Question) VALUES (:Question,)");
+            $stmt = $db->prepare("INSERT INTO Questions (Question) VALUES (:Question)");
             $result = $stmt->execute(array(
-                ":Question" => $Question,
+                ":Question" => $Question
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
