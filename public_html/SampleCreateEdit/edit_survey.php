@@ -2,7 +2,7 @@
 require("config.php");
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
-$questionId = -1;
+$QuestionId = -1;
 $result = array();
 function get($arr, $key){
     if(isset($arr[$key])){
@@ -10,19 +10,19 @@ function get($arr, $key){
     }
     return "";
 }
-if(isset($_GET["questionId"])){
-    $questionId = $_GET["questionId"];
+if(isset($_GET["QuestionId"])){
+    $QuestionId = $_GET["QuestionId"];
     $stmt = $db->prepare("SELECT * FROM Questions where id = :id");
-    $stmt->execute([":id"=>$questionId]);
+    $stmt->execute([":id"=>$QuestionId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 else{
-    echo "No questionId provided in url.";
+    echo "No QuestionId provided in url.";
 }
 ?>
 
 <form method="POST">
-    <label for="Question">Question
+    <label for="thing">Question
         <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" />
     </label>
         <input type="submit" name="updated" value="Update Question"/>
@@ -30,13 +30,13 @@ else{
 
 <?php
 if(isset($_POST["updated"])){
-    $question = $_POST["question"];
+    $Question = $_POST["Question"];
     if(!empty($Question)){
         try{
-            $stmt = $db->prepare("UPDATE Questions set question = :question where id=:id");
+            $stmt = $db->prepare("UPDATE Questions set Question = :Question where id=:id");
             $result = $stmt->execute(array(
-                ":question" => $question,
-                ":id" => $questionId
+                ":Question" => $Question,
+                ":id" => $QuestionId
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -45,7 +45,7 @@ if(isset($_POST["updated"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully updated Question: " . $question;
+                    echo "Successfully updated Question: " . $Question;
                 }
                 else{
                     echo "Error updating record";
