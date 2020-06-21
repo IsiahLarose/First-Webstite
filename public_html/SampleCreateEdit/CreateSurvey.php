@@ -1,26 +1,26 @@
 <form method="POST">
-    <label for="Survey">Survey Question
-        <input type="text" id="Question" name="name" />
+    <label for="thing">Thing Name
+        <input type="text" id="thing" name="name" />
     </label>
-    <label for="A">Answer
-        <input type="text" id="A" name="name" />
+    <label for="q">Quantity
+        <input type="number" id="q" name="quantity" />
     </label>
-    <input type="submit" name="created" value="Create Question"/>
+    <input type="submit" name="created" value="Create Thing"/>
 </form>
 
 <?php
 if(isset($_POST["created"])){
     $name = $_POST["name"];
-    $text = $_POST["text"];
-    if(!empty($name) && !empty($text)){
+    $quantity = $_POST["quantity"];
+    if(!empty($name) && !empty($quantity)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Survey (name, text) VALUES (:name, :text)");
+            $stmt = $db->prepare("INSERT INTO Things (name, quantity) VALUES (:name, :quantity)");
             $result = $stmt->execute(array(
                 ":name" => $name,
-                ":text" => $text
+                ":quantity" => $quantity
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -29,7 +29,7 @@ if(isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted new question: " . $name;
+                    echo "Successfully inserted new thing: " . $name;
                 }
                 else{
                     echo "Error inserting record";
@@ -41,7 +41,7 @@ if(isset($_POST["created"])){
         }
     }
     else{
-        echo "Question and Answer must not be empty.";
+        echo "Name and quantity must not be empty.";
     }
 }
 ?>

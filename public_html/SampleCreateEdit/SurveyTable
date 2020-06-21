@@ -1,7 +1,7 @@
-CREATE TABLE Survey(
+CREATE TABLE Things(
     id int auto_increment,
     title varchar(30) not null unique,
-    description TEXT,
+    quantity int default 0,
     visibility int,
 	created datetime default current_timestamp,
     modified datetime default current_timestamp on update CURRENT_TIMESTAMP,
