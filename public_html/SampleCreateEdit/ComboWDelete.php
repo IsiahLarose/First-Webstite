@@ -28,9 +28,11 @@ else{
         <label for="Question">Question
         <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" />
         </label>
-        <?php if($QuestionId > 0):?>
-                <input type="submit" name="updated" value="Update Question"/>
+        <?php if($QuestionId < 0):?>
+            <input type="submit" name="updated" value="Update Question"/>
             <input type="submit" name="delete" value="Delete Question"/>
+        <?php elseif ($QuestionId < 0):?>
+            <input type="submit" name="created" value="Create Question"/>
         <?php endif;?>
     </form>
 
