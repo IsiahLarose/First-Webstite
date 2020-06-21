@@ -2,7 +2,7 @@
 require("config.php");
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
-$QuestionId = -1;
+$questionId = -1;
 $result = array();
 function get($arr, $key){
     if(isset($arr[$key])){
@@ -11,9 +11,9 @@ function get($arr, $key){
     return "";
 }
 if(isset($_GET["QuestionId"])){
-    $QuestionId = $_GET["QuestionId"];
+    $questionId = $_GET["QuestionId"];
     $stmt = $db->prepare("SELECT * FROM Questions where id = :id");
-    $stmt->execute([":id"=>$QuestionId]);
+    $stmt->execute([":id"=>$questionId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 else{
@@ -33,9 +33,9 @@ if(isset($_POST["updated"])){
     $Question = $_POST["Question"];
     if(!empty($Question)){
         try{
-            $stmt = $db->prepare("UPDATE Questions set Question = :Question where id=:id");
+            $stmt = $db->prepare("UPDATE Questions set Question = :question where id=:id");
             $result = $stmt->execute(array(
-                ":Question" => $Question,
+                ":question" => $question,
                 ":id" => $QuestionId
             ));
             $e = $stmt->errorInfo();
@@ -45,7 +45,7 @@ if(isset($_POST["updated"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully updated Question: " . $Question;
+                    echo "Successfully updated Question: " . $question;
                 }
                 else{
                     echo "Error updating record";
