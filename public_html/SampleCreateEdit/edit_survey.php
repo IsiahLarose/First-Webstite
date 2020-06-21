@@ -23,8 +23,9 @@ else{
 
 <form method="POST">
     <label for="Question">Question
-        <input type="text" id="Question" name="Question" />
-        <input type="submit" name="created" value="Create Question"/>
+        <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" />" />
+    </label>
+        <input type="submit" name="updated" value="Updated Question"/>
 </form>
 
 <?php
