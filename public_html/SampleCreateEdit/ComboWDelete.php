@@ -1,6 +1,6 @@
 <?php
 require("config.php");
-$connection_string = "mysql:host=$dbhost;dbQuestion=$dbdatabase;charset=utf8mb4";
+$connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
 $QuestionId = -1;
 $result = array();
@@ -12,7 +12,7 @@ function get($arr, $key){
 }
 if(isset($_GET["QuestionId"])){
     $QuestionId = $_GET["QuestionId"];
-    $stmt = $db->prepare("SELECT * FROM Survey where id = :id");
+    $stmt = $db->prepare("SELECT * FROM Things where id = :id");
     $stmt->execute([":id"=>$QuestionId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     if(!$result){
@@ -20,22 +20,19 @@ if(isset($_GET["QuestionId"])){
     }
 }
 else{
-    echo "No QuestionId provided in url, don't forget this or sample won't work.";
+    echo "No QuestionID provided in url";
 }
 ?>
 
     <form method="POST">
-        <label for="Question">Question Name
-            <input type="text" id="Question" Question="Question" value="<?php echo get($result, "Question");?>" />
-        </label>
-        <label for="A">Answer
-            <input type="number" id="A" Question="Answer" value="<?php echo get($result, "Answer");?>" />
+        <label for="Question">Question
+            <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" />
         </label>
         <?php if($QuestionId > 0):?>
-            <input type="submit" Question="updated" value="Update Survey"/>
-            <input type="submit" Question="delete" value="Delete Survey"/>
+            <input type="submit" name="updated" value="Update Question"/>
+            <input type="submit" name="delete" value="Delete Question"/>
         <?php elseif ($QuestionId < 0):?>
-            <input type="submit" Question="created" value="Create Survey"/>
+            <input type="submit" name="created" value="Create Question"/>
         <?php endif;?>
     </form>
 
@@ -43,30 +40,27 @@ else{
 if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"])){
     $delete = isset($_POST["delete"]);
     $Question = $_POST["Question"];
-    $Answer = $_POST["Answer"];
-    if(!empty($Question) && !empty($Answer)){
+    if(!empty($Question)){
         try{
             if($QuestionId > 0) {
                 if($delete){
-                    $stmt = $db->prepare("DELETE from Survey where id=:id");
+                    $stmt = $db->prepare("DELETE from Questions where id=:id");
                     $result = $stmt->execute(array(
                         ":id" => $QuestionId
                     ));
                 }
                 else {
-                    $stmt = $db->prepare("UPDATE Survey set Question = :Question, Answer=:Answer where id=:id");
+                    $stmt = $db->prepare("UPDATE Things set Question = :Question where id=:id");
                     $result = $stmt->execute(array(
                         ":Question" => $Question,
-                        ":Answer" => $Answer,
-                        ":id" => $QuestionId
+                        ":id" => $Question
                     ));
                 }
             }
             else{
-                $stmt = $db->prepare("INSERT INTO Survey (Question, Answer) VALUES (:Question, :Answer)");
+                $stmt = $db->prepare("INSERT INTO Questions (Question) VALUES (:Question)");
                 $result = $stmt->execute(array(
-                    ":Question" => $Question,
-                    ":Answer" => $Answer
+                    ":Question" => $Question
                 ));
             }
             $e = $stmt->errorInfo();
@@ -88,7 +82,7 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
         }
     }
     else{
-        echo "Name and Answer must not be empty.";
+        echo "Question must not be empty.";
     }
 }
 ?>
