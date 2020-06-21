@@ -1,6 +1,6 @@
 <?php
 require("config.php");
-$connection_string = "mysql:host=$dbhost;dbQuestion=$dbdatabase;charset=utf8mb4";
+$connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
 $QuestionId = -1;
 $result = array();
@@ -28,9 +28,6 @@ else{
         <label for="Question">Question Name
             <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" />
         </label>
-        <label for="q">Question
-            <input type="number" id="q" name="quantity" value="<?php echo get($result, "quantity");?>" />
-        </label>
         <?php if($QuestionId > 0):?>
             <input type="submit" name="updated" value="Update Question"/>
             <input type="submit" name="delete" value="Delete Question"/>
@@ -43,8 +40,7 @@ else{
 if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"])){
     $delete = isset($_POST["delete"]);
     $Question = $_POST["Question"];
-    $quantity = $_POST["quantity"];
-    if(!empty($Question) && !empty($quantity)){
+    if(!empty($Question)){
         try{
             if($QuestionId > 0) {
                 if($delete){
@@ -54,10 +50,9 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
                     ));
                 }
                 else {
-                    $stmt = $db->prepare("UPDATE Questions set Question = :Question, quantity=:quantity where id=:id");
+                    $stmt = $db->prepare("UPDATE Questions set Question = :Question where id=:id");
                     $result = $stmt->execute(array(
                         ":Question" => $Question,
-                        ":quantity" => $quantity,
                         ":id" => $QuestionId
                     ));
                 }
