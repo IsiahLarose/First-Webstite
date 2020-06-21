@@ -1,25 +1,25 @@
 <form method="POST">
     <label for="Surveys">Thing Name
-        <input type="text" id="Surveys" name="title" />
+        <input type="text" id="Surveys" name="name" />
     </label>
     <label for="A">message_text
-        <input type="text" id="q" name="title" />
+        <input type="text" id="q" name="" />
     </label>
     <input type="submit" name="created" value="Create Thing"/>
 </form>
 
 <?php
 if(isset($_POST["created"])){
-    $title = $_POST["title"];
+    $name = $_POST["name"];
     $message_text = $_POST["message_text"];
-    if(!empty($title) && !empty($message_text)){
+    if(!empty($name) && !empty($message_text)){
         require("config.php");
-        $connection_string = "mysql:host=$dbhost;dbtitle=$dbdatabase;charset=utf8mb4";
+        $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Survey (title, message_text) VALUES (:title, :message_text)");
+            $stmt = $db->prepare("INSERT INTO Survey (name, message_text) VALUES (:name, :message_text)");
             $result = $stmt->execute(array(
-                ":title" => $title,
+                ":name" => $name,
                 ":message_text" => $message_text
             ));
             $e = $stmt->errorInfo();
@@ -29,7 +29,7 @@ if(isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted new Surveys: " . $title;
+                    echo "Successfully inserted new Surveys: " . $name;
                 }
                 else{
                     echo "Error inserting record";
