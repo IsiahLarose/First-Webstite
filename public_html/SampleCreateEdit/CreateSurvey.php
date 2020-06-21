@@ -2,8 +2,8 @@
     <label for="Surveys">Thing Name
         <input type="text" id="Surveys" name="name" />
     </label>
-    <label for="A">message_text
-        <input type="text" id="q" name="" />
+    <label for="M">message_text
+        <input type="text" id="M" name="text" />
     </label>
     <input type="submit" name="created" value="Create Thing"/>
 </form>
@@ -17,7 +17,7 @@ if(isset($_POST["created"])){
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Survey (name, message_text) VALUES (:name, :message_text)");
+            $stmt = $db->prepare("INSERT INTO Survey (name, text) VALUES (:name, :text");
             $result = $stmt->execute(array(
                 ":name" => $name,
                 ":text" => text
