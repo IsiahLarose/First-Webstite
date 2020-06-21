@@ -1,5 +1,5 @@
 <form method="POST">
-    <label for="Question">Question Name
+    <label for="Question">Question
         <input type="text" id="Question" name="Question" />
     </label>
     <label for="A">Answer
@@ -17,7 +17,7 @@ if(isset($_POST["created"])){
         $connection_string = "mysql:host=$dbhost;dbQuestion=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Things (name, Answer) VALUES (:name, :Answer)");
+            $stmt = $db->prepare("INSERT INTO Things (question, Answer) VALUES (:question, :Answer)");
             $result = $stmt->execute(array(
                 ":name" => $name,
                 ":Answer" => $Answer

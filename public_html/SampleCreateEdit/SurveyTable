@@ -1,7 +1,6 @@
 CREATE TABLE Survey (
     id int auto_increment,
-    name varchar(20) not null unique,
-    question varchar(250) not null unique,
+    question varchar(20) not null unique,
     answer varchar(250) not null unique,
     created datetime default current_timestamp,
     modified datetime default current_timestamp on update CURRENT_TIMESTAMP,
