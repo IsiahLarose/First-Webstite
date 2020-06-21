@@ -1,7 +1,7 @@
 CREATE TABLE Survey (
     id int auto_increment,
     name varchar(250) not null unique,
-    message_text varchar(250),
+    text varchar(250),
     visibility int,
     created datetime default current_timestamp,
     modified datetime default current_timestamp on update CURRENT_TIMESTAMP,

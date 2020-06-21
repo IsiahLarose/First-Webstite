@@ -1,8 +1,8 @@
 <form method="POST">
-    <label for="Surveys">Thing Name
+    <label for="Surveys">Question Name
         <input type="text" id="Surveys" name="name" />
     </label>
-    <label for="M">message_text
+    <label for="M">text
         <input type="text" id="M" name="text" />
     </label>
     <input type="submit" name="created" value="Create Thing"/>
