@@ -1,8 +1,8 @@
 <?php
 require("config.php");
-$connection_string = "mysql:host=$dbhost;dbquestion=$dbdatabase;charset=utf8mb4";
+$connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
-$thingId = -1;
+$QuestionId = -1;
 $result = array();
 function get($arr, $key){
     if(isset($arr[$key])){
@@ -10,38 +10,32 @@ function get($arr, $key){
     }
     return "";
 }
-if(isset($_GET["thingId"])){
-    $thingId = $_GET["thingId"];
-    $stmt = $db->prepare("SELECT * FROM Things where id = :id");
-    $stmt->execute([":id"=>$thingId]);
+if(isset($_GET["QuestionId"])){
+    $QuestionId = $_GET["QuestionId"];
+    $stmt = $db->prepare("SELECT * FROM Questions where id = :id");
+    $stmt->execute([":id"=>$QuestionId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 else{
-    echo "No thingId provided in url, don't forget this or sample won't work.";
+    echo "No QuestionId provided in url, don't forget this or sample won't work.";
 }
 ?>
 
 <form method="POST">
-    <label for="Survey">Question Name
-        <input type="text" id="Question" question="question" />
-    </label>
-    <label for="A"> Answer
-        <input type="Text" id="A" question="Answer" />
-    </label>
-    <input type="submit" question="created" value="Create Survey"/>
+    <label for="Question">Question
+        <input type="text" id="Question" name="Question" />
+        <input type="submit" name="created" value="Create Question"/>
 </form>
 
 <?php
 if(isset($_POST["updated"])){
-    $question = $_POST["question"];
-    $Answer= $_POST["Answer"];
-    if(!empty($question) && !empty($Answer)){
+    $Question = $_POST["Question"];
+    if(!empty($Question)){
         try{
-            $stmt = $db->prepare("UPDATE Questions set question = :question, Answer=:Answer where id=:id");
+            $stmt = $db->prepare("UPDATE Questions set name = :name where id=:id");
             $result = $stmt->execute(array(
-                ":question" => $question,
-                ":Answer" => $Answer,
-                ":id" => $thingId
+                ":Question" => $Question,
+                ":id" => $QuestionId
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -50,7 +44,7 @@ if(isset($_POST["updated"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully updated thing: " . $question;
+                    echo "Successfully updated Question: " . $Question;
                 }
                 else{
                     echo "Error updating record";
@@ -62,7 +56,7 @@ if(isset($_POST["updated"])){
         }
     }
     else{
-        echo "Name and Answer must not be empty.";
+        echo "Question must not be empty.";
     }
 }
 ?>
