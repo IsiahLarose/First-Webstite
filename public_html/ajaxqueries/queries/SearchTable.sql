@@ -1,1 +1,1 @@
-SELECT * FROM Questions where name like CONCAT('%', :Question, '%')
+SELECT * FROM Questions where question = :questionID
