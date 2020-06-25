@@ -1,1 +1,1 @@
-SELECT * FROM Things where CONCAT('%', :question, '%')
+SELECT * FROM Questions where question = :question
