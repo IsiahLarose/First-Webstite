@@ -1,1 +1,1 @@
-SELECT * FROM Survey where id = :id LIMIT 1
+SELECT * FROM Questions where id = :id LIMIT 1
