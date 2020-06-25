@@ -1,1 +1,1 @@
-SELECT * FROM Questions where question = :questionID
+SELECT * FROM Questions where question = :question
