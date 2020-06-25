@@ -26,7 +26,7 @@ if(isset($query) && !empty($query)){
             <li>
                 <?php echo get($row, "Question")?>
                 <?php echo get($row, "quantity");?>
-                <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
+                <a href="DeleteFrom.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
         <?php endforeach;?>
     </ul>
