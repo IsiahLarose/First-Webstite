@@ -1,1 +1,1 @@
-UPDATE Questions set Question = :Question, where id=:id
+UPDATE Questions set Question = :question, where id=:id
