@@ -8,17 +8,26 @@ if(isset($_POST["search"])){
 ?>
     <form method="POST">
         <input type="text" name="search" placeholder="Search for Question"
+               value="<?php echo $search;?>"/>
         <label for="Sort">SortBy:</label>
         <select id="SortBy" name="Sort By">
             <option value="Ascending">Ascending Order</option>
             <option value="Descending">Descending Order</option>
-            <input type="submit" value="<?php echo $search;?>"/>
+            <input type="submit"
         </select>
     </form>
 <?php
 if(isset($search)) {
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
+    if(isset($Ascending)){
+        require("common.inc.php");
+        $query = file_get_contents(__DIR__ . "/queries/AscendingOrder.sql");
+    }
+    if(isset($Descending)) {
+        require("common.inc.php");
+        $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
+    }
     if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
@@ -28,36 +37,6 @@ if(isset($search)) {
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             echo $e->getMessage();
-        }
-    }
-    if (isset($Ascending)) {
-        require("common.inc.php");
-        $query = file_get_contents(__DIR__ . "/queries/AscendingOrder.sql");
-        if (isset($query) && !empty($query)) {
-            try {
-                $stmt = getDB()->prepare($query);
-                //Note: With a LIKE query, we must pass the % during the mapping
-                $stmt->execute([":question" => $search]);
-                //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
-                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            }
-        }
-    }
-    if (isset($Descending)) {
-        require("common.inc.php");
-        $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
-        if (isset($query) && !empty($query)) {
-            try {
-                $stmt = getDB()->prepare($query);
-                //Note: With a LIKE query, we must pass the % during the mapping
-                $stmt->execute([":question" => $search]);
-                //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
-                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            }
         }
     }
 }
