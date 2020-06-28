@@ -1,9 +1,9 @@
 <?php
 $search = "";
-$Ascending="Ascending";
-$Descending="Descending";
+$sortby="";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
+    $sortby = $_POST["sortby"];
 }
 ?>
     <form method="POST">
@@ -16,17 +16,12 @@ if(isset($_POST["search"])){
         </select>
     </form>
 <?php
-if(isset($search)){
+if(isset($search) && ($sortby)) {
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
-    $Ascending = file_get_contents(__DIR__ . "/queries/AscendingOrder.sql");
-    $Descending = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
-    if (isset($query) && !empty($query) && isset($Ascending) && isset($Descending)) {
+    if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
-            $stmt = getDB()->prepare($Ascending);
-            $stmt = getDB()->prepare($Descending);
-
             //Note: With a LIKE query, we must pass the % during the mapping
             $stmt->execute([":question"=>$search]);
             //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
@@ -34,6 +29,17 @@ if(isset($search)){
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+    }
+}
+elseif(isset($_POST['Descending'])){
+    try {
+        $stmt = getDB()->prepare($query);
+        //Note: With a LIKE query, we must pass the % during the mapping
+        $stmt->execute([":question"=>$search]);
+        //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        echo $e->getMessage();
     }
 }
 ?>
