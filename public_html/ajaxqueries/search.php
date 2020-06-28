@@ -17,17 +17,9 @@ if(isset($_POST["search"])){
         </select>
     </form>
 <?php
-if(isset($search)) {
+if(isset($search) && ($Ascending)){
     require("common.inc.php");
-    $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
-    if(isset($Ascending)){
-        require("common.inc.php");
-        $query = file_get_contents(__DIR__ . "/queries/AscendingOrder.sql");
-    }
-    if(isset($Descending)) {
-        require("common.inc.php");
-        $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
-    }
+    $query = file_get_contents(__DIR__ . "/queries/SearchTableASC.sql");
     if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
