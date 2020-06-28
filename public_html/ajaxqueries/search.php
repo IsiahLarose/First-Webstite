@@ -5,7 +5,7 @@ if(isset($_POST["search"])){
     $Sort = $_POST['SortBy'];
 }
 ?>
-    <form method="POST">
+    <form method="POST" onsubmit="return validate(this);">
         <input type="text" name="search" placeholder="Search for Question"
                value="<?php echo $search;?>"/>
         <label for="SortBy">SortBy</label>
