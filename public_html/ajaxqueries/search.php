@@ -2,7 +2,7 @@
 $search = "";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
-    $Sort = $_POST["SortBy"];
+    $Sort = $_POST["Ascending"] or ["Descending"];
 }
 ?>
     <form method="POST">
@@ -16,7 +16,7 @@ if(isset($_POST["search"])){
         </select>
     </form>
 <?php
-if(($Sort)) {
+if(($Sort=="Ascending")) {
         require("common.inc.php");
         $query = file_get_contents(__DIR__ . "/queries/SearchTableASC.sql");
         if (isset($query) && !empty($query)) {
