@@ -19,7 +19,7 @@ if(isset($_POST["search"])){
 <?php
 if(isset($search)){
     require("common.inc.php");
-    $query = file_get_contents(__DIR__ . "/queries/SearchTableASC.sql");
+    $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
     if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
