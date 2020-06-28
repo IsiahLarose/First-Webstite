@@ -5,11 +5,11 @@ if(isset($_POST["search"])){
     $Sort = $_POST['SortBy'];
 }
 ?>
-    <form method="POST" onsubmit="return validate(this);">
+    <form method="POST">
         <input type="text" name="search" placeholder="Search for Question"
                value="<?php echo $search;?>"/>
         <label for="SortBy">SortBy</label>
-        <select id="SortBy" name="Sort By">
+        <select id="SortBy" name="SortBy">
             <option value="<?php echo $Sort;?>">Ascending Order</option>
             <option value="<?php echo $Sort;?>">Descending Order</option>
             <input type="submit"
