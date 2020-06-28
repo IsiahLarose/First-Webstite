@@ -7,11 +7,11 @@ if(isset($_POST["search"])){
     <form method="POST">
         <input type="text" name="search" placeholder="Search for Question"
                value="<?php echo $search;?>"/>
-        <input type="submit" value="Search"/>
         <label for="Sort">SortBy:</label>
         <select id="SortBy" name="Sort By">
             <option value="Ascending">Ascending Order</option>
             <option value="Descending">Descending Order</option>
+            <input type="submit" value="Search"/>
         </select>
     </form>
 <?php
