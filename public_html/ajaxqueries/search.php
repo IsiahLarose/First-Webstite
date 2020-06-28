@@ -17,7 +17,7 @@ if(isset($_POST["search"])){
         </select>
     </form>
 <?php
-if(isset($search) && ($Ascending)){
+if(isset($search)){
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTableASC.sql");
     if (isset($query) && !empty($query)) {
