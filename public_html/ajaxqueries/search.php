@@ -2,7 +2,7 @@
 $search = "";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
-    $Sort = $_POST["SortBy"];
+    $ascOrDec = $_POST['Sort By'];
 }
 ?>
     <form method="POST">
@@ -16,8 +16,7 @@ if(isset($_POST["search"])){
         </select>
     </form>
 <?php
-if(($Sort=="Ascending Order")) {
-    if (isset($search)) {
+if(($ascOrDec=="Ascending Order")) {
         require("common.inc.php");
         $query = file_get_contents(__DIR__ . "/queries/SearchTableASC.sql");
         if (isset($query) && !empty($query)) {
@@ -31,10 +30,9 @@ if(($Sort=="Ascending Order")) {
                 echo $e->getMessage();
             }
         }
-    }
+
 }
-if($Sort=="Descending Order"){
-    if (isset($search)) {
+elseif($ascOrDec=="Descending Order"){
         require("common.inc.php");
         $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql.sql");
         if (isset($query) && !empty($query)) {
@@ -48,8 +46,6 @@ if($Sort=="Descending Order"){
                 echo $e->getMessage();
             }
         }
-    }
-
 }
 ?>
     <!--This part will introduce us to PHP templating,
