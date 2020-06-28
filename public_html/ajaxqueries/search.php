@@ -2,28 +2,31 @@
 $search = "";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
+    $Ascending= $_POST["Ascending"];
+    $Descending= $_POST["Descending"];
 }
 ?>
     <form method="POST">
         <input type="text" name="search" placeholder="Search for Question"
-               value="<?php echo $search;?>"/>
         <label for="Sort">SortBy:</label>
         <select id="SortBy" name="Sort By">
             <option value="Ascending">Ascending Order</option>
             <option value="Descending">Descending Order</option>
-            <input type="submit" value="Search"/>
+            <input type="submit" value="<?php echo $search;?>"/>
         </select>
     </form>
 <?php
 if(isset($search)) {
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
-    $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
-    $query = file_get_contents(__DIR__ . "/queries/AscendingOrder.sql");
-
-    if (isset($query) &&(SortBY)&& !empty($query)) {
+    $Ascending=file_get_contents(__DIR__ . "/queries/AscendingOrder.sql");
+    $Descending=file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
+    if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
+            $stmt = getDB()->prepare($Descending);
+            $stmt = getDB()->prepare($Ascending);
+
             //Note: With a LIKE query, we must pass the % during the mapping
             $stmt->execute([":question"=>$search]);
             //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
