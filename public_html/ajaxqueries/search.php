@@ -1,45 +1,34 @@
 <?php
 $search = "";
-$sortby="";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
-    $sortby = $_POST["sortby"];
 }
 ?>
     <form method="POST">
-        <input type="text" name="search" placeholder="Search for question"
+        <input type="text" name="search" placeholder="Search for Thing"
                value="<?php echo $search;?>"/>
         <input type="submit" value="Search"/>
-        <select id="SORT BY" name="SORT BY"
-            <option value="Ascending">Ascending</option>
-            <option value="Descending">Descending</option>
+        <label for="Sort">SortBy:</label>
+        <select id="SortBy" name="Sort By>
+            <option value="Ascending">Ascending Order</option>
+            <option value="Descending">Descending Order</option>
         </select>
     </form>
 <?php
-if(isset($search) && ($sortby)) {
+if(isset($search)) {
+
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
     if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
             //Note: With a LIKE query, we must pass the % during the mapping
-            $stmt->execute([":question"=>$search]);
+            $stmt->execute([":thing"=>$search]);
             //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-    }
-}
-elseif(isset($_POST['Descending'])){
-    try {
-        $stmt = getDB()->prepare($query);
-        //Note: With a LIKE query, we must pass the % during the mapping
-        $stmt->execute([":question"=>$search]);
-        //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (Exception $e) {
-        echo $e->getMessage();
     }
 }
 ?>
@@ -53,11 +42,12 @@ elseif(isset($_POST['Descending'])){
         we're also using our helper function to safely return a value based on our key/column name.-->
         <?php foreach($results as $row):?>
             <li>
-                <?php echo get($row, "question")?>
-                <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
+                <?php echo get($row, "name")?>
+                <?php echo get($row, "quantity");?>
+                <a href="delete.php?thingId=<?php echo get($row, "id");?>">Delete</a>
             </li>
         <?php endforeach;?>
     </ul>
 <?php else:?>
     <p>This shows when we don't have results</p>
-<?php endif;?>
+<?php endif;?
