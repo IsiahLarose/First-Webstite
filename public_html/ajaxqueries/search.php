@@ -24,9 +24,6 @@ if(isset($search)) {
     if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
-            $stmt = getDB()->prepare($Descending);
-            $stmt = getDB()->prepare($Ascending);
-
             //Note: With a LIKE query, we must pass the % during the mapping
             $stmt->execute([":question"=>$search]);
             //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
