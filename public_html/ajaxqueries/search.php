@@ -9,6 +9,10 @@ if(isset($_POST["search"])){
                value="<?php echo $search;?>"/>
         <input type="submit" value="Search"/>
     </form>
+    <select id="SORT BY" name="SORT BY">
+        <option value="Ascending">Ascending</option>
+        <option value="Descending">Descending</option>
+    </select>
 <?php
 if(isset($search)) {
 
