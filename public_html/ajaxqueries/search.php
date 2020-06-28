@@ -4,7 +4,6 @@ $Ascending="Ascending";
 $Descending="Descending";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
-    $sortby = $_POST["sortby"];
 }
 ?>
     <form method="POST">
@@ -13,18 +12,13 @@ if(isset($_POST["search"])){
         <input type="submit" value="Search"/>
         <select id="SORT BY" name="SORT BY"
             <option value="Ascending">Ascending</option>
-            value ="<?php echo $Ascending;?>"/>
             <option value="Descending">Descending</option>
-            value ="<?php echo $Descending;?>"/>
         </select>
     </form>
 <?php
 if(isset($search)){
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
-    $query = file_get_contents(__DIR__ . "/queries/AscendingOrder.sql");
-    $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
-
     if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
