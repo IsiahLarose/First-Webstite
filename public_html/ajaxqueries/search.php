@@ -9,11 +9,12 @@ if(isset($_POST["search"])){
         <input type="text" name="search" placeholder="Search for Question"
                value="<?php echo $search;?>"/>
         <label for="Sort">SortBy:</label>
-        <select id="SortBy" name="Sort By">
-            <option value="Ascending">Ascending Order</option>
-            <option value="Descending">Descending Order</option>
-            <input type="submit"
-        </select>
+        <p>Please select your filter :</p>
+        <input type="radio" id="Ascending" name="Sort" value="Ascending">
+        <label for="Ascending">Ascending</label><br>
+        <input type="radio" id="Ascending" name="Sort2" value="Ascending
+        <input type="submit" value="Submit">
+    </form>
     </form>
 <?php
 /*if(isset($Ascending)) {
