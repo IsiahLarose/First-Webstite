@@ -2,8 +2,8 @@
 $search = "";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
-    $Ascending= $_POST["Ascending"];
-    $Descending= $_POST["Descending"];
+    $Ascending= $_POST["Sort By"];
+    $Descending= $_POST["Sort By"];
 }
 ?>
     <form method="POST">
