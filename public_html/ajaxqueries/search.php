@@ -1,5 +1,7 @@
 <?php
 $search = "";
+$Ascending="";
+$Descending="";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
 }
@@ -10,12 +12,20 @@ if(isset($_POST["search"])){
         <label for="Sort">SortBy:</label>
         <select id="SortBy" name="Sort By">
             <option value="Ascending">Ascending Order</option>
+            <option value="<?php echo $Ascending;?>"/>
             <option value="Descending">Descending Order</option>
+            <option value="<?php echo $Descending;?>"/>
             <input type="submit" value="Search"/>
         </select>
     </form>
 <?php
 if(isset($search)) {
+    if($Ascending){
+        $query = file_get_contents(__DIR__ . "/queries/AscendingOrder.sql");
+    }
+    if($Descending){
+        $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
+    }
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
     if (isset($query) && !empty($query)) {
