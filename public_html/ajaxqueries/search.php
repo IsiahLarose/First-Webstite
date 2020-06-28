@@ -8,20 +8,16 @@ if(isset($_POST["search"])){
         <input type="text" name="search" placeholder="Search for question"
                value="<?php echo $search;?>"/>
         <input type="submit" value="Search"/>
-        <select id="SORT BY" name="SORT BY">
-            value="<?php echo $sortby;?>"/>
+        <select id="SORT BY" name="SORT BY" placeholder="SORTBY">
             <option value="Ascending">Ascending</option>
             <option value="Descending">Descending</option>
         </select>
     </form>
-
 <?php
 if(isset($search)) {
 
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
-    $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
-    $query = file_get_contents(__DIR__ . "/queries/AscendingOrder.sql");
     if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
