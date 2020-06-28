@@ -9,14 +9,13 @@ if(isset($_POST["search"])){
                value="<?php echo $search;?>"/>
         <input type="submit" value="Search"/>
         <label for="Sort">SortBy:</label>
-        <select id="SortBy" name="Sort By>
+        <select id="SortBy" name="Sort By">
             <option value="Ascending">Ascending Order</option>
             <option value="Descending">Descending Order</option>
         </select>
     </form>
 <?php
 if(isset($search)) {
-
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
     if (isset($query) && !empty($query)) {
