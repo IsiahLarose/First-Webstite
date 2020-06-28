@@ -2,7 +2,7 @@
 $search = "";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
-    $Sort = $_POST['SortBy'];
+    $Sort = $_POST["SortBy"];
 }
 ?>
     <form method="POST">
@@ -10,8 +10,8 @@ if(isset($_POST["search"])){
                value="<?php echo $search;?>"/>
         <label for="SortBy">SortBy</label>
         <select id="SortBy" name="SortBy">
-            <option value="<?php echo $Sort;?>">Ascending Order</option>
-            <option value="<?php echo $Sort;?>">Descending Order</option>
+            <option value="Ascending">Ascending Order</option>
+            <option value="Descending">Descending Order</option>
             <input type="submit"
         </select>
     </form>
