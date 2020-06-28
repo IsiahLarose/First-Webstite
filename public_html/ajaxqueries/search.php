@@ -2,7 +2,7 @@
 $search = "";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
-    $Sort = $_POST["Sort By"];
+    $Sort = $_POST["SortBy"];
 }
 ?>
     <form method="POST">
