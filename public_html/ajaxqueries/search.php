@@ -19,9 +19,14 @@ if(isset($_POST["search"])){
 if(isset($search)){
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
-    if (isset($query) && !empty($query)) {
+    $Ascending = file_get_contents(__DIR__ . "/queries/AscendingOrder.sql");
+    $Descending = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
+    if (isset($query) && !empty($query) && isset($Ascending) && isset($Descending)) {
         try {
             $stmt = getDB()->prepare($query);
+            $stmt = getDB()->prepare($Ascending);
+            $stmt = getDB()->prepare($Descending);
+
             //Note: With a LIKE query, we must pass the % during the mapping
             $stmt->execute([":question"=>$search]);
             //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
