@@ -1,7 +1,7 @@
 <?php
 require("common.inc.php");
 try{
-    $query = file_get_contents(__DIR__ . "/queries/CreateTable.sql");
+    $query = file_get_contents(__DIR__ . "/queries/QuestionsTable.sql");
     if(isset($query) && !empty($query)) {
         $stmt = getDB()->prepare($query);
         $r = $stmt->execute();
@@ -15,7 +15,7 @@ try{
         }
     }
     else{
-        echo "Failed to find CreateTable.sql file";
+        echo "Failed to find QuestionsTable.sql file";
     }
 }
 catch (Exception $e){
