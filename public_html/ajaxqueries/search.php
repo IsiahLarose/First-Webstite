@@ -1,11 +1,7 @@
 <?php
 $search = "";
-$Asort="";
-$Dsort="";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
-    $Asort = $_POST["Asort"];
-    $Dsort = $_POST["Dsort"];
 }
 ?>
     <form method="POST">
@@ -31,9 +27,6 @@ if(isset($search)) {
             $stmt = getDB()->prepare($query);
             //Note: With a LIKE query, we must pass the % during the mapping
             $stmt->execute([":question"=>$search]);
-            $stmt->execute([":question"=>$Asort]);
-            $stmt->execute([":question"=>$Dsort]);
-
             //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
