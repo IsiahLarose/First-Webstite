@@ -10,8 +10,9 @@ if(isset($_POST["search"])){
                value="<?php echo $search;?>"/>
         <label for="SortBy">SortBy</label>
         <select id="SortBy" name="Sort By">
-            <option value="Ascending">Ascending Order</option>
-            <option value="Descending">Descending Order</option>
+            <option value=""<?php echo $Sort;?>ng Order</option>
+            <option value="<?php echo $Sort;?>">Descending Order</option>
+
             <input type="submit"
         </select>
     </form>
