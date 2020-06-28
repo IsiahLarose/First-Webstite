@@ -1,28 +1,39 @@
 <?php
 $search = "";
+$Asort="";
+$Dsort="";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
+    $Asort = $_POST["Asort"];
+    $Dsort = $_POST["Dsort"];
 }
 ?>
     <form method="POST">
         <input type="text" name="search" placeholder="Search for question"
                value="<?php echo $search;?>"/>
         <input type="submit" value="Search"/>
+        <select id="SORT BY" name="SORT BY">
+            <option value="Ascending">Ascending</option>
+            <option value="Descending">Descending</option>
+        </select>
     </form>
-    <select id="SORT BY" name="SORT BY">
-        <option value="Ascending">Ascending</option>
-        <option value="Descending">Descending</option>
-    </select>
+
 <?php
 if(isset($search)) {
 
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
+    $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
+    $query = file_get_contents(__DIR__ . "/queries/AscendingOrder.sql");
+
     if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
             //Note: With a LIKE query, we must pass the % during the mapping
             $stmt->execute([":question"=>$search]);
+            $stmt->execute([":question"=>$Asort]);
+            $stmt->execute([":question"=>$Dsort]);
+
             //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
