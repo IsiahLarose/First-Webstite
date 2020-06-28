@@ -16,7 +16,7 @@ if(isset($_POST["search"])){
         </select>
     </form>
 <?php
-if(($ascOrDec=="Ascending Order")) {
+if(($ascOrDec=="Ascending")) {
         require("common.inc.php");
         $query = file_get_contents(__DIR__ . "/queries/SearchTableASC.sql");
         if (isset($query) && !empty($query)) {
@@ -32,7 +32,7 @@ if(($ascOrDec=="Ascending Order")) {
         }
 
 }
-elseif($ascOrDec=="Descending Order"){
+elseif($ascOrDec=="Descending"){
         require("common.inc.php");
         $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql.sql");
         if (isset($query) && !empty($query)) {
