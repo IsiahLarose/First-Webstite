@@ -17,20 +17,40 @@ if(isset($_POST["search"])){
         </select>
     </form>
 <?php
-if(isset($search)){
-    require("common.inc.php");
-    $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
-    if (isset($query) && !empty($query)) {
-        try {
-            $stmt = getDB()->prepare($query);
-            //Note: With a LIKE query, we must pass the % during the mapping
-            $stmt->execute([":question" => $search]);
-            //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (Exception $e) {
-            echo $e->getMessage();
+if(isset($Ascending)) {
+    if (isset($search)) {
+        require("common.inc.php");
+        $query = file_get_contents(__DIR__ . "/queries/SearchTableASC.sql");
+        if (isset($query) && !empty($query)) {
+            try {
+                $stmt = getDB()->prepare($query);
+                //Note: With a LIKE query, we must pass the % during the mapping
+                $stmt->execute([":question" => $search]);
+                //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
+                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
         }
     }
+}
+if(isset($Descending)){
+    if (isset($search)) {
+        require("common.inc.php");
+        $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql.sql");
+        if (isset($query) && !empty($query)) {
+            try {
+                $stmt = getDB()->prepare($query);
+                //Note: With a LIKE query, we must pass the % during the mapping
+                $stmt->execute([":question" => $search]);
+                //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
+                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
+    }
+
 }
 ?>
     <!--This part will introduce us to PHP templating,
