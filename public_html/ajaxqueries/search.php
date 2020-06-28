@@ -5,7 +5,7 @@ if(isset($_POST["search"])){
 }
 ?>
     <form method="POST">
-        <input type="text" name="search" placeholder="Search for Thing"
+        <input type="text" name="search" placeholder="Search for Question"
                value="<?php echo $search;?>"/>
         <input type="submit" value="Search"/>
         <label for="Sort">SortBy:</label>
