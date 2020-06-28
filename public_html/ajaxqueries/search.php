@@ -2,13 +2,13 @@
 $search = "";
 if(isset($_POST["search"])){
     $search = $_POST["search"];
-    $ascOrDec = $_POST['Sort By'];
+    $Sort = $_POST['Sort By'];
 }
 ?>
     <form method="POST">
         <input type="text" name="search" placeholder="Search for Question"
                value="<?php echo $search;?>"/>
-        <label for="Sort">SortBy:</label>
+        <label for="SortBy">SortBy</label>
         <select id="SortBy" name="Sort By">
             <option value="Ascending">Ascending Order</option>
             <option value="Descending">Descending Order</option>
@@ -16,7 +16,7 @@ if(isset($_POST["search"])){
         </select>
     </form>
 <?php
-if(($ascOrDec=="Ascending")) {
+if(isset($Sort)) {
         require("common.inc.php");
         $query = file_get_contents(__DIR__ . "/queries/SearchTableASC.sql");
         if (isset($query) && !empty($query)) {
@@ -32,7 +32,7 @@ if(($ascOrDec=="Ascending")) {
         }
 
 }
-elseif($ascOrDec=="Descending"){
+elseif($Sort){
         require("common.inc.php");
         $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql.sql");
         if (isset($query) && !empty($query)) {
