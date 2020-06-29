@@ -19,10 +19,10 @@ if(isset($_POST["search"], $_POST["SortBy"])){
 if(isset($search)) {
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
-    if($_POST["SortBy"]=="Ascending"){
+    if($Sort["SortBy"]=="Ascending"){
         $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
     }
-    elseif($_POST["SortBy"]=="Descending"){
+    elseif($Sort["SortBy"]=="Descending"){
         $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
     }
     if (isset($query) && !empty($query)) {
