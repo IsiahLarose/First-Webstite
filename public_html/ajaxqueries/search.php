@@ -42,7 +42,7 @@ if(isset($search)) {
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-       /* if (isset($query) && !empty($query)) {
+       if (isset($query) && !empty($query)) {
             try {
                 $stmt = getDB()->prepare($query);
                 //Note: With a LIKE query, we must pass the % during the mapping
@@ -52,7 +52,7 @@ if(isset($search)) {
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
-        }*/
+        }
     }
 }
 
