@@ -17,26 +17,28 @@ if(isset($_POST["search"], $_POST["SortBy"])){
     </form>
 <?php
 
-if(isset($search)) {
-    require("common.inc.php");
-    $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
-    if($Sort["SortBy"]=="Ascending"){
-        $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
-    }
-    elseif($Sort["SortBy"]=="Descending"){
-        $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
-    }
+if ($Sort["SortBy"] == "Ascending") {
+    $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
+}
+elseif ($Sort["SortBy"] == "Descending") {
+    $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
+}
     if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
             //Note: With a LIKE query, we must pass the % during the mapping
-            $stmt->execute([":question" => $Sort]);
+            $stmt->execute([":question" => $search]);
             //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-    }
+
+        if ($Sort["SortBy"] == "Ascending") {
+            $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
+        } elseif ($Sort["SortBy"] == "Descending") {
+            $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
+        }
 
 }
 
