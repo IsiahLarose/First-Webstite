@@ -16,7 +16,7 @@ if(isset($_POST["search"], $_POST["SortBy"])){
         </select>
     </form>
 <?php
-if(isset($search)) {
+if(isset($search) && ($Sort)) {
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
     if (isset($query) && !empty($query)) {
