@@ -25,11 +25,11 @@ if(isset($search)) {
     elseif($Sort["SortBy"]=="Descending"){
         $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
     }
-    if (isset($query)) {
+    if (isset($query) && !empty($query)) {
         try {
             $stmt = getDB()->prepare($query);
             //Note: With a LIKE query, we must pass the % during the mapping
-            $stmt->execute([":question" => $search]);
+            $stmt->execute([":question" => $Sort]);
             //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
