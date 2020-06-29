@@ -1,21 +1,22 @@
 <?php
 $search = "";
-if(isset($_POST["search"])){
+if(isset($_POST["search"], $_POST["SortBy"])){
     $search = $_POST["search"];
-    $Sort =$_POST[value];
+    $Sort = $_POST["SortBy"];
 }
 ?>
     <form method="POST">
         <input type="text" name="search" placeholder="Search for Question"
                value="<?php echo $search;?>"/>
-        <input type="radio" id="Ascending" name="Sortby" value="Ascending">
-        <label for="Ascending">Ascending</label>
-        <input type="radio" id="Descending" name="Sortby" value="Descending">
-        <label for="Descending">Descending</label>
-        <input type="submit" value="search">
+        <label for="SortBy">SortBy</label>
+        <select id="SortBy" name="SortBy">
+            <option value="Ascending">Ascending Order</option>
+            <option value="Descending">Descending Order</option>
+            <input type="submit"
+        </select>
     </form>
 <?php
-if($_POST[value]=="Ascending") {
+if(($Sort["SortBy"])=="Ascending") {
         require("common.inc.php");
         $query = file_get_contents(__DIR__ . "/queries/SearchTableASC.sql");
         if (isset($query) && !empty($query)) {
@@ -31,7 +32,7 @@ if($_POST[value]=="Ascending") {
         }
 
 }
-elseif(($_POST[value]="Descending")){
+elseif(($Sort["SortBy"])=="Descending"){
         require("common.inc.php");
         $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
         if (isset($query) && !empty($query)) {
