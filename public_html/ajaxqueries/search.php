@@ -11,7 +11,7 @@ if(isset($_POST["search"])){
         <input type="radio" id="Ascending" name="Sortby" value="Ascending">
         <label for="Ascending">Ascending</label>
         <input type="radio" id="Descending" name="Sortby" value="Descending">
-        <label for="Descending">Descending</label><br>
+        <label for="Descending">Descending</label>
         <input type="submit" value="search">
     </form>
 <?php
