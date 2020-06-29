@@ -20,6 +20,12 @@ if(isset($search)) {
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
     if (isset($query) && !empty($query)) {
+        if($Sort["SortBy"]=="Ascending"){
+            $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
+        }
+        elseif($Sort["SortBy"]=="Descending"){
+            $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
+        }
         try {
             $stmt = getDB()->prepare($query);
             //Note: With a LIKE query, we must pass the % during the mapping
@@ -30,12 +36,6 @@ if(isset($search)) {
             echo $e->getMessage();
         }
 
-    }
-    if($Sort["SortBy"]=="Ascending"){
-        $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
-    }
-    elseif($Sort["SortBy"]=="Descending"){
-        $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
     }
 }
 
