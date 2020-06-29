@@ -19,6 +19,7 @@ if(isset($_POST["search"], $_POST["SortBy"])){
 
 if(isset($search)) {
     require("common.inc.php");
+    $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
     if($Sort["SortBy"]=="Ascending"){
         $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
     }
