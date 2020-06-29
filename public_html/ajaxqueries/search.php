@@ -17,13 +17,12 @@ if(isset($_POST["search"], $_POST["SortBy"])){
     </form>
 <?php
 if(isset($search)) {
-
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
-    if($Sort=="Ascending"){
+    if($_POST["SortBy"]=="Ascending"){
         $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
     }
-    elseif($Sort=="Descending"){
+    elseif($_POST["SortBy"]=="Descending"){
         $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
     }
     if (isset($query) && !empty($query)) {
