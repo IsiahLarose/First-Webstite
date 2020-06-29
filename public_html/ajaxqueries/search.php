@@ -9,7 +9,7 @@ if(isset($_POST["search"])){
         <input type="text" name="search" placeholder="Search for Question"
                value="<?php echo $search;?>"/>
         <input type="radio" id="Ascending" name="Sortby" value="Ascending">
-        <label for="Ascending">Ascending</label><br>
+        <label for="Ascending">Ascending</label>
         <input type="radio" id="Descending" name="Sortby" value="Descending">
         <label for="Descending">Descending</label><br>
         <input type="submit" value="search">
