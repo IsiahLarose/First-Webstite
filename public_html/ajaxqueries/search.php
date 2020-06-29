@@ -16,36 +16,27 @@ if(isset($_POST["search"], $_POST["SortBy"])){
         </select>
     </form>
 <?php
-if(($Sort==["Ascending"])) {
-        require("common.inc.php");
-        $query = file_get_contents(__DIR__ . "/queries/SearchTableASC.sql");
-        if (isset($query) && !empty($query)) {
-            try {
-                $stmt = getDB()->prepare($query);
-                //Note: With a LIKE query, we must pass the % during the mapping
-                $stmt->execute([":question" => $search]);
-                //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
-                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            }
-        }
+if(isset($search)) {
 
-}
-elseif(($Sort==["Descending"])){
-        require("common.inc.php");
-        $query = file_get_contents(__DIR__ . "/queries/DescendingOrder.sql");
-        if (isset($query) && !empty($query)) {
-            try {
-                $stmt = getDB()->prepare($query);
-                //Note: With a LIKE query, we must pass the % during the mapping
-                $stmt->execute([":question" => $search]);
-                //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
-                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            }
+    require("common.inc.php");
+    $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
+    if($Sort=="Ascending"){
+        $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
+    }
+    elseif($Sort=="Descending"){
+        $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
+    }
+    if (isset($query) && !empty($query)) {
+        try {
+            $stmt = getDB()->prepare($query);
+            //Note: With a LIKE query, we must pass the % during the mapping
+            $stmt->execute([":question"=>$search]);
+            //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
+    }
 }
 ?>
     <!--This part will introduce us to PHP templating,
