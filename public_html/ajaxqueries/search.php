@@ -20,10 +20,12 @@ if(isset($search)) {
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
     if (isset($query) && !empty($query)) {
+        require("common.inc.php");
         if($Sort["SortBy"]=="Ascending"){
             $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
         }
         elseif($Sort["SortBy"]=="Descending"){
+            require("common.inc.php");
             $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
         }
         try {
