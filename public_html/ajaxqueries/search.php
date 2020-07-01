@@ -16,29 +16,37 @@ if(isset($_POST["search"], $_POST["SortBy"])){
         </select>
     </form>
 <?php
-if(isset($Sort)) {
+if(isset($Sort) && isset($search)) {
     require("common.inc.php");
     $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
     if (isset($query) && !empty($query)) {
         if($Sort["SortBy"]=="Ascending"){
             $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
+            try {
+                $stmt = getDB()->prepare($query);
+                //Note: With a LIKE query, we must pass the % during the mapping
+                $stmt->execute([":question"=>$search ]);
+                //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
+                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
         }
         elseif($Sort["SortBy"]=="Descending"){
             $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
-        }
-        try {
-            $stmt = getDB()->prepare($query);
-            //Note: With a LIKE query, we must pass the % during the mapping
-            $stmt->execute([":question"=>$Sort]);
-            //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (Exception $e) {
-            echo $e->getMessage();
+            try {
+                $stmt = getDB()->prepare($query);
+                //Note: With a LIKE query, we must pass the % during the mapping
+                $stmt->execute([":question"=>$search]);
+                //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
+                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
         }
 
     }
 }
-
 ?>
     <!--This part will introduce us to PHP templating,
     note the structure and the ":" -->
