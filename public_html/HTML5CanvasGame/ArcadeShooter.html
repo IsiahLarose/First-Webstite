@@ -14,254 +14,234 @@
 </div>
 <span id="endGame"></span>
 <script>
-    // Canvas Pong
+    // Arcade Shooter game
 
+    // Get a reference to the canvas DOM element
     var canvas = document.getElementById('canvas');
+    // Get the canvas drawing context
     var context = canvas.getContext('2d');
 
-    // Key Codes
-    var W = 87;
-    var S = 83;
-    var UP = 38;
-    var DOWN = 40;
-
-    // Keep track of pressed keys
-    var keys = {
-        W: false,
-        S: false,
-        UP: false,
-        DOWN: false
-    };
-
-    // Create a rectangle object - for paddles, ball, etc
-    function makeRect(x, y, width, height, speed, color) {
-        if (!color) color = '#000000';
+    // Create an object representing a square on the canvas
+    function makeSquare(x, y, length, speed) {
         return {
             x: x,
             y: y,
-            w: width,
-            h: height,
+            l: length,
             s: speed,
-            c: color,
             draw: function() {
-                context.fillStyle = this.c;
-                context.fillRect(this.x, this.y, this.w, this.h);
+                context.fillRect(this.x, this.y, this.l, this.l);
             }
         };
     }
 
-    // Create the paddles
-    var paddleWidth = 25;
-    var paddleHeight = 100;
-    var leftPaddle = makeRect(25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#BC0000');
-    var rightPaddle = makeRect(canvas.width - paddleWidth - 25, canvas.height / 2 - paddleHeight / 2, paddleWidth, paddleHeight, 5, '#0000BC');
+    // The ship the user controls
+    var ship = makeSquare(50, canvas.height / 2 - 25, 50, 5);
 
-    // Keep track of the score
-    var leftScore = 0;
-    var rightScore = 0;
+    // Flags to tracked which keys are pressed
+    var up = false;
+    var down = false;
+    var space = false;
 
-    // Create the ball
-    var ballLength = 15;
-    var ballSpeed = 2;
-    var ball = makeRect(0, 0, ballLength, ballLength, ballSpeed, '#000000');
+    // Is a bullet already on the canvas?
+    var shooting = false;
+    // The bulled shot from the ship
+    var bullet = makeSquare(0, 0, 10, 10);
 
-    // Modify the ball object to have two speed properties, one for X and one for Y
-    ball.sX = ballSpeed;
-    ball.sY = ballSpeed / 2;
+    // An array for enemies (in case there are more than one)
+    var enemies = [];
 
-    // Randomize initial direction
-    if (Math.random() > 0.5) {
-        ball.sX *= -1;
-    }
-    // Randomize initial direction
-    if (Math.random() > 0.5) {
-        ball.sY *= -1;
+    // Add an enemy object to the array
+    var enemyBaseSpeed = 2;
+    function makeEnemy() {
+        var enemyX = canvas.width;
+        var enemySize = Math.round((Math.random() * 15)) + 15;
+        var enemyY = Math.round(Math.random() * (canvas.height - enemySize * 2)) + enemySize;
+        var enemySpeed = Math.round(Math.random() * enemyBaseSpeed) + enemyBaseSpeed;
+        enemies.push(makeSquare(enemyX, enemyY, enemySize, enemySpeed));
     }
 
-    // Reset the ball's position and speed after scoring
-    function resetBall() {
-        ball.x = canvas.width / 2 - ball.w / 2;
-        ball.y = canvas.height / 2 - ball.w / 2;
-        ball.sX = ballSpeed;
-        ball.sY = ballSpeed / 2;
+    // Check if number a is in the range b to c (exclusive)
+    function isWithin(a, b, c) {
+        return (a > b && a < c);
     }
 
-    // Bounce the ball off of a paddle
-    function bounceBall() {
-        // Increase and reverse the X speed
-        if (ball.sX > 0) {
-            ball.sX += 1;
-            // Add some "spin"
-            if (keys.UP) {
-                ball.sY -= 1;
-            } else if (keys.DOWN) {
-                ball.sY += 1;
-            }
-        } else {
-            ball.sX -= 1;
-            // Add some "spin"
-            if (keys.W) {
-                ball.sY -= 1;
-            } else if (keys.S) {
-                ball.sY += 1
+    // Return true if two squares a and b are colliding, false otherwise
+    function isColliding(a, b) {
+        var result = false;
+        if (isWithin(a.x, b.x, b.x + b.l) || isWithin(a.x + a.l, b.x, b.x + b.l)) {
+            if (isWithin(a.y, b.y, b.y + b.l) || isWithin(a.y + a.l, b.y, b.y + b.l)) {
+                result = true;
             }
         }
-        ball.sX *= -1;
+        return result;
     }
 
-    // Listen for keydown events
-    canvas.addEventListener('keydown', function(e) {
-        if (e.keyCode === W) {
-            keys.W = true;
-        }
-        if (e.keyCode === S) {
-            keys.S = true;
-        }
-        if (e.keyCode === UP) {
-            keys.UP = true;
-        }
-        if (e.keyCode === DOWN) {
-            keys.DOWN = true;
-        }
-    });
+    // Track the user's score
+    var score = 0;
+    // The delay between enemies (in milliseconds)
+    var timeBetweenEnemies = 5 * 1000;
+    // ID to track the spawn timeout
+    var timeoutId = null;
 
-    // Listen for keyup events
-    canvas.addEventListener('keyup', function(e) {
-        if (e.keyCode === W) {
-            keys.W = false;
-        }
-        if (e.keyCode === S) {
-            keys.S = false;
-        }
-        if (e.keyCode === UP) {
-            keys.UP = false;
-        }
-        if (e.keyCode === DOWN) {
-            keys.DOWN = false;
-        }
-    });
-
-    // Show the menu
+    // Show the game menu and instructions
     function menu() {
         erase();
-        // Show the menu
         context.fillStyle = '#000000';
-        context.font = '24px Arial';
+        context.font = '36px Arial';
         context.textAlign = 'center';
-        context.fillText('PONG', canvas.width / 2, canvas.height / 4);
+        context.fillText('Shoot \'Em!', canvas.width / 2, canvas.height / 4);
+        context.font = '24px Arial';
+        context.fillText('Click to Start', canvas.width / 2, canvas.height / 2);
         context.font = '18px Arial';
-        context.fillText('Click to Start', canvas.width / 2, canvas.height / 3);
-        context.font = '14px Arial';
-        context.textAlign = 'left';
-        context.fillText('Player 1: W (up) and S (down)', 5, (canvas.height / 3) * 2);
-        context.textAlign = 'right';
-        context.fillText('Player 2: UP (up) and DOWN (down)', canvas.width - 5, (canvas.height / 3) * 2);
+        context.fillText('Up/Down to move, Space to shoot.', canvas.width / 2, (canvas.height / 4) * 3);
         // Start the game on a click
         canvas.addEventListener('click', startGame);
     }
 
     // Start the game
     function startGame() {
-        // Don't accept any more clicks
-        canvas.removeEventListener('click', startGame);
-        // Put the ball in place
-        resetBall();
-        // Kick off the game loop
+        // Kick off the enemy spawn interval
+        timeoutId = setInterval(makeEnemy, timeBetweenEnemies);
+        // Make the first enemy
+        setTimeout(makeEnemy, 1000);
+        // Kick off the draw loop
         draw();
+        // Stop listening for click events
+        canvas.removeEventListener('click', startGame);
     }
 
     // Show the end game screen
     function endGame() {
+        // Stop the spawn interval
+        clearInterval(timeoutId);
+        // Show the final score
         erase();
         context.fillStyle = '#000000';
         context.font = '24px Arial';
         context.textAlign = 'center';
-        var winner = 1;
-        if (rightScore === 10) winner = 2;
-        context.fillText('Player ' + winner + ' wins!', canvas.width/2, canvas.height/2);
+        context.fillText('Game Over. Final Score: ' + score, canvas.width / 2, canvas.height / 2);
     }
+
+    // Listen for keydown events
+    canvas.addEventListener('keydown', function(event) {
+        event.preventDefault();
+        if (event.keyCode === 38) { // UP
+            up = true;
+        }
+        if (event.keyCode === 40) { // DOWN
+            down = true;
+        }
+        if (event.keyCode === 32) { // SPACE
+            shoot();
+        }
+    });
+
+    // Listen for keyup events
+    canvas.addEventListener('keyup', function(event) {
+        event.preventDefault();
+        if (event.keyCode === 38) { // UP
+            up = false;
+        }
+        if (event.keyCode === 40) { // DOWN
+            down = false;
+        }
+    });
 
     // Clear the canvas
     function erase() {
         context.fillStyle = '#FFFFFF';
-        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.fillRect(0, 0, 600, 400);
     }
 
-    // Main draw loop
+    // Shoot the bullet (if not already on screen)
+    function shoot() {
+        if (!shooting) {
+            shooting = true;
+            bullet.x = ship.x + ship.l;
+            bullet.y = ship.y + ship.l / 2;
+        }
+    }
+
+    // The main draw loop
     function draw() {
         erase();
-        // Move the paddles
-        if (keys.W) {
-            leftPaddle.y -= leftPaddle.s;
-        }
-        if (keys.S) {
-            leftPaddle.y += leftPaddle.s;
-        }
-        if (keys.UP) {
-            rightPaddle.y -= rightPaddle.s;
-        }
-        if (keys.DOWN) {
-            rightPaddle.y += rightPaddle.s;
-        }
-        // Move the ball
-        ball.x += ball.sX;
-        ball.y += ball.sY;
-        // Bounce the ball off the top/bottom
-        if (ball.y < 0 || ball.y + ball.h > canvas.height) {
-            ball.sY *= -1;
-        }
-        // Don't let the paddles go off screen
-        [leftPaddle, rightPaddle].forEach(function(paddle) {
-            if (paddle.y < 0) {
-                paddle.y = 0;
+        var gameOver = false;
+        // Move and draw the enemies
+        enemies.forEach(function(enemy) {
+            enemy.x -= enemy.s;
+            if (enemy.x < 0) {
+                gameOver = true;
             }
-            if (paddle.y + paddle.h > canvas.height) {
-                paddle.y = canvas.height - paddle.h;
+            context.fillStyle = '#00FF00';
+            enemy.draw();
+        });
+        // Collide the ship with enemies
+        enemies.forEach(function(enemy, i) {
+            if (isColliding(enemy, ship)) {
+                gameOver = true;
             }
         });
-        // Bounce the ball off the paddles
-        if (ball.y + ball.h/2 >= leftPaddle.y && ball.y + ball.h/2 <= leftPaddle.y + leftPaddle.h) {
-            if (ball.x <= leftPaddle.x + leftPaddle.w) {
-                bounceBall();
+        // Move the ship
+        if (down) {
+            ship.y += ship.s;
+        }
+        if (up) {
+            ship.y -= ship.s;
+        }
+        // Don't go out of bounds
+        if (ship.y < 0) {
+            ship.y = 0;
+        }
+        if (ship.y > canvas.height - ship.l) {
+            ship.y = canvas.height - ship.l;
+        }
+        // Draw the ship
+        context.fillStyle = '#FF0000';
+        ship.draw();
+        // Move and draw the bullet
+        if (shooting) {
+            // Move the bullet
+            bullet.x += bullet.s;
+            // Collide the bullet with enemies
+            enemies.forEach(function(enemy, i) {
+                if (isColliding(bullet, enemy)) {
+                    enemies.splice(i, 1);
+                    score++;
+                    shooting = false;
+                    // Make the game harder
+                    if (score % 10 === 0 && timeBetweenEnemies > 1000) {
+                        clearInterval(timeoutId);
+                        timeBetweenEnemies -= 1000;
+                        timeoutId = setInterval(makeEnemy, timeBetweenEnemies);
+                    } else if (score % 5 === 0) {
+                        enemyBaseSpeed += 1;
+                    }
+                }
+            });
+            // Collide with the wall
+            if (bullet.x > canvas.width) {
+                shooting = false;
             }
+            // Draw the bullet
+            context.fillStyle = '#0000FF';
+            bullet.draw();
         }
-        if (ball.y + ball.h/2 >= rightPaddle.y && ball.y + ball.h/2 <= rightPaddle.y + rightPaddle.h) {
-            if (ball.x + ball.w >= rightPaddle.x) {
-                bounceBall();
-            }
-        }
-        // Score if the ball goes past a paddle
-        if (ball.x < leftPaddle.x) {
-            rightScore++;
-            resetBall();
-            ball.sX *= -1;
-        } else if (ball.x + ball.w > rightPaddle.x + rightPaddle.w) {
-            leftScore++;
-            resetBall();
-            ball.sX *= -1;
-        }
-        // Draw the paddles and ball
-        leftPaddle.draw();
-        rightPaddle.draw();
-        ball.draw();
-        // Draw the scores
+        // Draw the score
         context.fillStyle = '#000000';
         context.font = '24px Arial';
         context.textAlign = 'left';
-        context.fillText('Score: ' + leftScore, 5, 24);
-        context.textAlign = 'right';
-        context.fillText('Score: ' + rightScore, canvas.width - 5, 24);
-        // End the game or keep going
-        if (leftScore === 10 || rightScore === 10) {
+        context.fillText('Score: ' + score, 1, 25)
+        // End or continue the game
+        if (gameOver) {
             endGame();
         } else {
             window.requestAnimationFrame(draw);
         }
     }
 
-    // Show the menu to start the game
+    // Start the game
     menu();
-    canvas.focus()
+    canvas.focus();
 </script>
 </body>
 </html>
