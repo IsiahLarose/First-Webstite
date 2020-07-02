@@ -35,7 +35,7 @@
     }
 
     // The ship the user controls
-    var ship = makeSquare(25, canvas.height / 2 - 25, 60, 10);
+    var ship = makeSquare(25, canvas.height / 2 - 25, 25, 5);
 
     // Flags to tracked which keys are pressed
     var up = false;
@@ -79,7 +79,7 @@
     // Track the user's score
     var score = 0;
     // The delay between enemies (in milliseconds)
-    var timeBetweenEnemies = 1000;
+    var timeBetweenEnemies = 2 * 1000;
     // ID to track the spawn timeout
     var timeoutId = null;
 
