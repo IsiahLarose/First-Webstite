@@ -35,7 +35,7 @@
     }
 
     // The ship the user controls
-    var ship = makeSquare(25, canvas.height / 2 - 25, 25, 2);
+    var ship = makeSquare(25, canvas.height / 2 - 25, 60, 10);
 
     // Flags to tracked which keys are pressed
     var up = false;
