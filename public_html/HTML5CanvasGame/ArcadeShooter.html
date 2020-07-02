@@ -149,7 +149,7 @@
 
     // Clear the canvas
     function erase() {
-        context.fillStyle = '#FFFFFF';
+        context.fillStyle = '#ffffff';
         context.fillRect(0, 0, 600, 400);
     }
 
@@ -172,7 +172,7 @@
             if (enemy.x < 0) {
                 gameOver = true;
             }
-            context.fillStyle = '#00FF00';
+            context.fillStyle = 'rgba(255,0,30,0.44)';
             enemy.draw();
         });
         // Collide the ship with enemies
@@ -196,7 +196,7 @@
             ship.y = canvas.height - ship.l;
         }
         // Draw the ship
-        context.fillStyle = '#FF0000';
+        context.fillStyle = '#00d9ff';
         ship.draw();
         // Move and draw the bullet
         if (shooting) {
