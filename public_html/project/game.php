@@ -153,6 +153,13 @@
         if (event.keyCode === 40) { // DOWN
             down = false;
         }
+        if(event.keyCode == 39){
+            right = true;
+        }
+        if (event.keyCode == 37){
+            left = true;
+        }
+
     });
 
     // Clear the canvas
@@ -211,7 +218,7 @@
         }
         if (ship.y > canvas.height - ship.l) {
             ship.y = canvas.height - ship.l;
-            ship.y = canvas.height - ship.l;
+            ship.x = canvas.height - ship.l;
         }
         // Draw the ship
         context.fillStyle = '#00d9ff';
