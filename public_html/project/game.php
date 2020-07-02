@@ -197,10 +197,10 @@
             ship.y -= ship.s;
         }
         if (right){
-            ship.x += ship.s;
+            ship.y += ship.s;
         }
         if(left){
-            ship.x += ship.s;
+            ship.y += ship.s;
         }
         // Don't go out of bounds
         if (ship.y < 0) {
@@ -208,7 +208,7 @@
         }
         if (ship.y > canvas.height - ship.l) {
             ship.y = canvas.height - ship.l;
-            ship.x = canvas.height - ship.l;
+            ship.y = canvas.height - ship.l;
         }
         // Draw the ship
         context.fillStyle = '#00d9ff';
