@@ -33,6 +33,6 @@ if (Common::get($_POST, "submit", false)){
     }
     else{
         Common::flash("Email and password must not be empty", "warning");
-        die(header("Location:login.php " . Common::url_for("login")));
+        die(header("Location: " . Common::url_for("login")));
     }
 }
