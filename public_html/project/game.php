@@ -154,10 +154,10 @@
             down = false;
         }
         if(event.keyCode == 39){
-            right = true;
+            right = false;
         }
         if (event.keyCode == 37){
-            left = true;
+            left = false;
         }
 
     });
