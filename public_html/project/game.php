@@ -40,6 +40,8 @@
     // Flags to tracked which keys are pressed
     var up = false;
     var down = false;
+    var left = false;
+    var right = false;
     var space = false;
 
     // Is a bullet already on the canvas?
@@ -130,6 +132,12 @@
         }
         if (event.keyCode === 40) { // DOWN
             down = true;
+        }
+        if(event.keyCode == 39){
+            right = true;
+        }
+        if (event.keyCode == 37){
+            left = true;
         }
         if (event.keyCode === 32) { // SPACE
             shoot();
