@@ -50,7 +50,7 @@
     var bullet = makeSquare(0, 0, 10, 10);
 
     // An array for enemies (in case there are more than one)
-   /* var enemies = [];
+   var enemies = [];
 
     // Add an enemy object to the array
     var enemyBaseSpeed = 4;
@@ -60,7 +60,7 @@
         var enemyY = Math.round(Math.random() * (canvas.height - enemySize * 2)) + enemySize;
         var enemySpeed = Math.round(Math.random() * enemyBaseSpeed) + enemyBaseSpeed;
         enemies.push(makeSquare(enemyX, enemyY, enemySize, enemySpeed));
-    }*/
+    }
 
     // Check if number a is in the range b to c (exclusive)
     function isWithin(a, b, c) {
@@ -105,7 +105,7 @@
         // Kick off the enemy spawn interval
         timeoutId = setInterval(makeEnemy, timeBetweenEnemies);
         // Make the first enemy
-        setTimeout(makeEnemy, 1);
+        setTimeout(makeEnemy, 0);
         // Kick off the draw loop
         draw();
         // Stop listening for click events
