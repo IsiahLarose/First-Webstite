@@ -197,7 +197,7 @@
             ship.y -= ship.s;
         }
         if (right){
-            ship.y += ship.s;
+            ship.y -= ship.s;
         }
         if(left){
             ship.y += ship.s;
