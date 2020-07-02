@@ -1,10 +1,3 @@
-<?php
-include_once(__DIR__."/partials/header.partial.php");
-
-if(Common::is_logged_in()){
-    //this will auto redirect if user isn't logged in
-}
-?>
 <html>
 <head>
     <style>
@@ -42,7 +35,7 @@ if(Common::is_logged_in()){
     }
 
     // The ship the user controls
-    var ship = makeSquare(50, canvas.height / 2 - 25, 50, 5);
+    var ship = makeSquare(25, canvas.height / 2 - 25, 25, 2);
 
     // Flags to tracked which keys are pressed
     var up = false;
@@ -58,7 +51,7 @@ if(Common::is_logged_in()){
     var enemies = [];
 
     // Add an enemy object to the array
-    var enemyBaseSpeed = 2;
+    var enemyBaseSpeed = 4;
     function makeEnemy() {
         var enemyX = canvas.width;
         var enemySize = Math.round((Math.random() * 15)) + 15;
@@ -86,7 +79,7 @@ if(Common::is_logged_in()){
     // Track the user's score
     var score = 0;
     // The delay between enemies (in milliseconds)
-    var timeBetweenEnemies = 5 * 1000;
+    var timeBetweenEnemies = 1000;
     // ID to track the spawn timeout
     var timeoutId = null;
 
@@ -110,7 +103,7 @@ if(Common::is_logged_in()){
         // Kick off the enemy spawn interval
         timeoutId = setInterval(makeEnemy, timeBetweenEnemies);
         // Make the first enemy
-        setTimeout(makeEnemy, 1000);
+        setTimeout(makeEnemy, 1);
         // Kick off the draw loop
         draw();
         // Stop listening for click events
@@ -156,7 +149,7 @@ if(Common::is_logged_in()){
 
     // Clear the canvas
     function erase() {
-        context.fillStyle = '#FFFFFF';
+        context.fillStyle = '#ffffff';
         context.fillRect(0, 0, 600, 400);
     }
 
@@ -179,7 +172,7 @@ if(Common::is_logged_in()){
             if (enemy.x < 0) {
                 gameOver = true;
             }
-            context.fillStyle = '#00FF00';
+            context.fillStyle = 'rgba(74,94,134,0.44)';
             enemy.draw();
         });
         // Collide the ship with enemies
@@ -203,7 +196,7 @@ if(Common::is_logged_in()){
             ship.y = canvas.height - ship.l;
         }
         // Draw the ship
-        context.fillStyle = '#FF0000';
+        context.fillStyle = '#00d9ff';
         ship.draw();
         // Move and draw the bullet
         if (shooting) {
