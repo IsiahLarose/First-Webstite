@@ -101,16 +101,16 @@
     }
 
     // Start the game
-    /*function startGame() {
+    function startGame() {
         // Kick off the enemy spawn interval
         timeoutId = setInterval(makeEnemy, timeBetweenEnemies);
         // Make the first enemy
-        //setTimeout(makeEnemy, 1);
+        setTimeout(makeEnemy, 1);
         // Kick off the draw loop
-        //draw();
+        draw();
         // Stop listening for click events
         canvas.removeEventListener('click', startGame);
-    }*/
+    }
 
     // Show the end game screen
     function endGame() {
@@ -208,6 +208,7 @@
         }
         if (ship.y > canvas.height - ship.l) {
             ship.y = canvas.height - ship.l;
+            ship.x = canvas.height - ship.l;
         }
         // Draw the ship
         context.fillStyle = '#00d9ff';
