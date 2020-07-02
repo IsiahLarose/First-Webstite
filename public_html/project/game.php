@@ -105,7 +105,7 @@
         // Kick off the enemy spawn interval
         timeoutId = setInterval(makeEnemy, timeBetweenEnemies);
         // Make the first enemy
-        setTimeout(makeEnemy, 0);
+        //setTimeout(makeEnemy, 1);
         // Kick off the draw loop
         draw();
         // Stop listening for click events
