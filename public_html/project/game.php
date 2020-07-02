@@ -197,14 +197,17 @@
             ship.y -= ship.s;
         }
         if (right){
-            ship.y += ship.s;
+            ship.x += ship.s;
         }
         if(left){
-            ship.y += ship.s;
+            ship.x += ship.s;
         }
         // Don't go out of bounds
         if (ship.y < 0) {
             ship.y = 0;
+        }
+        if (ship.x< 0){
+            ship.x =0;
         }
         if (ship.y > canvas.height - ship.l) {
             ship.y = canvas.height - ship.l;
