@@ -51,7 +51,7 @@
     var enemies = [];
 
     // Add an enemy object to the array
-    var enemyBaseSpeed = 2;
+    var enemyBaseSpeed = 4;
     function makeEnemy() {
         var enemyX = canvas.width;
         var enemySize = Math.round((Math.random() * 15)) + 15;
@@ -79,7 +79,7 @@
     // Track the user's score
     var score = 0;
     // The delay between enemies (in milliseconds)
-    var timeBetweenEnemies = 3 * 1000;
+    var timeBetweenEnemies = 1000;
     // ID to track the spawn timeout
     var timeoutId = null;
 
