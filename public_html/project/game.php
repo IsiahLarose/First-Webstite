@@ -197,10 +197,10 @@
             ship.y -= ship.s;
         }
         if (right){
-            ship.y -= ship.s;
+            ship.x -= ship.s;
         }
         if(left){
-            ship.y += ship.s;
+            ship.x += ship.s;
         }
         // Don't go out of bounds
         if (ship.y < 0) {
