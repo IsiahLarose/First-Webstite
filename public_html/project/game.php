@@ -95,7 +95,7 @@
         context.font = '24px Arial';
         context.fillText('Click to Start', canvas.width / 2, canvas.height / 2);
         context.font = '18px Arial';
-        context.fillText('Up/Down to move, Space to shoot.', canvas.width / 2, (canvas.height / 4) * 3);
+        context.fillText('Up/Down & Left/Right to move, Space to shoot.', canvas.width / 2, (canvas.height / 4) * 3);
         // Start the game on a click
         canvas.addEventListener('click', startGame);
     }
@@ -180,6 +180,7 @@
     // The main draw loop
     function draw() {
         erase();
+        var Lives = 0;
         var gameOver = false;
         // Move and draw the enemies
         enemies.forEach(function(enemy) {
@@ -193,6 +194,9 @@
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
             if (isColliding(enemy, ship)) {
+                ++Lives;
+            }
+            if (Lives == 2){
                 gameOver = true;
             }
         });
