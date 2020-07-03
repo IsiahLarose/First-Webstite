@@ -55,7 +55,6 @@
     // Add an enemy object to the array
     var enemyBaseSpeed = 4;
     function makeEnemy() {
-        var enemyX = canvas.width;
         var enemySize = Math.round((Math.random() * 15)) + 15;
         var enemyY = Math.round(Math.random() * (canvas.height - enemySize * 2)) + enemySize;
         var enemySpeed = Math.round(Math.random() * enemyBaseSpeed) + enemyBaseSpeed;
@@ -194,7 +193,7 @@
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
             if (isColliding(enemy, ship)) {
-                --life;
+                life--;
             }
             if(life=0){
                 gameOver = true;
