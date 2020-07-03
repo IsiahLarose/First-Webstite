@@ -185,7 +185,7 @@
         enemies.forEach(function(enemy) {
             enemy.x -= enemy.s;
             if (enemy.x < 0) {
-                gameOver = true;
+                gameOver = false;
             }
             context.fillStyle = 'rgba(74,94,134,0.44)';
             enemy.draw();
