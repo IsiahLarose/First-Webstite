@@ -192,11 +192,11 @@
         });
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
-            $life = 2;
-            while (isColliding(enemy, ship)) {
-                --$life
+            let life = 2;
+            if (isColliding(enemy, ship)) {
+                --life;
             }
-                if ($life == 0) {
+            if (life == 0) {
                     gameOver = true;
                 }
     });
@@ -261,13 +261,12 @@
         context.textAlign = 'left';
         context.fillText('Score: ' + score, 1, 25)
         // End or continue the game
-        if (gameOver) {
+        if (life==0) {
             endGame();
         } else {
             window.requestAnimationFrame(draw);
         }
     }
-//push test
     // Start the game
     menu();
     canvas.focus();
