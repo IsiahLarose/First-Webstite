@@ -122,7 +122,7 @@
         context.fillStyle = '#000000';
         context.font = '24px Arial';
         context.textAlign = 'center';
-        context.fillText('You Won. High Score:3 ' + score, canvas.width / 2, canvas.height / 2);
+        context.fillText('Game Over ' + score, canvas.width / 2, canvas.height / 2);
     }
 
     // Listen for keydown events
@@ -194,13 +194,8 @@
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
             if (isColliding(enemy, ship)) {
-                life--;
+                gameOver =  false;
             }
-
-            if(life=0){
-                gameOver = true;
-            }
-
         });
         if(score==3){
             gameOver = true;
