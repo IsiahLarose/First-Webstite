@@ -129,7 +129,7 @@
             context.fillText('You Win! ' + score, canvas.width / 2, canvas.height / 2);
         }
     }
-
+// random comment to commit change.
     // Listen for keydown events
     canvas.addEventListener('keydown', function(event) {
         event.preventDefault();
