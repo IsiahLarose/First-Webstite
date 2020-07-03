@@ -178,10 +178,10 @@
     }
 
     // The main draw loop
+    global life = 2;
     function draw() {
         erase();
-        var Lives = 2;
-        let gameOver = false;
+        var gameOver = false;
         // Move and draw the enemies
         enemies.forEach(function(enemy) {
             enemy.x -= enemy.s;
@@ -194,9 +194,9 @@
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
             if (isColliding(enemy, ship)) {
-                Lives = Lives-1;
+                --life;
             }
-            if(Lives = 0){
+            if(life == 0){
                 gameOver = true;
             }
         });
@@ -261,7 +261,7 @@
         context.textAlign = 'left';
         context.fillText('Score: ' + score, 1, 25)
         // End or continue the game
-        if (Lives = 0) {
+        if (life == 0) {
             endGame();
         } else {
             window.requestAnimationFrame(draw);
