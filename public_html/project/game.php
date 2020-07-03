@@ -193,7 +193,7 @@
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
             $life = 2;
-            if (isColliding(enemy, ship)) {
+            while (isColliding(enemy, ship)) {
                 --$life
             }
                 if ($life == 0) {
