@@ -194,7 +194,7 @@
         });
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
-            if (isColliding(enemy, ship=2)) {
+            if (isColliding(enemy, ship)*2) {
                 if (isColliding(enemy, ship)) {
                     gameOver = true;
                 }
