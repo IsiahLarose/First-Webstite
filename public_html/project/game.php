@@ -177,7 +177,7 @@
     // Shoot the bullet (if not already on screen)
     function shoot() {
         if (!shooting) {
-            shooting = true;
+            shooting = false;
             bullet.x = ship.x + ship.l;
             bullet.y = ship.y + ship.l / 2;
         }
