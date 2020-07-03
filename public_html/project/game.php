@@ -176,7 +176,7 @@
 
     // Shoot the bullet (if not already on screen)
     function shoot() {
-        if (!shooting) {
+        if (shooting) {
             shooting = true;
             bullet.x = ship.x + ship.l;
             bullet.y = ship.y + ship.l / 2;
@@ -241,7 +241,7 @@
                 if (isColliding(bullet, enemy)) {
                     enemies.splice(i, 1);
                     score++;
-                    shooting = false;
+                    shooting = true;
                     // Make the game harder
                     if (score % 10 === 0 && timeBetweenEnemies > 1000) {
                         clearInterval(timeoutId);
