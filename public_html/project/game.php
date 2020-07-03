@@ -261,7 +261,7 @@
         context.textAlign = 'left';
         context.fillText('Score: ' + score, 1, 25)
         // End or continue the game
-        if (life==0) {
+        if (gameOver) {
             endGame();
         } else {
             window.requestAnimationFrame(draw);
