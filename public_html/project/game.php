@@ -53,7 +53,7 @@
     var enemies = [];
 
     // Add an enemy object to the array
-    var enemyBaseSpeed = 4;
+    var enemyBaseSpeed = 5;
     function makeEnemy() {
         var enemyX = canvas.width;
         var enemySize = Math.round((Math.random() * 15)) + 15;
@@ -187,7 +187,8 @@
         erase();
         var gameOver = false;
         // Move and draw the enemies
-        enemies.forEach(function(enemy=2) {
+        enemies.forEach(function(enemy,i) {
+            i=2;
             enemy.x -= enemy.s;
             if (enemy.x < 0) {
                 gameOver = true;
