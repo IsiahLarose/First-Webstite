@@ -69,10 +69,12 @@
 
     // Return true if two squares a and b are colliding, false otherwise
     function isColliding(a, b) {
+        $life=2;
         var result = false;
         if (isWithin(a.x, b.x, b.x + b.l) || isWithin(a.x + a.l, b.x, b.x + b.l)) {
             if (isWithin(a.y, b.y, b.y + b.l) || isWithin(a.y + a.l, b.y, b.y + b.l)) {
                 result = true;
+                --$life;
             }
         }
         return result;
@@ -192,12 +194,13 @@
         });
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
-            var life = 2;
-            while (isColliding(enemy, ship)) {
-                --life;
-            }
-            if (isColliding(enemy, ship) && ($life = 0){
-                gameOver = true;
+            $life = 2;
+            if (isColliding(enemy, ship)) {
+                --$life;
+
+                if ($life == 0) {
+                    gameOver = true;
+                }
             }
         });
         // Move the ship
