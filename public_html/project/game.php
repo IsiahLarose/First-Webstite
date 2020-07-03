@@ -69,12 +69,10 @@
 
     // Return true if two squares a and b are colliding, false otherwise
     function isColliding(a, b) {
-        $life=2;
         var result = false;
         if (isWithin(a.x, b.x, b.x + b.l) || isWithin(a.x + a.l, b.x, b.x + b.l)) {
             if (isWithin(a.y, b.y, b.y + b.l) || isWithin(a.y + a.l, b.y, b.y + b.l)) {
                 result = true;
-                --$life;
             }
         }
         return result;
@@ -194,7 +192,7 @@
         });
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
-            if (isColliding(enemy, ship) {
+            if (isColliding(enemy, ship=2) {
             }
             });
         // Move the ship
@@ -245,9 +243,9 @@
                 }
             });
             // Collide with the wall
-            /*if (bullet.x > canvas.width) {
+            if (bullet.x > canvas.width) {
                 shooting = false;
-            }*/
+            }
             // Draw the bullet
             context.fillStyle = '#0000FF';
             bullet.draw();
@@ -264,7 +262,6 @@
             window.requestAnimationFrame(draw);
         }
     }
-//push test
     // Start the game
     menu();
     canvas.focus();
