@@ -96,7 +96,7 @@
         context.font = '24px Arial';
         context.fillText('Click to Start', canvas.width / 2, canvas.height / 2);
         context.font = '18px Arial';
-        context.fillText('Up/Down to move, Space to shoot.', canvas.width / 2, (canvas.height / 4) * 3);
+        context.fillText('Up/Down to move, Space to shoot. Score 3 to win', canvas.width / 2, (canvas.height / 4) * 3);
         // Start the game on a click
         canvas.addEventListener('click', startGame);
     }
@@ -122,14 +122,8 @@
         context.fillStyle = '#000000';
         context.font = '24px Arial';
         context.textAlign = 'center';
-        if(score<3){
-            context.fillText('Game Over. Must score >3: ' + score, canvas.width / 2, canvas.height / 2);
-
-        }
-        else{context.fillText('You Won. High Score: ' + score, canvas.width / 2, canvas.height / 2);
+        context.fillText('You Won. High Score:3 ' + score, canvas.width / 2, canvas.height / 2);
     }
-    }
-
 
     // Listen for keydown events
     canvas.addEventListener('keydown', function(event) {
@@ -208,7 +202,7 @@
             }
 
         });
-        if(score==1){
+        if(score==3){
             gameOver = true;
         }
         // Move the ship
