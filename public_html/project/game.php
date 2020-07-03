@@ -193,7 +193,7 @@
             if (enemy.x < 0) {
                 gameOver = true;
             }
-            context.fillStyle = 'rgba(40,94,201,0.16)';
+            context.fillStyle = 'rgb(40,94,201)';
             enemy.draw();
         });
         // Collide the ship with enemies
@@ -257,7 +257,7 @@
                 shooting = true;
             }
             // Draw the bullet
-            context.fillStyle = '#0000FF';
+            context.fillStyle = '#0000ff';
             bullet.draw();
         }
         // Draw the score
