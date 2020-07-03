@@ -196,15 +196,13 @@
             if (isColliding(enemy, ship)) {
                 life--;
             }
-            if(isColliding(enemy,canvas.width)){
-                gameOver = false;
-            }
+
             if(life=0){
                 gameOver = true;
             }
 
         });
-        if(score==10){
+        if(score==1){
             gameOver = true;
         }
         // Move the ship
