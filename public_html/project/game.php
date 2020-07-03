@@ -195,11 +195,11 @@
             if (isColliding(enemy, ship)) {
                 score++
             }
-            if(score==10){
-                gameOver = true;
-            }
 
         });
+        if(score==10){
+            gameOver = true;
+        }
         // Move the ship
         if (down) {
             ship.y += ship.s;
@@ -228,15 +228,15 @@
         context.fillStyle = '#00d9ff';
         ship.draw();
         // Move and draw the bullet
-        if (shooting) {
+        /*if (shooting) {
             // Move the bullet
             bullet.x += bullet.s;
             // Collide the bullet with enemies
             enemies.forEach(function(enemy, i) {
-                if (isColliding(bullet, enemy)) {
+                /*if (isColliding(bullet, enemy)) {
                     enemies.splice(i, 1);
                     score++;
-                    shooting = false;
+                    shooting = false;*/
                     // Make the game harder
                     if (score % 10 === 0 && timeBetweenEnemies > 1000) {
                         clearInterval(timeoutId);
@@ -246,15 +246,15 @@
                         enemyBaseSpeed += 1;
                     }
                 }
-            });
+            });*/
             // Collide with the wall
-            if (bullet.x > canvas.width) {
+            /*if (bullet.x > canvas.width) {
                 shooting = false;
-            }
+            }*/
             // Draw the bullet
-            context.fillStyle = '#0000FF';
+            /*context.fillStyle = '#0000FF';
             bullet.draw();
-        }
+        }*/
         // Draw the score
         context.fillStyle = '#000000';
         context.font = '24px Arial';
