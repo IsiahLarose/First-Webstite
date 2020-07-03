@@ -53,7 +53,7 @@
     var enemies = [];
 
     // Add an enemy object to the array
-    var enemyBaseSpeed = 3;
+    var enemyBaseSpeed = 1;
     function makeEnemy() {
         var enemyX = canvas.width;
         var enemySize = Math.round((Math.random() * 15)) + 15;
