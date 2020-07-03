@@ -53,7 +53,7 @@
     var enemies = [];
 
     // Add an enemy object to the array
-    var enemyBaseSpeed = 5;
+    var enemyBaseSpeed = 1;
     function makeEnemy() {
         var enemyX = canvas.width;
         var enemySize = Math.round((Math.random() * 15)) + 15;
@@ -82,8 +82,7 @@
     var score = 0;
     // The delay between enemies (in milliseconds)
     var timeBetweenEnemies = 6* 1000;
-    // ID to track the spawn timeout
-    var timeoutId = null;
+    // ID to track the spawn timeoutS
 
     // Show the game menu and instructions
     function menu() {
@@ -105,7 +104,9 @@
         // Kick off the enemy spawn interval
         timeoutId = setInterval(makeEnemy, timeBetweenEnemies);
         // Make the first enemy
-        setTimeout(makeEnemy, 2);
+        setTimeout(makeEnemy);
+        setTimeout(makeEnemy);
+        setTimeout(makeEnemy);
         // Kick off the draw loop
         draw();
         // Stop listening for click events
