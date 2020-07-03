@@ -98,7 +98,7 @@
         // Start the game on a click
         canvas.addEventListener('click', startGame);
     }
-
+//
     // Start the game
     function startGame() {
         // Kick off the enemy spawn interval
