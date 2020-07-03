@@ -81,7 +81,7 @@
     // Track the user's score
     var score = 0;
     // The delay between enemies (in milliseconds)
-    var timeBetweenEnemies = 10* 1000;
+    var timeBetweenEnemies = 6* 1000;
     // ID to track the spawn timeout
     var timeoutId = null;
 
@@ -105,7 +105,7 @@
         // Kick off the enemy spawn interval
         timeoutId = setInterval(makeEnemy, timeBetweenEnemies);
         // Make the first enemy
-        setTimeout(makeEnemy, 1);
+        setTimeout(makeEnemy, 2);
         // Kick off the draw loop
         draw();
         // Stop listening for click events
@@ -187,8 +187,7 @@
         erase();
         var gameOver = false;
         // Move and draw the enemies
-        enemies.forEach(function(enemy,i) {
-            i=2;
+        enemies.forEach(function(enemy) {
             enemy.x -= enemy.s;
             if (enemy.x < 0) {
                 gameOver = true;
