@@ -249,9 +249,9 @@
                 }
             });
             // Collide with the wall
-            if (bullet.x > $life) {
+            /*if (bullet.x > canvas.width) {
                 shooting = false;
-            }
+            }*/
             // Draw the bullet
             context.fillStyle = '#0000FF';
             bullet.draw();
