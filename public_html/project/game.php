@@ -248,7 +248,7 @@
                 }
             });
             // Collide with the wall
-            if (bullet.x > canvas.width && life == 0) {
+            if (bullet.x > 2) {
                 shooting = false;
             }
             // Draw the bullet
