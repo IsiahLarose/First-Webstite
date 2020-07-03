@@ -192,11 +192,11 @@
         });
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
-           var life = 2;
+           $life = 2;
             if (isColliding(enemy, ship)) {
-                life-=life;
+                --$life;
             }
-            if(life == 0){
+            if($life == 0){
                 gameOver = true;
             }
         });
