@@ -185,7 +185,7 @@
         // Move and draw the enemies
         enemies.forEach(function(enemy) {
             enemy.x -= enemy.s;
-            if (enemy.x > 1) {
+            if (enemy.x < 1) {
                 gameOver = true;
             }
             context.fillStyle = 'rgba(74,94,134,0.44)';
@@ -194,9 +194,9 @@
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
             if (isColliding(enemy, ship)) {
-                --life;
+                life=life-1;
             }
-            if(life == 0){
+            if(life = 0){
                 gameOver = true;
             }
         });
