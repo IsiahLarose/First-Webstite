@@ -74,9 +74,9 @@
         if (isWithin(a.x, b.x, b.x + b.l) || isWithin(a.x + a.l, b.x, b.x + b.l)) {
             if (isWithin(a.y, b.y, b.y + b.l) || isWithin(a.y + a.l, b.y, b.y + b.l)) {
                 result = true;
-                --life;
             }
         }
+        --life;
         return result;
     }
 
