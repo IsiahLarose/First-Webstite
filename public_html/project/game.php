@@ -15,10 +15,12 @@
 <span id="endGame"></span>
 <script>
     // Arcade Shooter game
+
     // Get a reference to the canvas DOM element
     var canvas = document.getElementById('canvas');
     // Get the canvas drawing context
     var context = canvas.getContext('2d');
+
     // Create an object representing a square on the canvas
     function makeSquare(x, y, length, speed) {
         return {
@@ -31,20 +33,25 @@
             }
         };
     }
+
     // The ship the user controls
     var ship = makeSquare(25, canvas.height / 2 - 25, 25, 5);
+
     // Flags to tracked which keys are pressed
     var up = false;
     var down = false;
     var left = false;
     var right = false;
     var space = false;
+
     // Is a bullet already on the canvas?
     var shooting = false;
     // The bulled shot from the ship
     var bullet = makeSquare(0, 0, 10, 10);
+
     // An array for enemies (in case there are more than one)
     var enemies = [];
+
     // Add an enemy object to the array
     var enemyBaseSpeed = 4;
     function makeEnemy() {
@@ -54,10 +61,12 @@
         var enemySpeed = Math.round(Math.random() * enemyBaseSpeed) + enemyBaseSpeed;
         enemies.push(makeSquare(enemyX, enemyY, enemySize, enemySpeed));
     }
+
     // Check if number a is in the range b to c (exclusive)
     function isWithin(a, b, c) {
         return (a > b && a < c);
     }
+
     // Return true if two squares a and b are colliding, false otherwise
     function isColliding(a, b) {
         var result = false;
@@ -68,12 +77,14 @@
         }
         return result;
     }
+
     // Track the user's score
     var score = 0;
     // The delay between enemies (in milliseconds)
     var timeBetweenEnemies = 4* 1000;
     // ID to track the spawn timeout
     var timeoutId = null;
+
     // Show the game menu and instructions
     function menu() {
         erase();
@@ -88,6 +99,7 @@
         // Start the game on a click
         canvas.addEventListener('click', startGame);
     }
+
     // Start the game
     function startGame() {
         // Kick off the enemy spawn interval
@@ -99,6 +111,7 @@
         // Stop listening for click events
         canvas.removeEventListener('click', startGame);
     }
+
     // Show the end game screen
     function endGame() {
         // Stop the spawn interval
@@ -110,6 +123,7 @@
         context.textAlign = 'center';
         context.fillText('Game Over. Final Score: ' + score, canvas.width / 2, canvas.height / 2);
     }
+
     // Listen for keydown events
     canvas.addEventListener('keydown', function(event) {
         event.preventDefault();
@@ -129,6 +143,7 @@
             shoot();
         }
     });
+
     // Listen for keyup events
     canvas.addEventListener('keyup', function(event) {
         event.preventDefault();
@@ -144,12 +159,15 @@
         if (event.keyCode == 37){
             left = false;
         }
+
     });
+
     // Clear the canvas
     function erase() {
         context.fillStyle = '#ffffff';
         context.fillRect(0, 0, 600, 400);
     }
+
     // Shoot the bullet (if not already on screen)
     function shoot() {
         if (!shooting) {
@@ -158,6 +176,7 @@
             bullet.y = ship.y + ship.l / 2;
         }
     }
+
     // The main draw loop
     function draw() {
         erase();
@@ -174,10 +193,9 @@
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
             if (isColliding(enemy, ship)) {
-                if (isColliding(enemy, ship) * 2) {
-                    gameOver = true;
-                }
-            });
+                gameOver = true;
+            }
+        });
         // Move the ship
         if (down) {
             ship.y += ship.s;
@@ -245,6 +263,7 @@
             window.requestAnimationFrame(draw);
         }
     }
+
     // Start the game
     menu();
     canvas.focus();
