@@ -192,14 +192,15 @@
         });
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
-            let life = 2;
+            $life = 2;
             if (isColliding(enemy, ship)) {
-                --life;
-            }
-            if (life == 0) {
+                --$life;
+
+                if ($life == 0) {
                     gameOver = true;
                 }
-    });
+            }
+        });
         // Move the ship
         if (down) {
             ship.y += ship.s;
@@ -267,6 +268,7 @@
             window.requestAnimationFrame(draw);
         }
     }
+//push test
     // Start the game
     menu();
     canvas.focus();
