@@ -196,6 +196,9 @@
             if (isColliding(enemy, ship)) {
                 life--;
             }
+            if(isColliding(enemy,canvas.width)){
+                gameOver = false;
+            }
             if(life=0){
                 gameOver = true;
             }
@@ -252,9 +255,9 @@
                 }
             });
             // Collide with the wall
-            /*if (bullet.x > canvas.width) {
-                shooting = false;
-            }*/
+            if (bullet.x > canvas.width) {
+                shooting = true;
+            }
             // Draw the bullet
             context.fillStyle = '#0000FF';
             bullet.draw();
