@@ -185,7 +185,7 @@
         // Move and draw the enemies
         enemies.forEach(function(enemy) {
             enemy.x -= enemy.s;
-            if (enemy.x < 2) {
+            if (enemy.x < 1) {
                 gameOver = true;
             }
             context.fillStyle = 'rgba(74,94,134,0.44)';
@@ -261,7 +261,7 @@
         context.textAlign = 'left';
         context.fillText('Score: ' + score, 1, 25)
         // End or continue the game
-        if (gameOver) {
+        if ($Lives==0) {
             endGame();
         } else {
             window.requestAnimationFrame(draw);
