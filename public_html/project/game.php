@@ -195,6 +195,7 @@
             }
             context.fillStyle = 'rgb(40,94,201)';
             enemy.draw();
+            enemy.draw();
         });
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
