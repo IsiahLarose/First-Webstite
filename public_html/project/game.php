@@ -267,7 +267,7 @@
             window.requestAnimationFrame(draw);
         }
     }
-
+//push test
     // Start the game
     menu();
     canvas.focus();
