@@ -53,7 +53,7 @@
     var enemies = [];
 
     // Add an enemy object to the array
-    var enemyBaseSpeed = 1;
+    var enemyBaseSpeed = 3;
     function makeEnemy() {
         var enemyX = canvas.width;
         var enemySize = Math.round((Math.random() * 15)) + 15;
@@ -94,7 +94,7 @@
         context.font = '24px Arial';
         context.fillText('Click to Start', canvas.width / 2, canvas.height / 2);
         context.font = '18px Arial';
-        context.fillText('Up/Down to move, Space to shoot. Score 3 to win', canvas.width / 2, (canvas.height / 4) * 3);
+        context.fillText('Up/Down to move, Space to shoot. Score 7 to win', canvas.width / 2, (canvas.height / 4) * 3);
         // Start the game on a click
         canvas.addEventListener('click', startGame);
     }
@@ -122,7 +122,7 @@
         context.fillStyle = '#000000';
         context.font = '24px Arial';
         context.textAlign = 'center';
-        if (score < 3) {
+        if (score < 7) {
             context.fillText('Game Over ' + score, canvas.width / 2, canvas.height / 2);
         }
         else{
@@ -202,7 +202,7 @@
                 gameOver =  true;
             }
         });
-        if(score==3){
+        if(score==7){
             gameOver = true;
         }
         // Move the ship
