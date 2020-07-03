@@ -170,7 +170,7 @@
 
     // Clear the canvas
     function erase() {
-        context.fillStyle = '#ffffff';
+        context.fillStyle = 'rgba(255,255,255,0.29)';
         context.fillRect(0, 0, 600, 400);
     }
 
@@ -193,7 +193,7 @@
             if (enemy.x < 0) {
                 gameOver = true;
             }
-            context.fillStyle = 'rgba(74,94,134,0.44)';
+            context.fillStyle = 'rgba(40,94,201,0.16)';
             enemy.draw();
         });
         // Collide the ship with enemies
