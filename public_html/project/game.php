@@ -178,7 +178,7 @@
     }
 
     // The main draw loop
-    global life = 2;
+    life = 2;
     function draw() {
         erase();
         var gameOver = false;
