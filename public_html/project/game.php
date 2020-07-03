@@ -122,8 +122,14 @@
         context.fillStyle = '#000000';
         context.font = '24px Arial';
         context.textAlign = 'center';
-        context.fillText('Game Over. Final Score: ' + score, canvas.width / 2, canvas.height / 2);
+        if(score<3){
+            context.fillText('Game Over. Must score >3: ' + score, canvas.width / 2, canvas.height / 2);
+
+        }
+        else{context.fillText('You Won. High Score: ' + score, canvas.width / 2, canvas.height / 2);
     }
+    }
+
 
     // Listen for keydown events
     canvas.addEventListener('keydown', function(event) {
