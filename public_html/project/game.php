@@ -81,7 +81,7 @@
     // Track the user's score
     var score = 0;
     // The delay between enemies (in milliseconds)
-    var timeBetweenEnemies = 6* 1000;
+    var timeBetweenEnemies = 4* 1000;
     // ID to track the spawn timeoutS
 
     // Show the game menu and instructions
