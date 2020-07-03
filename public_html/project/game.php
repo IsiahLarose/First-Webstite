@@ -180,12 +180,12 @@
     // The main draw loop
     function draw() {
         erase();
-        $Lives = 0;
+        $Lives = 2;
         var gameOver = false;
         // Move and draw the enemies
         enemies.forEach(function(enemy) {
             enemy.x -= enemy.s;
-            if (enemy.x < 1) {
+            if (enemy.x < 2) {
                 gameOver = true;
             }
             context.fillStyle = 'rgba(74,94,134,0.44)';
@@ -194,9 +194,9 @@
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
             if (isColliding(enemy, ship)) {
-                ++$Lives;
+                --$Lives;
             }
-            if ($Lives == 2){
+            if ($Lives == 0){
                 gameOver = true;
             }
         });
