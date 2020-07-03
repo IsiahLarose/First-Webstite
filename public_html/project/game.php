@@ -194,7 +194,7 @@
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
             if (isColliding(enemy, ship)) {
-                --life
+                --life;
             }
             if(life=0){
                 gameOver = true;
