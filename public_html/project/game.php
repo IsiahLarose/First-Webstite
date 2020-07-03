@@ -87,7 +87,7 @@
     // Show the game menu and instructions
     function menu() {
         erase();
-        context.fillStyle = '#000000';
+        context.fillStyle = '#06069a';
         context.font = '36px Arial';
         context.textAlign = 'center';
         context.fillText('Shoot \'Em!', canvas.width / 2, canvas.height / 4);
@@ -103,7 +103,7 @@
     function startGame() {
         // Kick off the enemy spawn interval
         timeoutId = setInterval(makeEnemy, timeBetweenEnemies);
-        // Make the first enemy
+        // Make multiple enemies
         setTimeout(makeEnemy);
         setTimeout(makeEnemy);
         setTimeout(makeEnemy);
@@ -119,7 +119,7 @@
         clearInterval(timeoutId);
         // Show the final score
         erase();
-        context.fillStyle = '#000000';
+        context.fillStyle = '#0f4ec9';
         context.font = '24px Arial';
         context.textAlign = 'center';
         if (score < 7) {
@@ -174,7 +174,7 @@
         context.fillRect(0, 0, 600, 400);
     }
 
-    // Shoot the bullet (if not already on screen)
+    // Shoot the bullet
     function shoot() {
         {
             shooting = true;
