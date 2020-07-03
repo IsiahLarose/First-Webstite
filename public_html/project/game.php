@@ -192,8 +192,12 @@
         });
         // Collide the ship with enemies
         enemies.forEach(function(enemy, i) {
+            $life=2;
             if (isColliding(enemy, ship)) {
-                gameOver = true;
+                --$life;
+            }
+            if($life==0){
+                gameOver=true;
             }
         });
         // Move the ship
