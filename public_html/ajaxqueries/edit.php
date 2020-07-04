@@ -90,5 +90,5 @@ full closing tag-->
     <label for="Answer">Answer
         <input type="text" id="Answer" name="Answer" value="<?php echo get($result, "Answer");?>" required min="0"/>
     </label>
-    <input type="submit" name="updated" value="Update Question"/>
+    <input type="submit" name="updated" value="Update Question & Answer"/>
 </form>
