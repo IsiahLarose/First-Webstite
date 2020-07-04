@@ -5,26 +5,26 @@ full closing tag-->
     <label for="Question">Question Name
         <input type="text" id="Question" name="Question" required />
     </label>
-    <label for="q">Quantity
-        <input type="number" id="q" name="quantity" required min="0" />
+    <label for="Answer">Answer
+        <input type="text" id="q-Answer" name="Answer" required />
     </label>
     <input type="submit" name="created" value="Create Question"/>
 </form>
 <?php
 if(isset($_POST["created"])) {
     $Question = "";
-    $quantity = -1;
+    $Answer = "";
     if(isset($_POST["Question"]) && !empty($_POST["Question"])){
         $Question = $_POST["Question"];
     }
-    if(isset($_POST["quantity"]) && !empty($_POST["quantity"])){
-        if(is_numeric($_POST["quantity"])){
-            $quantity = (int)$_POST["quantity"];
+    if(isset($_POST["Answer"]) && !empty($_POST["Answer"])){
+        if(is_numeric($_POST["Answer"])){
+            $Answer = (int)$_POST["Answer"];
         }
     }
     //If field is invalid, don't do the DB part
-    if(empty($Question) || $quantity < 0 ){
-        echo "Question must not be empty and quantity must be greater than or equal to 0";
+    if(empty($Question) || $Answer < 0 ){
+        echo "Question must not be empty and Answer must be greater than or equal to 0";
         die();//terminates the rest of the script
     }
     try {
@@ -34,7 +34,7 @@ if(isset($_POST["created"])) {
             $stmt = getDB()->prepare($query);
             $result = $stmt->execute(array(
                 ":Question" => $Question,
-                ":quantity" => $quantity
+                ":Answer" => $Answer
             ));
             $e = $stmt->errorInfo();
             if ($e[0] != "00000") {
