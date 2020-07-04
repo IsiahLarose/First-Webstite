@@ -18,7 +18,7 @@ if(isset($_POST["updated"])){
             $Answer = (int)$_POST["Answer"];
         }
     }
-    if(!empty($Question) && $Answer){
+    if(!empty($Question) && !empty($Answer)){
         try{
             $query = NULL;
             echo "[Answer" . $Answer . "]";
