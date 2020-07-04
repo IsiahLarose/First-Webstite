@@ -88,8 +88,7 @@ full closing tag-->
         <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" required />
     </label>
     <label for="Answer">Answer
-        <!-- We also added a minimum value for our number field-->
-        <input type="number" id="Answer" name="Answer" value="<?php echo get($result, "Answer");?>" required min="0"/>
+        <input type="text" id="Answer" name="Answer" value="<?php echo get($result, "Answer");?>" required min="0"/>
     </label>
     <input type="submit" name="updated" value="Update Question"/>
 </form>
