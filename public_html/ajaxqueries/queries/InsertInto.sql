@@ -1,1 +1,1 @@
-INSERT INTO Questions (name, quantity) VALUES (:name, :quantity)
+INSERT INTO Questions (Question, Answer) VALUES (:Question, :Answer)
