@@ -18,7 +18,7 @@ if(isset($_POST["updated"])){
             $quantity = (int)$_POST["quantity"];
         }
     }
-    if(!empty($name) && $quantity > -1){
+    if(!empty($name) &&!empty($quantity) ){
         try{
             $query = NULL;
             echo "[Quantity" . $quantity . "]";
