@@ -13,12 +13,12 @@ if(isset($_POST["updated"])){
     if(isset($_POST["Question"]) && !empty($_POST["Question"])){
         $Question = $_POST["Question"];
     }
-    if(isset($_POST["Answer"]) && !empty($_POST["Answer"])){
-        if(is_numeric($_POST["Answer"])){
+    if(isset($_POST["Answer"]) && !empty($_POST["Answer"])) {
+        if (is_string($_POST["Answer"])) {
             $Answer = (int)$_POST["Answer"];
         }
     }
-    if(!empty($Question && $Answer)){
+    if(!empty($Question) && !empty($Answer)){
         try{
             $query = NULL;
             echo "[Answer" . $Answer . "]";
