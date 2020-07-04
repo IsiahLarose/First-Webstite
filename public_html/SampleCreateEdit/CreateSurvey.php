@@ -10,17 +10,21 @@
 
 <?php
 if(isset($_POST["created"])){
-    $Question = $_POST["Question"];
-    $Answer = $_POST["Answer"];
-    if(!empty($Question) && !empty($Answer)){
+    $question = $_POST["Question"];
+    $answer = $_POST["Answer"];
+    if(!empty($question) && !empty($answer)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Questions (Question, Answer) VALUES (:Question, :Answer)");
+            $stmt = $db->prepare("INSERT INTO Questions (question) VALUES (:question)");
+            $stmt = $db->prepare("INSERT INTO Answer (Answer) VALUES (:answer)");
             $result = $stmt->execute(array(
-                ":Question" => $Question,
-                ":Answer" => $Answer
+                ":question" => $question,
+                ":answer" => $answer
+            ));
+            $result = $stmt->execute(array(
+                ":answer" => $answer
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -29,7 +33,7 @@ if(isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted new Question & Answer " . $Question;
+                    echo "Successfully inserted new Question & Answer " . $question;
                 }
                 else{
                     echo "Error inserting record";
