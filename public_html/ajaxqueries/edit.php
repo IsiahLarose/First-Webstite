@@ -9,25 +9,25 @@ require("common.inc.php");
 <?php
 if(isset($_POST["updated"])){
     $Question = "";
-    $quantity = -1;
+    $Answer = "";
     if(isset($_POST["Question"]) && !empty($_POST["Question"])){
         $Question = $_POST["Question"];
     }
-    if(isset($_POST["quantity"]) && !empty($_POST["quantity"])){
-        if(is_numeric($_POST["quantity"])){
-            $quantity = (int)$_POST["quantity"];
+    if(isset($_POST["Answer"]) && !empty($_POST["Answer"])){
+        if(is_numeric($_POST["Answer"])){
+            $Answer = (int)$_POST["Answer"];
         }
     }
-    if(!empty($Question) && $quantity > -1){
+    if(!empty($Question) && $Answer > -1){
         try{
             $query = NULL;
-            echo "[Quantity" . $quantity . "]";
+            echo "[Answer" . $Answer . "]";
             $query = file_get_contents(__DIR__ . "/queries/UPDATE.sql");
             if(isset($query) && !empty($query)) {
                 $stmt = getDB()->prepare($query);
                 $result = $stmt->execute(array(
                     ":Question" => $Question,
-                    ":quantity" => $quantity,
+                    ":Answer" => $Answer,
                     ":id" => $QuestionId
                 ));
                 $e = $stmt->errorInfo();
@@ -50,7 +50,7 @@ if(isset($_POST["updated"])){
         }
     }
     else{
-        echo "Name and quantity must not be empty.";
+        echo "Name and Answer must not be empty.";
     }
 }
 ?>
@@ -87,9 +87,9 @@ full closing tag-->
         <!-- since the last assignment we added a required attribute to the form elements-->
         <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" required />
     </label>
-    <label for="q">Quantity
+    <label for="Answer">Answer
         <!-- We also added a minimum value for our number field-->
-        <input type="number" id="q" name="quantity" value="<?php echo get($result, "quantity");?>" required min="0"/>
+        <input type="number" id="Answer" name="Answer" value="<?php echo get($result, "Answer");?>" required min="0"/>
     </label>
     <input type="submit" name="updated" value="Update Question"/>
 </form>
