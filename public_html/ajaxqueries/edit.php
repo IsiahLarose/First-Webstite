@@ -1,7 +1,7 @@
 <?php
-$thingId = -1;
-if(isset($_GET["thingId"]) && !empty($_GET["thingId"])){
-    $thingId = $_GET["thingId"];
+$QuestionId = -1;
+if(isset($_GET["QuestionId"]) && !empty($_GET["QuestionId"])){
+    $QuestionId = $_GET["QuestionId"];
 }
 $result = array();
 require("common.inc.php");
@@ -28,14 +28,14 @@ if(isset($_POST["updated"])){
                 $result = $stmt->execute(array(
                     ":name" => $name,
                     ":quantity" => $quantity,
-                    ":id" => $thingId
+                    ":id" => $QuestionId
                 ));
                 $e = $stmt->errorInfo();
                 if ($e[0] != "00000") {
                     echo var_export($e, true);
                 } else {
                     if ($result) {
-                        echo "Successfully updated thing: " . $name;
+                        echo "Successfully updated Question: " . $name;
                     } else {
                         echo "Error updating record";
                     }
@@ -58,13 +58,13 @@ if(isset($_POST["updated"])){
 <?php
 //moved the content down here so it pulls the update from the table without having to refresh the page or redirect
 //now my success message appears above the form so I'd have to further restructure my code to get the desired output/layout
-if($thingId > -1){
+if($QuestionId > -1){
     $query = file_get_contents(__DIR__ . "/queries/SELECT_ONE_TABLE_THINGS.sql");
     if(isset($query) && !empty($query)) {
         //Note: SQL File contains a "LIMIT 1" although it's not necessary since ID should be unique (i.e., one record)
         try {
             $stmt = getDB()->prepare($query);
-            $stmt->execute([":id" => $thingId]);
+            $stmt->execute([":id" => $QuestionId]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
         }
         catch (Exception $e){
@@ -76,16 +76,16 @@ if($thingId > -1){
     }
 }
 else{
-    echo "No thingId provided in url, don't forget this or sample won't work.";
+    echo "No QuestionId provided in url, don't forget this or sample won't work.";
 }
 ?>
 <script src="js/script.js"></script>
 <!-- note although <script> tag "can" be self terminating some browsers require the
 full closing tag-->
 <form method="POST"onsubmit="return validate(this);">
-    <label for="thing">Thing Name
+    <label for="Question">Thing Name
         <!-- since the last assignment we added a required attribute to the form elements-->
-        <input type="text" id="thing" name="name" value="<?php echo get($result, "name");?>" required />
+        <input type="text" id="Question" name="name" value="<?php echo get($result, "name");?>" required />
     </label>
     <label for="q">Quantity
         <!-- We also added a minimum value for our number field-->
