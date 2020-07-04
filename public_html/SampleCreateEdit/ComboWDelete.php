@@ -50,8 +50,6 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
                 if($delete){
                     $stmt = $db->prepare("DELETE from Questions where id=:id");
                     $result = $stmt->execute(array(
-                        ":Question" => $Question,
-                        ":Answer" => $Answer,
                         ":id" => $QuestionId,
                     ));
                 }
