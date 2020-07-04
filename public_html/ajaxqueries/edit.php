@@ -8,26 +8,26 @@ require("common.inc.php");
 ?>
 <?php
 if(isset($_POST["updated"])){
-    $name = "";
-    $quantity = -1;
-    if(isset($_POST["name"]) && !empty($_POST["name"])){
-        $name = $_POST["name"];
+    $Question = "";
+    $Answer = "";
+    if(isset($_POST["Question"]) && !empty($_POST["Question"])){
+        $Question = $_POST["Question"];
     }
-    if(isset($_POST["quantity"]) && !empty($_POST["quantity"])){
-        if(is_numeric($_POST["quantity"])){
-            $quantity = (int)$_POST["quantity"];
+    if(isset($_POST["Answer"]) && !empty($_POST["Answer"])) {
+        if (is_string($_POST["Answer"])) {
+            $Answer = (string)$_POST["Answer"];
         }
     }
-    if(!empty($name) &&!empty($quantity) ){
+    if(!empty($Question) && !empty($Answer)){
         try{
             $query = NULL;
-            echo "[Quantity" . $quantity . "]";
-            $query = file_get_contents(__DIR__ . "/queries/Update.sql");
+            echo "[Answer" . $Answer . "]";
+            $query = file_get_contents(__DIR__ . "/queries/UPDATE.sql");
             if(isset($query) && !empty($query)) {
                 $stmt = getDB()->prepare($query);
                 $result = $stmt->execute(array(
-                    ":name" => $name,
-                    ":quantity" => $quantity,
+                    ":Question" => $Question,
+                    ":Answer" => $Answer,
                     ":id" => $QuestionId
                 ));
                 $e = $stmt->errorInfo();
@@ -35,7 +35,7 @@ if(isset($_POST["updated"])){
                     echo var_export($e, true);
                 } else {
                     if ($result) {
-                        echo "Successfully updated Question: " . $name;
+                        echo "Successfully updated Question: " . $Question;
                     } else {
                         echo "Error updating record";
                     }
@@ -50,7 +50,7 @@ if(isset($_POST["updated"])){
         }
     }
     else{
-        echo "Name and quantity must not be empty.";
+        echo "Name and Answer must not be empty.";
     }
 }
 ?>
@@ -72,7 +72,7 @@ if($QuestionId > -1){
         }
     }
     else{
-        echo "Failed to find SELECT_ONE_TABLE_THINGS.sql file";
+        echo "Failed to find SelectOne.sql file";
     }
 }
 else{
@@ -83,13 +83,12 @@ else{
 <!-- note although <script> tag "can" be self terminating some browsers require the
 full closing tag-->
 <form method="POST"onsubmit="return validate(this);">
-    <label for="Question">Thing Name
+    <label for="Question">Question Name
         <!-- since the last assignment we added a required attribute to the form elements-->
-        <input type="text" id="Question" name="name" value="<?php echo get($result, "name");?>" required />
+        <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" required />
     </label>
-    <label for="q">Quantity
-        <!-- We also added a minimum value for our number field-->
-        <input type="number" id="q" name="quantity" value="<?php echo get($result, "quantity");?>" required min="0"/>
+    <label for="Answer">Answer
+        <input type="text" id="Answer" name="Answer" value="<?php echo get($result, "Answer");?>" required min="0"/>
     </label>
-    <input type="submit" name="updated" value="Update Thing"/>
-</form
+    <input type="submit" name="updated" value="Update Question & Answer"/>
+</form>
