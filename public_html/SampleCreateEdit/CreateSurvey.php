@@ -1,20 +1,26 @@
 <form method="POST">
     <label for="Question">Question
         <input type="text" id="Question" name="Question" />
+    </label>
+    <label for = "Answer"> Answer
+        <input type="text" id = "Answer" name = "Answer"
+    </label>
     <input type="submit" name="created" value="Create Question"/>
 </form>
 
 <?php
 if(isset($_POST["created"])){
     $Question = $_POST["Question"];
-    if(!empty($Question)){
+    $Answer = $_POST["Answer"];
+    if(!empty($Question) && !empty($Answer)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Questions (Question) VALUES (:Question)");
+            $stmt = $db->prepare("INSERT INTO Questions (Question, Answer) VALUES (:Question, :Answer)");
             $result = $stmt->execute(array(
-                ":Question" => $Question
+                ":Question" => $Question,
+                ":Answer" => $Answer
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
@@ -23,7 +29,7 @@ if(isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted new thing: " . $Question;
+                    echo "Successfully inserted new Question & Answer " . $Question;
                 }
                 else{
                     echo "Error inserting record";
