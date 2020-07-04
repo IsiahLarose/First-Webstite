@@ -25,6 +25,7 @@ if(isset($query) && !empty($query)){
         <?php foreach($results as $row):?>
             <li>
                 <?php echo get($row, "Question")?>
+                <?php echo get($row, "")?>
                 <?php echo get($row, "Answer")?>
                 <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
