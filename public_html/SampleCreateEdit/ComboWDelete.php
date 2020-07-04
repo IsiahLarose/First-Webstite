@@ -28,6 +28,10 @@ else{
         <label for="Question">Question Name
             <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" />
         </label>
+        <label for = "Answer"
+               <input type = "text" id = "Answer" name = "Answer" value = "<?php echo get($result, "Question");?>"
+
+        </label>
         <?php if($QuestionId > 0):?>
             <input type="submit" name="updated" value="Update Question"/>
             <input type="submit" name="delete" value="Delete Question"/>
@@ -40,19 +44,23 @@ else{
 if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"])){
     $delete = isset($_POST["delete"]);
     $Question = $_POST["Question"];
-    if(!empty($Question)){
+    $Answer = $_POST["Answer"];
+    if(!empty($Question) && !empty($Answer)){
         try{
             if($QuestionId > 0) {
                 if($delete){
                     $stmt = $db->prepare("DELETE from Questions where id=:id");
                     $result = $stmt->execute(array(
-                        ":id" => $QuestionId
+                        ":Question" => $Question,
+                        ":Answer" => $Answer,
+                        ":id" => $QuestionId,
                     ));
                 }
                 else {
                     $stmt = $db->prepare("UPDATE Questions set Question = :Question where id=:id");
                     $result = $stmt->execute(array(
                         ":Question" => $Question,
+                        ":Answer" => $Answer,
                         ":id" => $QuestionId
                     ));
                 }
@@ -61,6 +69,7 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
                 $stmt = $db->prepare("INSERT INTO Questions (Question) VALUES (:Question)");
                 $result = $stmt->execute(array(
                     ":Question" => $Question,
+                    ":Answer" => $Answer
                 ));
             }
             $e = $stmt->errorInfo();
@@ -82,7 +91,7 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
         }
     }
     else{
-        echo "Name and quantity must not be empty.";
+        echo "Question & Answer must not be empty.";
     }
 }
 ?>
