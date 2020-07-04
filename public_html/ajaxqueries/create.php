@@ -1,58 +1,47 @@
-<script src="js/script.js"></script>
-<!-- note although <script> tag "can" be self terminating some browsers require the
-full closing tag-->
-<form method="POST" onsubmit="return validate(this);">
-    <label for="Question">Question Name
-        <input type="text" id="Question" name="Question" required />
+<form method="POST">
+    <label for="Question">Question
+        <input type="text" id="Question" name="Question" />
     </label>
-    <label for="Answer">Answer
-        <input type="text" id="q-Answer" name="Answer" required />
+    <label for = "Answer"> Answer
+        <input type="text" id = "Answer" name = "Answer"
     </label>
     <input type="submit" name="created" value="Create Question"/>
 </form>
+
 <?php
-if(isset($_POST["created"])) {
-    $Question = "";
-    $Answer = "";
-    if(isset($_POST["Question"]) && !empty($_POST["Question"])){
-        $Question = $_POST["Question"];
-    }
-    if(isset($_POST["Answer"]) && !empty($_POST["Answer"])){
-        if(is_numeric($_POST["Answer"])){
-            $Answer = (int)$_POST["Answer"];
-        }
-    }
-    //If field is invalid, don't do the DB part
-    if(empty($Question) || $Answer < 0 ){
-        echo "Question must not be empty and Answer must be greater than or equal to 0";
-        die();//terminates the rest of the script
-    }
-    try {
-        require("common.inc.php");
-        $query = file_get_contents(__DIR__ . "/queries/InsertInto.sql");
-        if(isset($query) && !empty($query)) {
-            $stmt = getDB()->prepare($query);
+if(isset($_POST["created"])){
+    $Question = $_POST["Question"];
+    $Answer = $_POST["Answer"];
+    if(!empty($Question) && !empty($Answer)){
+        require("config.php");
+        $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+        try{
+            $db = new PDO($connection_string, $dbuser, $dbpass);
+            $stmt = $db->prepare("INSERT INTO Questions (Question, Answer) VALUES (:Question, :Answer)");
             $result = $stmt->execute(array(
                 ":Question" => $Question,
                 ":Answer" => $Answer
             ));
             $e = $stmt->errorInfo();
-            if ($e[0] != "00000") {
+            if($e[0] != "00000"){
                 echo var_export($e, true);
-            } else {
-                if ($result) {
-                    echo "Successfully inserted new Question: " . $Question;
-                } else {
+            }
+            else{
+                echo var_export($result, true);
+                if ($result){
+                    echo "Successfully inserted new Question & Answer " . $Question;
+                }
+                else{
                     echo "Error inserting record";
                 }
             }
         }
-        else{
-            echo "Failed to find InsertInto.sql file";
+        catch (Exception $e){
+            echo $e->getMessage();
         }
     }
-    catch (Exception $e){
-        echo $e->getMessage();
+    else{
+        echo "Question must not be empty.";
     }
 }
 ?>

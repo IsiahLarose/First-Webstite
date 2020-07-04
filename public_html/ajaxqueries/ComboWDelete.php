@@ -29,7 +29,7 @@ else{
             <input type="text" id="Question" name="Question" value="<?php echo get($result, "Question");?>" />
         </label>
         <label for ="Answer">Answer
-               <input type = "text" id = "Answer" name = "Answer" value = "<?php echo get($result, "Question");?>"
+               <input type = "text" id = "Answer" name = "Answer" value = "<?php echo get($result, "Answer");?>"
         </label>
         <?php if($QuestionId > 0):?>
             <input type="submit" name="updated" value="Update Question"/>
