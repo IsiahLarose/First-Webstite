@@ -35,13 +35,8 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
         <?php foreach($results as $row):?>
             <li>
                 <?php echo get($row, "question")?>
-                <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
-            </li>
-        <?php endforeach;?>
-
-        <?php echo"Matching Answers"?>
-        <?php foreach($results as $row):?>
-            <li>
+                <?php echo""?>
+                <?php echo" Matching Answers"?>
                 <?php echo get($row, "answer")?>
                 <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
