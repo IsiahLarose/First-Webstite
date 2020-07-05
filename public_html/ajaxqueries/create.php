@@ -21,7 +21,10 @@ if(isset($_POST["created"])){
             $db = new PDO($connection_string, $dbuser, $dbpass);
             foreach($query as $query) {
                 $stmt = $db->prepare($query);
-                $result = $stmt->execute();
+                $result = $stmt->execute(array(
+                    ":Question" => $Question,
+                    ":Answer" => $Answer
+                ));
                 $e = $stmt->errorInfo();
             }
             if($e[0] != "00000"){
