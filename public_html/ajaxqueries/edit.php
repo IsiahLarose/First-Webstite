@@ -32,8 +32,7 @@ if(isset($_POST["updated"])){
                 ));
                 $stmt = getDB()->prepare($query2);
                 $result = $stmt->execute(array(
-                    ":question" => $question,
-                    ":id" => $questionId
+                    ":answer" => $answer,
                 ));
                 $e = $stmt->errorInfo();
                 if ($e[0] != "00000") {
