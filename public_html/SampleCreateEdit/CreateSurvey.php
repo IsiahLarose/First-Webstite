@@ -1,46 +1,58 @@
-<form method="POST">
-    <label for="Question">Question
-        <input type="text" id="Question" name="Question" />
+<script src="js/script.js"></script>
+<!-- note although <script> tag "can" be self terminating some browsers require the
+full closing tag-->
+<form method="POST" onsubmit="return validate(this);">
+    <label for="thing">Thing Name
+        <input type="text" id="thing" name="Question" required />
     </label>
-    <label for = "Answer"> Answer
-        <input type="text" id = "Answer" name = "Answer"
+    <label for="q">Quantity
+        <input type="number" id="q" name="Answer" required min="0" />
     </label>
-    <input type="submit" name="created" value="Create Question"/>
+    <input type="submit" name="created" value="Create Thing"/>
 </form>
-
 <?php
-if(isset($_POST["created"])){
-    $question = $_POST["Question"];
-    $answer = $_POST["Answer"];
-    if(!empty($question) && !empty($answer)){
-        require("config.php");
-        $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-        try{
-            $db = new PDO($connection_string, $dbuser, $dbpass);
-            $query = $db ->prepare (file_get_contents(__DIR__ . "/SampleCreateEdit/InsertInto.sql"));
-            $stmt = $db->prepare( $query);
-            $result = $stmt->execute($query);
+if(isset($_POST["created"])) {
+    $Question = "";
+    $$Answer = -1;
+    if(isset($_POST["Question"]) && !empty($_POST["Question"])){
+        $Question = $_POST["Question"];
+    }
+    if(isset($_POST["$Answer"]) && !empty($_POST["$Answer"])){
+        if(is_numeric($_POST["$Answer"])){
+            $$Answer = (int)$_POST["$Answer"];
+        }
+    }
+    //If Question or $Answer is invalid, don't do the DB part
+    if(empty($Question) || $$Answer < 0 ){
+        echo "Name must not be empty and $Answer must be greater than or equal to 0";
+        die();//terminates the rest of the script
+    }
+    try {
+        require("common.inc.php");
+        $query = file_get_contents(__DIR__ . "/queries/InsertInto.sql");
+        if(isset($query) && !empty($query)) {
+            $stmt = getDB()->prepare($query);
+            $result = $stmt->execute(array(
+                ":Question" => $Question,
+                ":$Answer" => $Answer
+            ));
             $e = $stmt->errorInfo();
-            if($e[0] != "00000"){
+            if ($e[0] != "00000") {
                 echo var_export($e, true);
-            }
-            else{
-                echo var_export($result, true);
-                if ($result){
-                    echo "Successfully inserted new Question & Answer " . $question;
-                }
-                else{
+            } else {
+                if ($result) {
+                    echo "Successfully inserted new thing: " . $Question;
+                } else {
                     echo "Error inserting record";
                 }
             }
         }
-        catch (Exception $e){
-            echo $e->getMessage();
+        else{
+            echo "Failed to find INSERT_TABLE_THINGS.sql file";
         }
     }
-    else{
-        echo "Question must not be empty.";
+    catch (Exception $e){
+        echo $e->getMessage();
     }
 }
-
 ?>
