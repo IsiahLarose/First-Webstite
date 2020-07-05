@@ -17,24 +17,11 @@ if(isset($_POST["created"])){
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Questions (question) VALUES (:question)");
+            $stmt = $db->prepare("INSERT INTO Questions (question,answer) VALUES (:question,:answer)");
             $result = $stmt->execute(array(
                 ":question" => $question,
                 ":answer" => $answer
             ));
-            $result = $stmt->execute(array(
-                ":question" => $question,
-                ":answer" => $answer
-            ));
-            $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Answers (answer) VALUES (:answer)");
-            $result = $stmt->execute(array(
-                ":question" => $question,
-            ));
-            $result = $stmt->execute(array(
-                ":answer" => $answer
-            ));
-
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
                 echo var_export($e, true);
