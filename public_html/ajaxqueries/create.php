@@ -20,7 +20,7 @@ if(isset($_POST["created"])){
                 "INSERT INTO Answers (answer) VALUES (:answer)"];
             $db = new PDO($connection_string, $dbuser, $dbpass);
             foreach($query as $query) {
-                $stmt = $db->prepare($queries);
+                $stmt = $db->prepare($query);
                 $result = $stmt->execute();
                 $e = $stmt->errorInfo();
             }
