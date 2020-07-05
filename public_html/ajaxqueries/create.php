@@ -20,11 +20,11 @@ if(isset($_POST["created"])){
             $result = $stmt->execute();
             $stmt = $db->prepare("INSERT INTO Questions (question) VALUES (:question)");
             $result = $stmt->execute(array(
-                ":question" => $question
+                ":question" => $question,
             ));
             $stmt = $db->prepare("INSERT INTO Answers (answer) VALUES (:answer)");
             $result = $stmt->execute(array(
-                ":answer" => $answer
+                ":answer" => $answer,
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
