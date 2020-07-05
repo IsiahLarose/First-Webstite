@@ -10,9 +10,9 @@
 
 <?php
 if(isset($_POST["created"])){
-    $Question = $_POST["Question"];
-    $Answer = $_POST["Answer"];
-    if(!empty($Question) && !empty($Answer)){
+    $question = $_POST["Question"];
+    $answer = $_POST["Answer"];
+    if(!empty($question) && !empty($answer)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
@@ -22,8 +22,8 @@ if(isset($_POST["created"])){
             foreach($query as $query) {
                 $stmt = $db->prepare($query);
                 $result = $stmt->execute(array(
-                    ":Question" => $Question,
-                    ":Answer" => $Answer
+                    ":question" => $question,
+                    ":answer" => $answer
                 ));
                 $e = $stmt->errorInfo();
             }
@@ -33,7 +33,7 @@ if(isset($_POST["created"])){
             else{
                 echo var_export($result, true);
                 if ($result){
-                    echo "Successfully inserted new Question & Answer " . $Question;
+                    echo "Successfully inserted new Question & Answer " . $question;
                 }
                 else{
                     echo "Error inserting record";
