@@ -1,3 +1,10 @@
+<head>
+    <title>Simple Survey</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <p>
+        Create you Q&A using the form below
+    </p>
+</head>
 <form method="POST">
     <label for="Question">Question
         <input type="text" id="Question" name="Question" />

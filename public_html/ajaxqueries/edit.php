@@ -2,7 +2,7 @@
     <title>Simple Survey</title>
     <link rel="stylesheet" type="text/css" href="style2.css">
     <p>
-        Edit your question using the form below
+        Edit your Q&A using the form below
     </p>
 </head>
 <?php
