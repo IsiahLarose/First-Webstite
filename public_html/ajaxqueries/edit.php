@@ -1,9 +1,3 @@
-<head>
-    <title>Simple Survey</title>
-    <p>
-        Edit your Question below
-    </p>
-</head>
 <?php
 $questionId = -1;
 if(isset($_GET["questionId"]) && !empty($_GET["questionId"])){
