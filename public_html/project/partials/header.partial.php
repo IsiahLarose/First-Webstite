@@ -11,6 +11,9 @@ $logged_in = Common::is_logged_in(false);
             <li>
                 <a href="<?php echo Common::url_for("game");?>">Game</a>
             </li>
+            <li>
+                <a href="<?php echo Common::url_for("create");?>">Create
+            </li>
         <?php endif; ?>
         <?php if(!$logged_in):?>
             <li>
