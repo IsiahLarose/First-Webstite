@@ -3,13 +3,18 @@ require("common.inc.php");
 $query = file_get_contents(__DIR__ . "/queries/SelectAll.sql");
 $query2 = file_get_contents(__DIR__ . "/queries/SelectAll2.sql");
 
-if(isset($query) && !empty($query)){
+if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
     try {
         $stmt = getDB()->prepare($query);
         //we don't need to pass any arguments since we're not filtering the results
         $stmt->execute();
         //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = getDB()->prepare($query2);
+        //we don't need to pass any arguments since we're not filtering the results
+        $stmt->execute();
+        //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
+        $results2 = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     catch (Exception $e){
         echo $e->getMessage();
@@ -30,6 +35,12 @@ if(isset($query) && !empty($query)){
         <li>
             <?php echo get($row, "question")?>
             <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
+        </li>
+    <?php endforeach;?>
+    <?php foreach($results2 as $row):?>
+        <li>
+            <?php echo get($row, "answer")?>
+            <a href="delete.php?answerId=<?php echo get($row, "id");?>">Delete</a>
         </li>
     <?php endforeach;?>
 </ul>
