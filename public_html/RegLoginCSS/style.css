@@ -1,4 +1,4 @@
-/*input {
+input {
     background-color: white;
 }
 label {
@@ -10,9 +10,7 @@ form {
     width:80%;
     margin: auto;
     text-align: center;
-    border-color: darkslateblue;
-    border-style: solid;
-}*/
+}
 body{
     background-color: white;
 }
