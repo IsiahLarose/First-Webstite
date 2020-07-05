@@ -1,6 +1,1 @@
-BEGIN;
-INSERT INTO Questions (question)
-  VALUES(:question);
-INSERT INTO Answers (answer)
-  VALUES(':question');
-COMMIT;
+INSERT INTO Questions (Question, Answer) VALUES (:Question, :Answer)

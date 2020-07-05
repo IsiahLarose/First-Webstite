@@ -7,7 +7,6 @@
     </label>
     <input type="submit" name="created" value="Create Question"/>
 </form>
-
 <?php
 if(isset($_POST["created"])){
     $question = $_POST["Question"];
@@ -17,9 +16,10 @@ if(isset($_POST["created"])){
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $query = $db ->prepare (file_get_contents(__DIR__ . "/SampleCreateEdit/InsertInto.sql"));
-            $stmt = $db->prepare( $query);
-            $result = $stmt->execute($query);
+            $stmt = $db->prepare("INSERT INTO Questions (question) VALUES (:question)");
+            $result = $stmt->execute(array(
+                ":question" => $question,
+            ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
                 echo var_export($e, true);
@@ -42,5 +42,4 @@ if(isset($_POST["created"])){
         echo "Question must not be empty.";
     }
 }
-
 ?>
