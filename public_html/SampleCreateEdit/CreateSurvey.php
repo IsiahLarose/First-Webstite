@@ -19,7 +19,7 @@ if(isset($_POST["created"])) {
     }
     if(isset($_POST["$Answer"]) && !empty($_POST["$Answer"])){
         if(is_string($_POST["$Answer"])){
-            $$Answer = (int)$_POST["$Answer"];
+            $$Answer = (string)$_POST["$Answer"];
         }
     }
     //If Question or $Answer is invalid, don't do the DB part
