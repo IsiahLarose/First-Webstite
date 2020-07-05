@@ -31,7 +31,7 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
     <ul>
         <!-- Here we'll loop over all our results and reuse a specific template for each iteration,
         we're also using our helper function to safely return a value based on our key/column name.-->
-        <?php echo" Questions"?>
+        <?php echo" Questions followed by Answers"?>
         <?php foreach($results as $row):?>
             <li>
                 <?php echo get($row, "answer")?>
