@@ -21,7 +21,7 @@ if(isset($_POST["created"])){
             $result = $stmt->execute(array(
                 ":Question" => $question,
             ));
-            $stmt = $db->prepare("INSERT INTO Questions (answer) VALUES (:answer)");
+            $stmt = $db->prepare("INSERT INTO Answers (answer) VALUES (:answer)");
             $result = $stmt->execute(array(
                 ":answer" => $answer,
             ));
