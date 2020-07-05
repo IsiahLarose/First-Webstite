@@ -21,7 +21,7 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
     }
 }
 ?>
-?>
+
 
     <!--This part will introduce us to PHP templating,
     note the structure and the ":" -->
@@ -33,8 +33,12 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
         we're also using our helper function to safely return a value based on our key/column name.-->
         <?php foreach($results as $row):?>
             <li>
-                <?php echo get($row, "question","answer")?>
-                <?php echo get($row, "")?>
+                <?php echo" Questions"?>
+
+                <?php echo get($row, "question")?>
+                <?php echo""?>
+                <?php echo" Matching Answers"?>
+                <?php echo get($row, "answer")?>
                 <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
         <?php endforeach;?>
