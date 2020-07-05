@@ -35,6 +35,7 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
         <?php foreach($results as $row):?>
             <li>
                 <?php echo get($row, "question")?>
+                <?php echo""?>
                 <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
         <?php endforeach;?>
@@ -44,7 +45,7 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
         <?php foreach($results as $row):?>
             <li>
                 <?php echo get($row, "answer")?>
-                <a href="delete.php?answerId=<?php echo get($row, "id");?>">Delete</a>
+                <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
         <?php endforeach;?>
     </ul>
