@@ -16,17 +16,16 @@ if(isset($_POST["created"])){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
-            $queries = ["INSERT INTO Questions (question) VALUES (:question)",
-                "INSERT INTO Answers (answer) VALUES (:answer)"];
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            foreach($query as $query) {
-                $stmt = $db->prepare($query);
-                $result = $stmt->execute(array(
-                    ":question" => $question,
-                    ":answer" => $answer
-                ));
-                $e = $stmt->errorInfo();
-            }
+            $stmt = $db->prepare("INSERT INTO Questions (question) VALUES (:question)");
+            $result = $stmt->execute(array(
+                ":Question" => $question,
+            ));
+            $stmt = $db->prepare("INSERT INTO Questions (answer) VALUES (:answer)");
+            $result = $stmt->execute(array(
+                ":answer" => $answer,
+            ));
+            $e = $stmt->errorInfo();
             if($e[0] != "00000"){
                 echo var_export($e, true);
             }
