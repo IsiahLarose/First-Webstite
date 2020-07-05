@@ -16,8 +16,8 @@ if(isset($_POST["created"])){
         require("config.php");
         require("common.inc.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-        $query = file_get_contents(__DIR__ . "/queries/InsertInto.sql");
         try{
+            $query = file_get_contents(__DIR__ . "/queries/InsertInto.sql");
             $db = new PDO($connection_string, $dbuser, $dbpass);
             $stmt = $db->prepare("$query");
             $result = $stmt->execute(array(
