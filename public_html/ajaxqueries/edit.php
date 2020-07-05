@@ -120,6 +120,7 @@ else{
 <script src="js/script.js"></script>
 <!-- note although <script> tag "can" be self terminating some browsers require the
 full closing tag-->
+<head>
 <form method="POST"onsubmit="return validate(this);">
     <label for="question">question Name
         <!-- since the last assignment we added a required attribute to the form elements-->
@@ -130,3 +131,10 @@ full closing tag-->
     </label>
     <input type="submit" name="updated" value="Update question & answer"/>
 </form>
+
+    <title>Simple Survey</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <p>
+        Edit your Question below
+    </p>
+</head>
