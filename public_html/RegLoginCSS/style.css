@@ -1,18 +1,7 @@
 input {
     background-color: white;
 }
-label {
-    border: 1px dotted black;
-    color: black;
-    text-underline-color: black;
-}
-form {
-    width:80%;
-    margin: auto;
-    text-align: center;
-    border-color: darkslateblue;
-    border-style: solid;
-}
+
 body{
     background-color: white;
 }
