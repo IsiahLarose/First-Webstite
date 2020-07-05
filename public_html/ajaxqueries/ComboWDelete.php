@@ -57,7 +57,6 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
                     $stmt = $db->prepare("UPDATE Questions set Question = :Question where id=:id");
                     $result = $stmt->execute(array(
                         ":Question" => $Question,
-                        ":Answer" => $Answer,
                         ":id" => $QuestionId
                     ));
                 }
@@ -66,7 +65,6 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
                 $stmt = $db->prepare("INSERT INTO Questions (Question) VALUES (:Question)");
                 $result = $stmt->execute(array(
                     ":Question" => $Question,
-                    ":Answer" => $Answer
                 ));
             }
             $e = $stmt->errorInfo();
