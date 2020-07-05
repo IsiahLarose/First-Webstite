@@ -1,8 +1,8 @@
 <head>
     <title>Simple Survey</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style2.css">
     <p>
-        Welcome to My Simple Survey!
+        Edit your Question below
     </p>
 </head>
 <?php
