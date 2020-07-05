@@ -19,9 +19,7 @@ if(isset($_POST["created"])){
             $query = file_get_contents(__DIR__ . "/SampleCreateEdit/InsertInto.sql");
             $db = new PDO($connection_string, $dbuser, $dbpass);
             $stmt = $db->prepare( $query);
-            $result = $stmt->execute(array(
-                ":answer" => $answer
-            ));
+            $result = $stmt->execute($query);
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
                 echo var_export($e, true);
