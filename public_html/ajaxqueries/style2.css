@@ -22,6 +22,13 @@ p{
     color: darkslateblue;
     font-size: 2em;
 }
+
+p2{
+    font-family: "Calibri";
+    text-align: left;
+    color: darkslateblue;
+    font-size: 1em;
+}
 nav{
     background-color: darkslateblue;
     height: 35px;

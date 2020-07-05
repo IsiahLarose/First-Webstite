@@ -52,5 +52,5 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
     <?php endforeach;?>
 </ul>
 <?php else:?>
-    <p>This shows when we don't have results</p>
+    <p2>This shows when we don't have results</p2>
 <?php endif;?>
