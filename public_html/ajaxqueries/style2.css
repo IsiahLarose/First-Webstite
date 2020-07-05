@@ -7,8 +7,45 @@ label {
     text-underline-color: black;
 }
 form {
+    width:80%;
+    margin: auto;
     text-align: center;
+    border-color: darkslateblue;
+    border-style: solid;
 }
 body{
     background-color: white;
+}
+p{
+    font-family: "Calibri";
+    text-align: center;
+    color: darkslateblue;
+    font-size: 2em;
+}
+nav{
+    background-color: darkslateblue;
+    height: 35px;
+}
+nav::after{
+    content:'';
+    display: table;
+    clear: both;
+}
+nav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    float: right;
+    text-decoration-color: black;
+    color: black;
+}
+nav li{
+    float: left;
+    display: inline-block;
+    margin: 0 35px;
+    font-size: 29px;
+}
+a {
+    color: white;
+    background-color: darkslateblue;
 }

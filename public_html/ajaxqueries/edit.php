@@ -1,3 +1,10 @@
+<head>
+    <title>Simple Survey</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <p>
+        Welcome to My Simple Survey!
+    </p>
+</head>
 <?php
 $questionId = -1;
 if(isset($_GET["questionId"]) && !empty($_GET["questionId"])){
