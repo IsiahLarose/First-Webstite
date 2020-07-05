@@ -37,12 +37,15 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
                 <?php echo get($row, "question,")?>
                 <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
-
+        <?php endforeach;?>
+        <?php foreach($results as $row):?>
             <li>
+                <?php echo get($row, "question")?>
                 <?php echo get($row, "answer")?>
                 <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
         <?php endforeach;?>
+    </ul>
 <?php else:?>
     <p>This shows when we don't have results</p>
 <?php endif;?>
