@@ -18,7 +18,7 @@ if(isset($_POST["created"])){
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
             $stmt = $db->prepare("INSERT INTO Questions (question) VALUES (:question)");
-            $stmt = $db->prepare("INSERT INTO Answers (Answer) VALUES (:answer)");
+            //$stmt = $db->prepare("INSERT INTO Answers (Answer) VALUES (:answer)");
             $result = $stmt->execute(array(
                 ":question" => $question
             ));
