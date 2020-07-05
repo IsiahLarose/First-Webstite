@@ -39,6 +39,7 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
             </li>
         <?php endforeach;?>
 
+        <?php echo""?>
         <?php echo"Matching Answers"?>
         <?php foreach($results as $row):?>
             <li>
