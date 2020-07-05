@@ -28,10 +28,10 @@ if(isset($_POST["updated"])){
             $query = NULL;
             echo "[answer" . $answer . "]";
             if(isset($query) && !empty($query)) {
-                $stmt = getDB()->prepare("UPDATE Questions set question = :question where id=:id");
+                /*$stmt = getDB()->prepare("UPDATE Questions set question = :question where id=:id");
                 $result = $stmt->execute(array(
                     ":question" => $question,
-                ));
+                ));*/
                 $stmt = getDB()->prepare("UPDATE Answers set answer = :answer where id=:id");
                 $result = $stmt->execute(array(
                     ":answer" => $answer,
