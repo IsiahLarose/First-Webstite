@@ -52,7 +52,7 @@ if(isset($_POST["updated"])){
         try{
             $query = NULL;
             echo "[answer" . $answer . "]";
-            $query = "UPDATE Answer set answer = :answer where id=:id";
+            $query = "UPDATE Answers set answer = :answer where id=:id";
             if(isset($query) && !empty($query)) {
                 $stmt = getDB()->prepare($query);
                 $result = $stmt->execute(array(
