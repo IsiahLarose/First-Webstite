@@ -15,8 +15,8 @@ if(isset($_POST["created"])){
     if(!empty($question) && !empty($answer)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-        $query = file_get_contents(__DIR__ . "/SampleCreateEdit/InsertInto.sql");
         try{
+            $query = file_get_contents(__DIR__ . "/SampleCreateEdit/InsertInto.sql");
             $db = new PDO($connection_string, $dbuser, $dbpass);
             $stmt = $db->prepare( $query);
             $result = $stmt->execute(array(
