@@ -20,10 +20,7 @@ if(isset($_POST["created"])){
             $query2 = "INSERT INTO Answers (answer) VALUES (:answer)";
             $db = new PDO($connection_string, $dbuser, $dbpass);
             $stmt = $db->prepare($query1,$query2);
-            $result = $stmt->execute(array(
-                ":Question" => $Question,
-                ":answer" => $Answer
-            ));
+            $result = $stmt->execute();
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
                 echo var_export($e, true);
