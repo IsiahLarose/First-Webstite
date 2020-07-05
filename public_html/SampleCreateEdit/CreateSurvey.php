@@ -16,8 +16,8 @@ if(isset($_POST["created"])){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
+            $query = file_get_contents(__DIR__ . "/SampleCreateEdit/InsertInto.sql");
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $query = $db ->prepare (file_get_contents(__DIR__ . "/SampleCreateEdit/InsertInto.sql"));
             $stmt = $db->prepare( $query);
             $result = $stmt->execute($query);
             $e = $stmt->errorInfo();
