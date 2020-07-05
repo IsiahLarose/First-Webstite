@@ -22,9 +22,9 @@ if(isset($_POST["created"])){
             $result = $stmt->execute(array(
                 ":question" => $question
             ));
-            $result = $stmt->execute(array(
+            /*$result = $stmt->execute(array(
                 ":answer" => $answer
-            ));
+            ));*/
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
                 echo var_export($e, true);
