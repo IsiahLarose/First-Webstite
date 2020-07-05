@@ -28,14 +28,11 @@ if(isset($_POST["updated"])){
             $query = NULL;
             echo "[answer" . $answer . "]";
             if(isset($query) && !empty($query)) {
-                /*$stmt = getDB()->prepare("UPDATE Questions set question = :question where id=:id");
-                $result = $stmt->execute(array(
-                    ":question" => $question,
-                ));*/
+                $stmt = getDB()->prepare("UPDATE Questions set question = :question where id=:id");
+                $result = $stmt->execute();
                 $stmt = getDB()->prepare("UPDATE Answers set answer = :answer where id=:id");
-                $result = $stmt->execute(array(
-                    ":answer" => $answer,
-                ));
+                $result = $stmt->execute(
+                );
                 $e = $stmt->errorInfo();
                 if ($e[0] != "00000") {
                     echo var_export($e, true);
