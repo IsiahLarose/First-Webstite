@@ -13,7 +13,7 @@ full closing tag-->
 <?php
 if(isset($_POST["created"])) {
     $Question = "";
-    $Answer = -1;
+    $Answer = "";
     if(isset($_POST["Question"]) && !empty($_POST["Question"])){
         $Question = $_POST["Question"];
     }
