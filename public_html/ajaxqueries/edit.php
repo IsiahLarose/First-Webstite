@@ -48,7 +48,7 @@ if(isset($_POST["updated"])){
             echo $e->getMessage();
         }
     }
-    if(!empty($asnwer)){
+    if(!empty($answer)){
         try{
             $query = NULL;
             echo "[answer" . $answer . "]";
