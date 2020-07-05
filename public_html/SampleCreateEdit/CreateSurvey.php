@@ -14,10 +14,12 @@ if(isset($_POST["created"])){
     $answer = $_POST["Answer"];
     if(!empty($question) && !empty($answer)){
         require("config.php");
+        require("common.inc.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+        $query = file_get_contents(__DIR__ . "/queries/InsertInto.sql");
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT ALL INTO Questions(question) VALUES (:question) INTO Answers(answer) VALUES (:answer)");
+            $stmt = $db->prepare("$query");
             $result = $stmt->execute(array(
                 ":question" => $question,
                 ":answer" => $answer
