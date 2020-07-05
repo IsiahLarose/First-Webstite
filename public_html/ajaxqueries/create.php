@@ -16,11 +16,13 @@ if(isset($_POST["created"])){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
+            $query1= "INSERT INTO Questions (question) VALUES (:question)";
+            $query2 = "INSERT INTO Answers (answer) VALUES (:answer)";
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Questions (Question, Answer) VALUES (:Question, :Answer)");
+            $stmt = $db->prepare($query1,$query2);
             $result = $stmt->execute(array(
                 ":Question" => $Question,
-                ":Answer" => $Answer
+                ":answer" => $Answer
             ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
