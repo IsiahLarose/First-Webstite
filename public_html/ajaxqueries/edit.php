@@ -18,13 +18,19 @@ if(isset($_POST["updated"])){
             $answer = (string)$_POST["answer"];
         }
     }
-    if(!empty($question)){
+    if(!empty($question) && !empty($answer)){
         try{
             $query = NULL;
             echo "[answer" . $answer . "]";
             $query = "UPDATE Questions set question = :question where id=:id";
-            if(isset($query) && !empty($query)) {
+            $query2 = "UPDATE Answers set answer = :question where id=:id";
+            if(isset($query) && !empty($query) && isset($query2) && !empty($query2)) {
                 $stmt = getDB()->prepare($query);
+                $result = $stmt->execute(array(
+                    ":question" => $question,
+                    ":id" => $questionId
+                ));
+                $stmt = getDB()->prepare($query2);
                 $result = $stmt->execute(array(
                     ":question" => $question,
                     ":id" => $questionId
@@ -48,36 +54,7 @@ if(isset($_POST["updated"])){
             echo $e->getMessage();
         }
     }
-    if(!empty($answer)){
-        try{
-            $query = NULL;
-            echo "[answer" . $answer . "]";
-            $query2 = "UPDATE Answers set answer = :answer where id=:id";
-            if(isset($query2) && !empty($query2)) {
-                $stmt = getDB()->prepare($query2);
-                $result = $stmt->execute(array(
-                    ":answer" => $answer,
-                    ":id" => $questionId
-                ));
-                $e = $stmt->errorInfo();
-                if ($e[0] != "00000") {
-                    echo var_export($e, true);
-                } else {
-                    if ($result) {
-                        echo "Successfully updated question: " . $answer;
-                    } else {
-                        echo "Error updating record";
-                    }
-                }
-            }
-            else{
-                echo "Failed to find Update.sql file";
-            }
-        }
-        catch (Exception $e){
-            echo $e->getMessage();
-        }
-    }
+
     else{
         echo "Name and answer must not be empty.";
     }
