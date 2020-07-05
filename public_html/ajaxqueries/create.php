@@ -19,9 +19,11 @@ if(isset($_POST["created"])){
             $queries = ["INSERT INTO Questions (question) VALUES (:question)",
                 "INSERT INTO Answers (answer) VALUES (:answer)"];
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare($queries);
-            $result = $stmt->execute();
-            $e = $stmt->errorInfo();
+            foreach($query as $query) {
+                $stmt = $db->prepare($queries);
+                $result = $stmt->execute();
+                $e = $stmt->errorInfo();
+            }
             if($e[0] != "00000"){
                 echo var_export($e, true);
             }
