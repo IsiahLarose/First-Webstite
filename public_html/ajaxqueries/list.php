@@ -1,6 +1,6 @@
 <head>
     <title>Simple Survey</title>
-    <link rel="stylesheet" type="text/css" href="style2.css">
+    <link rel="stylesheet" type="text/css" href="style3.css">
     <p>
         List of entries in database
     </p>
@@ -52,5 +52,5 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
     <?php endforeach;?>
 </ul>
 <?php else:?>
-    <p2>This shows when we don't have results</p2>
+    <p>This shows when we don't have results<p>
 <?php endif;?>
