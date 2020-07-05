@@ -1,5 +1,6 @@
 <?php
 $questionId = -1;
+$answerId = -1;
 if(isset($_GET["questionId"]) && !empty($_GET["questionId"])){
     $questionId = $_GET["questionId"];
 
@@ -26,7 +27,7 @@ if(isset($_POST["updated"])){
         try{
             $query = NULL;
             echo "[answer" . $answer . "]";
-            if(isset($query) && !empty($query) && isset($query2) && !empty($query2)) {
+            if(isset($query) && !empty($query)) {
                 $stmt = getDB()->prepare("UPDATE Questions set question = :question where id=:id");
                 $result = $stmt->execute(array(
                     ":question" => $question,
