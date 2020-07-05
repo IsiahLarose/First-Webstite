@@ -34,8 +34,8 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
         <?php echo" Questions followed by Answers"?>
         <?php foreach($results as $row):?>
             <li>
-                <?php echo get($row,"question")?>    <?php echo get($row,"answer")?>
-
+                <?php echo get($row,"question")?>
+                <?php echo get($row,"answer")?>
                 <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
         <?php endforeach;?>
