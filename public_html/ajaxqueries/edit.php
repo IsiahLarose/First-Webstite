@@ -28,7 +28,6 @@ if(isset($_POST["updated"])){
                 $stmt = getDB()->prepare($query);
                 $result = $stmt->execute(array(
                     ":question" => $question,
-                    ":id" => $questionId
                 ));
                 $stmt = getDB()->prepare($query2);
                 $result = $stmt->execute(array(
