@@ -9,6 +9,7 @@
 </form>
 
 <?php
+include_once(__DIR__."/partials/header.partial.php");
 if(isset($_POST["created"])){
     $question = $_POST["Question"];
     $answer = $_POST["Answer"];
