@@ -2,5 +2,5 @@ Begin;
 INSERT INTO Questions (question)
   VALUES(:question);
 INSERT INTO Answers (answer)
-  VALUES(':question');
+  VALUES(LAST_INSERT_ID()':question');
 COMMIT;
