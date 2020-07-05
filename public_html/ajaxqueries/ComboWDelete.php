@@ -54,9 +54,10 @@ if(isset($_POST["updated"]) || isset($_POST["created"]) || isset($_POST["delete"
                     ));
                 }
                 else {
-                    $stmt = $db->prepare("UPDATE Questions set Question = :Question where id=:id");
+                    $stmt = $db->prepare("UPDATE Questions set Question = :Question, Answer = :Answer where id=:id");
                     $result = $stmt->execute(array(
                         ":Question" => $Question,
+                        ":Answer" => $Answer,
                         ":id" => $QuestionId
                     ));
                 }
