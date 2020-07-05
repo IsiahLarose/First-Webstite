@@ -2,6 +2,10 @@
 $questionId = -1;
 if(isset($_GET["questionId"]) && !empty($_GET["questionId"])){
     $questionId = $_GET["questionId"];
+
+}
+if(isset($_GET["answerId"]) && !empty($_GET["answerId"])) {
+    $questionId = $_GET["answerId"];
 }
 $result = array();
 require("common.inc.php");
@@ -22,14 +26,12 @@ if(isset($_POST["updated"])){
         try{
             $query = NULL;
             echo "[answer" . $answer . "]";
-            $query = "UPDATE Questions set question = :question where id=:id";
-            $query2 = "UPDATE Answers set answer = :answer where id=:id";
             if(isset($query) && !empty($query) && isset($query2) && !empty($query2)) {
-                $stmt = getDB()->prepare($query);
+                $stmt = getDB()->prepare("UPDATE Questions set question = :question where id=:id");
                 $result = $stmt->execute(array(
                     ":question" => $question,
                 ));
-                $stmt = getDB()->prepare($query2);
+                $stmt = getDB()->prepare("UPDATE Answers set answer = :answer where id=:id");
                 $result = $stmt->execute(array(
                     ":answer" => $answer,
                 ));
