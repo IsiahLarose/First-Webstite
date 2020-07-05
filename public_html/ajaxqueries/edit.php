@@ -21,7 +21,7 @@ if(isset($_POST["updated"])){
     if(!empty($question)){
         try{
             $query = NULL;
-            echo "[answer" . $answer . "]";
+            echo "[answer" . $question. "]";
             $query = "UPDATE Questions set question = :question where id=:id";
             if(isset($query) && !empty($query)) {
                 $stmt = getDB()->prepare($query);
