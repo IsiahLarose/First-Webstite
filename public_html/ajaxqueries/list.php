@@ -31,16 +31,13 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
     <ul>
         <!-- Here we'll loop over all our results and reuse a specific template for each iteration,
         we're also using our helper function to safely return a value based on our key/column name.-->
-        <?php echo" Questions"?>
         <?php foreach($results as $row):?>
             <li>
-                <?php echo get($row, "question,")?>
-                <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
-            </li>
-        <?php endforeach;?>
-        <?php foreach($results as $row):?>
-            <li>
+                <?php echo" Questions"?>
+
                 <?php echo get($row, "question")?>
+                <?php echo""?>
+                <?php echo" Matching Answers"?>
                 <?php echo get($row, "answer")?>
                 <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
