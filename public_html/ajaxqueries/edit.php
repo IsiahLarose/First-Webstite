@@ -121,7 +121,7 @@ else{
 <!-- note although <script> tag "can" be self terminating some browsers require the
 full closing tag-->
 <form method="POST"onsubmit="return validate(this);">
-    <label for="question">question Name
+    <label for="question">Question Name
         <!-- since the last assignment we added a required attribute to the form elements-->
         <input type="text" id="question" name="question" value="<?php echo get($result, "question");?>" required />
     </label>
