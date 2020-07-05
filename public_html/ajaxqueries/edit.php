@@ -23,7 +23,7 @@ if(isset($_POST["updated"])){
             $query = NULL;
             echo "[answer" . $answer . "]";
             $query = "UPDATE Questions set question = :question where id=:id";
-            $query2 = "UPDATE Answers set answer = :question where id=:id";
+            $query2 = "UPDATE Answers set answer = :answer where id=:id";
             if(isset($query) && !empty($query) && isset($query2) && !empty($query2)) {
                 $stmt = getDB()->prepare($query);
                 $result = $stmt->execute(array(
