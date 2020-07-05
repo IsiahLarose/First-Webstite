@@ -15,12 +15,11 @@ if(isset($_POST["created"])){
     if(!empty($Question) && !empty($Answer)){
         require("config.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-        $query1= "INSERT INTO Questions (question) VALUES (:question)";
-        $query2 = "INSERT INTO Answers (answer) VALUES (:answer)";
         try{
-
+            $queries = ["INSERT INTO Questions (question) VALUES (:question)",
+                "INSERT INTO Answers (answer) VALUES (:answer)"];
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare($query1,$query2);
+            $stmt = $db->prepare($queries);
             $result = $stmt->execute();
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
