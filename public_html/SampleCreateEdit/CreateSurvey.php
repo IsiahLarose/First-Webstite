@@ -18,6 +18,7 @@ if(isset($_POST["created"])){
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
             $query = $db ->prepare (file_get_contents(__DIR__ . "/SampleCreateEdit/InsertInto.sql"));
+            $stmt = $db->prepare( $query);
             $result = $stmt->execute($query);
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
