@@ -12,18 +12,21 @@
 if(isset($_POST["created"])){
     $question = $_POST["Question"];
     $answer = $_POST["Answer"];
-    if(!empty($question) && !empty($answer) && !empty($query)){
+    if(!empty($question) && !empty($answer)){
         require("config.php");
-        $query = file_get_contents(__DIR__ . "/queries/InsertInto.sql");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("$query");
+            $stmt = $db->prepare("INSERT INTO Questions (question) VALUES (:question)");
+            $stmt = $db->prepare("INSERT INTO Answer (Answer) VALUES (:answer)");
             $result = $stmt->execute(array(
                 ":question" => $question,
                 ":answer" => $answer
             ));
-
+            $result = $stmt->execute(array(
+                ":question" => $question,
+                ":answer" => $answer
+            ));
             $e = $stmt->errorInfo();
             if($e[0] != "00000"){
                 echo var_export($e, true);
