@@ -13,18 +13,18 @@ full closing tag-->
 <?php
 if(isset($_POST["created"])) {
     $Question = "";
-    $$Answer = -1;
+    $Answer = -1;
     if(isset($_POST["Question"]) && !empty($_POST["Question"])){
         $Question = $_POST["Question"];
     }
     if(isset($_POST["$Answer"]) && !empty($_POST["$Answer"])){
-        if(is_numeric($_POST["$Answer"])){
+        if(is_string($_POST["$Answer"])){
             $$Answer = (int)$_POST["$Answer"];
         }
     }
     //If Question or $Answer is invalid, don't do the DB part
-    if(empty($Question) || $$Answer < 0 ){
-        echo "Name must not be empty and $Answer must be greater than or equal to 0";
+    if(empty($Question) || $Answer ){
+        echo "Name or Answer can't be empty";
         die();//terminates the rest of the script
     }
     try {
