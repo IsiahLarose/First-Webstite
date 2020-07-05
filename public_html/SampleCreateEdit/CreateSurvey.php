@@ -17,7 +17,7 @@ if(isset($_POST["created"])){
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $db = new PDO($connection_string, $dbuser, $dbpass);
-            $stmt = $db->prepare("INSERT INTO Questions (question) VALUES (:question),Answers(answer) Values (:answer)");
+            $stmt = $db->prepare("INSERT ALL INTO Questions(question) VALUES (:question) INTO Answers(answer) VALUES (:answer)");
             $result = $stmt->execute(array(
                 ":question" => $question,
                 ":answer" => $answer
