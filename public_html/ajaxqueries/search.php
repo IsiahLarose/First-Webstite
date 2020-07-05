@@ -66,3 +66,11 @@ if(isset($Sort) && isset($search)) {
 <?php else:?>
     <p>This shows when we don't have results</p>
 <?php endif;?>
+<head>
+    <title>Simple Survey</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <p>
+        Search Page
+    </p>
+</head>
+
