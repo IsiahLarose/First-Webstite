@@ -14,7 +14,6 @@ if(isset($_POST["created"])){
     $answer = $_POST["Answer"];
     if(!empty($question) && !empty($answer)){
         require("config.php");
-        require("common.inc.php");
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try{
             $query = file_get_contents(__DIR__ . "/queries/InsertInto.sql");
