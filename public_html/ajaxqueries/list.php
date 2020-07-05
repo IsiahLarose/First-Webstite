@@ -1,3 +1,10 @@
+<head>
+    <title>Simple Survey</title>
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <p>
+        List of entries in database
+    </p>
+</head>
 <?php
 require("common.inc.php");
 $query = file_get_contents(__DIR__ . "/queries/SelectAll.sql");
