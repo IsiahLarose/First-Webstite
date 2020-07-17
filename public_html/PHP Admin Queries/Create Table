@@ -1,0 +1,6 @@
+CREATE TABLE Questions(
+id int not null auto_increment,
+Question varchar(20) not null UNIQUE,
+Answer varchar(20) not null, UNIQUE,
+PRIMARY KEY(id),
+)
