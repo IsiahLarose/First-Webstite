@@ -1,57 +1,68 @@
-<head>
-    <title>Simple Survey</title>
-    <link rel="stylesheet" type="text/css" href="style2.css">
-    <p>
-        Search Page
-    </p>
-</head>
 <?php
 $search = "";
-if(isset($_POST["search"], $_POST["SortBy"])){
+if(isset($_POST["search"])){
     $search = $_POST["search"];
-    $Sort = $_POST["SortBy"];
 }
 ?>
     <form method="POST">
-        <input type="text" name="search" placeholder="Search for Question"
+        <input type="text" name="search" placeholder="Search for Thing"
                value="<?php echo $search;?>"/>
-        <label for="SortBy">SortBy</label>
-        <select id="SortBy" name="SortBy">
-            <option value="Ascending">Ascending Order</option>
-            <option value="Descending">Descending Order</option>
-            <input type="submit"
+        <select name="col">
+            <option value="name">Question Name</option>
+            <option value="Answer">Answer</option>
+            <option value="created">Created</option>
+            <option value="modified">Modified</option>
         </select>
+        <select name="order">
+            <option value="1">Asc</option>
+            <option value="0">Desc</option>
+        </select>
+        <input type="submit" value="Search"/>
     </form>
 <?php
-if(isset($Sort) && isset($search)) {
+if(isset($search)) {
+
     require("common.inc.php");
-    $query = file_get_contents(__DIR__ . "/queries/SearchTable.sql");
-    if (isset($query) && !empty($query)) {
-        if($Sort["SortBy"]=="Ascending"){
-            $query = file_get_contents(__DIR__ . "/queries/ASC.sql");
-            try {
-                $stmt = getDB()->prepare($query);
-                //Note: With a LIKE query, we must pass the % during the mapping
-                $stmt->execute([":question"=>$search ]);
-                //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
-                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            }
+    try {
+        //this is ok since we're in a try/catch block
+        $order = $_POST["order"];
+        $col = $_POST["col"];
+        echo var_dump($order);
+        //Potential Solutions since we can't just bindValue or bindParam column names and asc/desc
+        //https://stackoverflow.com/questions/2542410/how-do-i-set-order-by-params-using-prepared-pdo-statement
+        //https://stackoverflow.com/questions/38478654/unable-to-run-named-placeholder-for-order-by-asc-in-php-pdo
+        //Map variable to hard coded values here so we can safely inject them into the raw SQL query.
+        //this is safer than just putting $col blindly in case there's SQL Injection data included.
+        $mapped_col = "name";//default to name
+        if($col == "name"){
+            $mapped_col = "name";
         }
-        elseif($Sort["SortBy"]=="Descending"){
-            $query = file_get_contents(__DIR__ . "/queries/DESC.sql");
-            try {
-                $stmt = getDB()->prepare($query);
-                //Note: With a LIKE query, we must pass the % during the mapping
-                $stmt->execute([":question"=>$search]);
-                //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
-                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (Exception $e) {
-                echo $e->getMessage();
-            }
+        else if($col == "Answer"){
+            $mapped_col = "Answer";
+        }
+        else if($col == "created"){
+            $mapped_col = "created";
+        }
+        else if($col == "modified"){
+            $mapped_col = "modified";
+        }
+        $query = "SELECT * FROM Questions where name like CONCAT('%', :question, '%') ORDER BY $mapped_col";
+        //same as above, safely map data from client to hard coded value to prevent sql injection
+        if((int)$order == 1){
+            $query .= " ASC";
+        }
+        else{
+            $query .= " DESC";
         }
 
+        $stmt = getDB()->prepare($query);
+        //Note: With a LIKE query, we must pass the % during the mapping
+        $stmt->execute([":question"=>$search]);
+        echo var_export($stmt->errorInfo());
+        //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        echo $e->getMessage();
     }
 }
 ?>
@@ -65,8 +76,9 @@ if(isset($Sort) && isset($search)) {
         we're also using our helper function to safely return a value based on our key/column name.-->
         <?php foreach($results as $row):?>
             <li>
-                <?php echo get($row, "question")?>
-                <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
+                <?php echo get($row, "name")?>
+                <?php echo get($row, "Answer");?>
+                <a href="delete.php?questionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
         <?php endforeach;?>
     </ul>
