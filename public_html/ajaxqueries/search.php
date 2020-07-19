@@ -33,9 +33,9 @@ if(isset($search)) {
         //https://stackoverflow.com/questions/38478654/unable-to-run-named-placeholder-for-order-by-asc-in-php-pdo
         //Map variable to hard coded values here so we can safely inject them into the raw SQL query.
         //this is safer than just putting $col blindly in case there's SQL Injection data included.
-        $mapped_col = "name";//default to name
-        if($col == "name"){
-            $mapped_col = "name";
+        $mapped_col = "Question";//default to name
+        if($col == "Question"){
+            $mapped_col = "Question";
         }
         else if($col == "Answer"){
             $mapped_col = "Answer";
@@ -46,7 +46,7 @@ if(isset($search)) {
         else if($col == "modified"){
             $mapped_col = "modified";
         }
-        $query = "SELECT * FROM Questions where name like CONCAT('%', :question, '%') ORDER BY $mapped_col";
+        $query = "SELECT * FROM Questions where Question like CONCAT('%', :question, '%') ORDER BY $mapped_col";
         //same as above, safely map data from client to hard coded value to prevent sql injection
         if((int)$order == 1){
             $query .= " ASC";
@@ -76,7 +76,7 @@ if(isset($search)) {
         we're also using our helper function to safely return a value based on our key/column name.-->
         <?php foreach($results as $row):?>
             <li>
-                <?php echo get($row, "name")?>
+                <?php echo get($row, "Question")?>
                 <?php echo get($row, "Answer");?>
                 <a href="delete.php?questionId=<?php echo get($row, "id");?>">Delete</a>
             </li>
