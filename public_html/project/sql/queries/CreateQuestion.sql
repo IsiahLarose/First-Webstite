@@ -1,0 +1,1 @@
+INSERT INTO Questions (question, user_id, survey_id) VALUES (:question0, :user_id, :survey_id)
