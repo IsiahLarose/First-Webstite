@@ -85,25 +85,6 @@ class DBH{
         }
     }
 
-    /*** Logic to fetch a user's current total XP. Should be called seldomly with the result cached on the User's
-     *   User record
-     * @param $user_id
-     * @return array
-     */
-
-    /*** Handles giving player XP, negative value can be used to deduct XP, but not a current features.
-     *   Activity gets saved in a table as a new record similar to transactions.
-     * @param $user_id
-     * @param $amount
-     * @param string $type
-     * @param string $note
-     * @return array
-     */
-
-    /*** Technically we're only going to have 1 tank per person, but I left it open to allow multiple
-     * @param $survey
-     * @return array
-     */
     public static function save_survey($survey){
         try {
             //Steps
@@ -134,7 +115,7 @@ class DBH{
             //batch insert questions
             $query = file_get_contents(__DIR__ . "/../sql/queries/CreateQuestion.sql");
             $params = [];
-            $questions = Common::get($survey, "questions", []);
+            $questions = Common::get($survey, "question", []);
             $qt = count($questions);
             $params[":user_id"] = Common::get_user_id();
             $params[":survey_id"] = $survey_id;
@@ -162,7 +143,7 @@ class DBH{
             //$params[":user_id"] = Common::get_user_id();
             $query = file_get_contents(__DIR__ . "/../sql/queries/create_answer.partial.sql");
             foreach($questions as $question){
-                $answers = Common::get($question, "answers", []);
+                $answers = Common::get($question, "answer", []);
                 //$params[":question_id$qIndex"] = Common::get($results[$qIndex], "id", -1);
                 $aIndex = 0;
                 foreach($answers as $answer){
