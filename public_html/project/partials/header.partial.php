@@ -21,11 +21,9 @@ $logged_in = Common::is_logged_in(false);
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo Common::url_for("shop");?>">Shop</a>
             </li>
-            <?php if (Common::has_role("Admin")):?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo Common::url_for("create_questionnaire");?>">Create Questionnaire</a>
                 </li>
-            <?php endif;?>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo Common::url_for("surveys");?>">Surveys</a>
             </li>
