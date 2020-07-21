@@ -1,15 +1,20 @@
 <?php
 include_once(__DIR__."/partials/header.partial.php");
+
+if(Common::is_logged_in()){
+    //this will auto redirect if user isn't logged in
+}
+$last_updated = Common::get($_SESSION, "last_sync", false);
 ?>
 <div class="container-fluid">
-     <form method="POST">
+    <form method="POST">
         <div class="form-group">
-            <label for="survey_name">Questionnaire Name</label>
-            <input class="form-control" type="text" id="survey_name" name="survey_name" required/>
+            <label for="questionnaire_name">Questionnaire Name</label>
+            <input class="form-control" type="text" id="questionnaire_name" name="questionnaire_name" required/>
         </div>
         <div class="form-group">
-            <label for="survey_desc">Questionnaire Description</label>
-            <textarea class="form-control" type="text" id="survey_desc" name="survey_desc"></textarea>
+            <label for="questionnaire_desc">Questionnaire Description</label>
+            <textarea class="form-control" type="text" id="questionnaire_desc" name="questionnaire_desc"></textarea>
         </div>
         <div class="form-group">
             <label for="attempts_per_day">Attempts per day</label>
@@ -59,11 +64,11 @@ include_once(__DIR__."/partials/header.partial.php");
         //so just use this as an example rather than what you should do.
         //this is based off of naming conversions used in Python WTForms (I like to try to see if I can get some
         //php equivalents implemented (to a very, very basic degree))
-        $survey_name = Common::get($_POST, "survey_name", '');
+        $questionnaire_name = Common::get($_POST, "questionnaire_name", '');
         $is_valid = true;
-        if(strlen($survey_name) > 0) {
+        if(strlen($questionnaire_name) > 0) {
             //make sure we have a name
-            $survey_desc = Common::get($_POST, "survey_desc", '');
+            $questionnaire_desc = Common::get($_POST, "questionnaire_desc", '');
             $attempts_per_day = Common::get($_POST, "attempts_per_day", 0);
             //TODO important to note, if a checkbox isn't toggled/checked it won't be sent with the request.
             //Checkboxes have a poor design and usually need a hidden form and/or JS magic to work for unchecked values
@@ -131,20 +136,20 @@ include_once(__DIR__."/partials/header.partial.php");
                 //echo "<pre>" . var_export($answers, true) . "</pre>";
                 //TODO going to try to do this with as few db calls as I can
                 //wrap it up so we can just pass one param to DBH
-                $survey = [
-                    "name"=>$survey_name,
-                    "description"=>$survey_desc,
+                $questionnaire = [
+                    "name"=>$questionnaire_name,
+                    "description"=>$questionnaire_desc,
                     "attempts_per_day"=>$attempts_per_day,
                     "max_attempts"=>$max_attempts,
                     "use_max"=>$use_max,
                     "questions"=>$questions//contains answers
                 ];
-                $response = DBH::save_survey($survey);
+                $response = DBH::save_questionnaire($questionnaire);
                 if(Common::get($response, "status", 400) == 200){
-                    Common::flash("Successfully saved survey", "success");
+                    Common::flash("Successfully saved questionnaire", "success");
                 }
                 else{
-                    Common::flash("There was an error creating the survey", "danger");
+                    Common::flash("There was an error creating the questionnaire", "danger");
                 }
             }
         }
