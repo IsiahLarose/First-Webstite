@@ -132,7 +132,7 @@ class DBH{
             $stmt->execute($params);
             DBH::verify_sql($stmt);
             //fetch ids
-            $query = file_get_contents(__DIR__ . "/../sql/queries/get_question_ids_for_questionnaire.sql");
+            $query = file_get_contents(__DIR__ . "/project/sql/queries/get_question_ids_for_questionnaire.sql");
             $stmt = DBH::getDB()->prepare($query);
             $stmt->execute([":qid"=>$questionnaire_id]);
             DBH::verify_sql($stmt);
@@ -141,7 +141,7 @@ class DBH{
             $qIndex = 0;
             $params = [];
             //$params[":user_id"] = Common::get_user_id();
-            $query = file_get_contents(__DIR__ . "/../sql/queries/create_answer.partial.sql");
+            $query = file_get_contents(__DIR__ . "/project/sql/queries/create_answer.partial.sql");
             foreach($questions as $question){
                 $answers = Common::get($question, "answers", []);
                 //$params[":question_id$qIndex"] = Common::get($results[$qIndex], "id", -1);
@@ -189,7 +189,7 @@ class DBH{
     public static function get_available_surveys(){
         try {
             //need to use a workaround for PDO
-            $query = file_get_contents(__DIR__ . "/../sql/queries/get_available_questionnaires.sql");
+            $query = file_get_contents(__DIR__ . "/project/sql/queries/get_available_questionnaires.sql");
             $stmt = DBH::getDB()->prepare($query);
             $result = $stmt->execute([":uid"=>Common::get_user_id()]);//not using associative array here
             DBH::verify_sql($stmt);
@@ -209,7 +209,7 @@ class DBH{
     public static function get_questionnaire_by_id($questionnaire_id){
         try {
             //need to use a workaround for PDO
-            $query = file_get_contents(__DIR__ . "/../sql/queries/get_full_questionnaire.sql");
+            $query = file_get_contents(__DIR__ . "/project/queries/get_full_questionnaire.sql");
             $stmt = DBH::getDB()->prepare($query);
             $result = $stmt->execute([":questionnaire_id"=>$questionnaire_id]);//not using associative array here
             DBH::verify_sql($stmt);
@@ -247,7 +247,7 @@ class DBH{
     }
     public static function check_survey_status($questionnaire_id){
         try {
-            $query = file_get_contents(__DIR__ . "/../sql/queries/check_survey.sql");
+            $query = file_get_contents(__DIR__ . "/project/sql/queries/check_survey.sql");
 
             $user_id = Common::get_user_id();
             $stmt = DBH::getDB()->prepare($query);
@@ -268,7 +268,7 @@ class DBH{
     }
     public static function save_response($questionnaire_id, $response){
         try {
-            $query = file_get_contents(__DIR__ . "/../sql/queries/insert_response.sql");
+            $query = file_get_contents(__DIR__ . "/project/sql/queries/insert_response.sql");
             $first = true;
             $params = [];
             $user_id = Common::get_user_id();
