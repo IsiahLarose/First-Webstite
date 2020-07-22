@@ -1,1 +1,1 @@
-SELECT id from Questions where survey_id = :sid
+SELECT id from Questions where questionnaire_id = :qid

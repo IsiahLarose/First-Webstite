@@ -1,254 +1,621 @@
 <?php
-include_once(__DIR__."/partials/header.partial.php");
 
-if(Common::is_logged_in()){
-    //this will auto redirect if user isn't logged in
-}
-$last_updated = Common::get($_SESSION, "last_sync", false);
-?>
-<div class="container-fluid">
-    <form method="POST">
-        <div class="form-group">
-            <label for="questionnaire_name">Questionnaire Name</label>
-            <input class="form-control" type="text" id="questionnaire_name" name="questionnaire_name" required/>
-        </div>
-        <div class="form-group">
-            <label for="questionnaire_desc">Questionnaire Description</label>
-            <textarea class="form-control" type="text" id="questionnaire_desc" name="questionnaire_desc"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="attempts_per_day">Attempts per day</label>
-            <input class="form-control" type="number" id="attempts_per_day" name="attempts_per_day" value="1" min="1"/>
-        </div>
-        <div class="form-group">
-            <label for="max_attempts">Max Attempts</label>
-            <input class="form-control" type="number" id="max_attempts" name="max_attempts" value="1" min="0" />
-        </div>
-        <div class="form-group">
-            <label for="use_max">Use Max?</label>
-            <input class="form-control" type="checkbox" id="use_max" name="use_max"/>
-        </div>
-        <div class="list-group">
-            <div class="list-group-item">
-                <div class="form-group">
-                    <label for="question_0">Question</label>
-                    <input class="form-control" type="text" id="question_0" name="question_0" required/>
-                </div>
-                <button class="btn btn-danger" onclick="event.preventDefault(); deleteMe(this);">X</button>
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <div class="form-group">
-                            <label for="question_0_answer_0">Answer</label>
-                            <input class="form-control" type="text" id="question_0_answer_0" name="question_0_answer_0" required/>
-                        </div>
-                        <button class="btn btn-danger" onclick="event.preventDefault(); deleteMe(this);">X</button>
-                        <div class="form-group">
-                            <label for="question_0_answeroe_0">Allow Open Ended?</label>
-                            <input class="form-control" type="checkbox" id="question_0_answeroe_0" name="question_0_answeroe_0"/>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn btn-secondary" onclick="event.preventDefault(); cloneThis(this);">Add Answer</button>
-            </div>
-        </div>
-        <button class="btn btn-secondary" onclick="event.preventDefault(); cloneThis(this);">Add Question</button>
+class DBH{
+    private static function getDB(){
+        global $common;
+        if(isset($common)){
+            return $common->getDB();
+        }
+        throw new Exception("Failed to find reference to common");
+    }
 
-        <div class="form-group">
-            <input type="submit" name="submit" class="btn btn-primary" value="Create Questionnaire"/>
-        </div>
-    </form>
-    <?php
-    if(Common::get($_POST, "submit", false)){
-        //echo "<pre>" . var_export($_POST, true) . "</pre>";
-        //TODO this isn't going to be the best way to parse the form, and probably not the best form setup
-        //so just use this as an example rather than what you should do.
-        //this is based off of naming conversions used in Python WTForms (I like to try to see if I can get some
-        //php equivalents implemented (to a very, very basic degree))
-        $questionnaire_name = Common::get($_POST, "questionnaire_name", '');
-        $is_valid = true;
-        if(strlen($questionnaire_name) > 0) {
-            //make sure we have a name
-            $questionnaire_desc = Common::get($_POST, "questionnaire_desc", '');
-            $attempts_per_day = Common::get($_POST, "attempts_per_day", 0);
-            //TODO important to note, if a checkbox isn't toggled/checked it won't be sent with the request.
-            //Checkboxes have a poor design and usually need a hidden form and/or JS magic to work for unchecked values
-            //so here we're just going to default to false if it's not present in $_POST
-            $use_max = Common::get($_POST, "use_max", false);//used to hard limit the number of attempts
-            if(is_numeric($attempts_per_day) && (int)$attempts_per_day > 0){
-                $attempts_per_day = (int)$attempts_per_day;
-            }
-            else{
-                $is_valid = false;
-                Common::flash("Attempts per day must be a numerical value greater than zero", "danger");
-            }
-            $max_attempts = Common::get($_POST, "max_attempts", 0);
-            if(is_numeric($max_attempts) && (int)$max_attempts >= 0){
-                $max_attempts = (int)$max_attempts;
-            }
-            else{
-                $is_valid = false;
-                Common::flash("Max attempts must be a numerical value greater than or equal to zero, even if not used", "danger");
-            }
-            if($is_valid){
-                //TODO here's where it gets a tad hacky and there are better ways to do it.
-                $index = 0;
-                $assumed_max_questions = 100;//this isn't a realistic limit, it's just to ensure
-                $questions = [];
-                //we don't get stuck in an infinite loop since while(true) is dangerous if not handled appropriately
-                for($index = 0; $index < $assumed_max_questions; $index++){
-                    $question = Common::get($_POST, "question_$index", false);
-                    if($question){
-                        $assumed_max_answers = 100;//same as $assumed_max_questions (var sits here so it resets each loop)
-                        $answers = [];//reset array each loop
-                        for($i = 0; $i < $assumed_max_answers; $i++){
-                            $check = "".join(["question_",$index, "_answer_", $i]);
-                            error_log("Checking for pattern $check");
-                            $answer = Common::get($_POST, $check, false);
-                            if($answer){
-                                $check2 = "".join(["question_",$index, "_answeroe_", $i]);
-                                //TODO important to note, if a checkbox isn't toggled/checked it won't be sent with the request.
-                                //Checkboxes have a poor design and usually need a hidden form and/or JS magic to work for unchecked values
-                                //so here we're just going to default to false if it's not present in $_POST
-                                $oe = Common::get($_POST, $check2, false);
-                                //checkbox comes in as 'on'
-                                if($oe == 'on'){
-                                    $oe = true;
-                                }
-                                //TODO we don't ignore if false, it should be true or false so a default of false is perfectly fine
-                                array_push($answers, ["answer"=>$answer, "open_ended"=>$oe]);
-                            }
-                            else{
-                                //we can break this loop since we have no more answers to parse
-                                break;
-                            }
-                        }
-                        array_push($questions,[
-                            "question"=>$question,
-                            "answers"=>$answers
-                        ]);
-                    }
-                    else{
-                        //we don't have anymore questions in post, early terminate the loop
-                        break;
-                    }
+    /** Wraps all responses in this wrapper as a contract for whoever calls this helper
+     * @param $data
+     * @param int $status
+     * @param string $message
+     * @return array
+     */
+    private static function response($data, $status = 200, $message = ""){
+        return array("status"=>$status, "message"=>$message, "data"=>$data);
+    }
+
+    /*** Basic repetitive STMT check, throws exception
+     * @param $stmt
+     * @throws Exception
+     */
+    private static function verify_sql($stmt){
+        if(!isset($stmt)){
+            throw new Exception("stmt object is undefined");
+        }
+        $e = $stmt->errorInfo();
+        if($e[0] != '00000'){
+            $error = var_export($e, true);
+            error_log($error);
+            throw new Exception("SQL Error: $error");
+        }
+    }
+    public static function login($email, $pass){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/login.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $stmt->execute([":email" => $email]);
+            DBH::verify_sql($stmt);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($user) {
+                if (password_verify($pass, $user["password"])) {
+                    unset($user["password"]);//TODO remove password before we return results
+                    //TODO get roles
+                    $query = file_get_contents(__DIR__ . "/../sql/queries/get_roles.sql");
+                    $stmt = DBH::getDB()->prepare($query);
+                    $stmt->execute([":user_id"=>$user["id"]]);
+                    DBH::verify_sql($stmt);
+                    $roles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    error_log(var_export($roles, true));
+                    $user["roles"] = $roles;
+                    return DBH::response($user);
+                } else {
+                    return DBH::response(NULL, 403, "Invalid email or password");
                 }
-                //echo "<pre>" . var_export($questions, true) . "</pre>";
-                //echo "<pre>" . var_export($answers, true) . "</pre>";
-                //TODO going to try to do this with as few db calls as I can
-                //wrap it up so we can just pass one param to DBH
-                $questionnaire = [
+            } else {
+                return DBH::response(NULL, 403, "Invalid email or password");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function register($email, $pass){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/register.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $pass = password_hash($pass, PASSWORD_BCRYPT);
+            $result = $stmt->execute([":email" => $email, ":password" => $pass]);
+            DBH::verify_sql($stmt);
+            if($result){
+                return DBH::response(NULL,200, "Registration successful");
+            }
+            else{
+                return DBH::response(NULL, 400, "Registration unsuccessful");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+
+    /*** Logic to fetch a user's current total XP. Should be called seldomly with the result cached on the User's
+     *   User record
+     * @param $user_id
+     * @return array
+     */
+    public static function getTotalXP($user_id){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/get_total_xp.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute([":uid" => $user_id]);
+            DBH::verify_sql($stmt);
+            if($result){
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $total = Common::get($result,"total", 0);
+                $data = ["total"=>$total];
+                return DBH::response($data,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+
+    /*** Fetch System user ID, this is used for Points Transactions
+     * @return array
+     */
+    public static function get_system_user_id(){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/login.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $stmt->execute([":email"=>"localhost"]);
+            DBH::verify_sql($stmt);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($result){
+                return DBH::response($result,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+
+    /*** Used to add/remove points, records a transaction between users or user and system
+     * @param $user_id_src
+     * @param $change
+     * @param int $user_id_dest
+     * @param string $type
+     * @param string $memo
+     * @return array
+     */
+    public static function changePoints($user_id_src, $change, $user_id_dest = -1, $type="earned", $memo="system"){
+        try {
+            //setup so src should be original player
+
+            //grab system id from session (save a DB call)
+            //commonly points will be from the system user
+            if($user_id_dest <= 0){
+                $user_id_dest = Common::get_system_id();
+            }
+            error_log("System user $user_id_dest");
+            $query = file_get_contents(__DIR__ . "/../sql/queries/change_points.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            //from System to User (most likely)
+            $change *= -1;//flip it because if we're adding to user it's subtracted from system (or vice versa)
+            $result = $stmt->execute([":src" => $user_id_dest, ":dest"=>$user_id_src,
+                ":change"=>$change, ":type"=>$type, ":memo"=>$memo]);
+            DBH::verify_sql($stmt);
+            $change *= -1;//flip it, now we need the other half of the transaction
+            //swap src/dest since it's the inverse of the previous part of the transaction
+            $result2 = $stmt->execute([":src" => $user_id_src, ":dest"=>$user_id_dest,
+                ":change"=>$change, ":type"=>$type, ":memo"=>$memo]);
+            DBH::verify_sql($stmt);
+            if($result && $result2){
+                return DBH::response(NULL,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+
+    /*** Handles giving player XP, negative value can be used to deduct XP, but not a current features.
+     *   Activity gets saved in a table as a new record similar to transactions.
+     * @param $user_id
+     * @param $amount
+     * @param string $type
+     * @param string $note
+     * @return array
+     */
+    public static function addXP($user_id, $amount, $type="system", $note=""){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/add_xp.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute([":uid" => $user_id, ":amount"=>$amount, ":type"=>$type, ":note"=>$note]);
+            DBH::verify_sql($stmt);
+            if($result){
+                return DBH::response(NULL,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function get_aggregated_stats($user_id){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/get_aggregated_stats.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute([":uid" => $user_id]);
+            DBH::verify_sql($stmt);
+            if($result){
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                return DBH::response($result,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function update_user_stats($user_id, $level, $xp, $points, $wins, $losses){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/update_user_stats.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute([
+                ":uid" => $user_id,
+                ":level"=>$level,
+                ":xp"=>$xp,
+                ":points"=>$points,
+                ":wins"=>$wins,
+                ":losses"=>$losses
+            ]);
+            DBH::verify_sql($stmt);
+            if($result){
+                return DBH::response(NULL,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function create_tank($user_id, $name = ""){
+        //defaulting to empty string for now, may add a feature to show name, but it doesn't matter right now
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/create_tank.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute([
+                ":name" => $name,
+                ":user_id" => $user_id
+            ]);
+            DBH::verify_sql($stmt);
+            if($result){
+                return DBH::response(NULL,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+
+    /*** Technically we're only going to have 1 tank per person, but I left it open to allow multiple
+     * @param $user_id
+     * @return array
+     */
+    public static function get_tanks($user_id){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/get_tanks.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute([
+                ":user_id" => $user_id
+            ]);
+            DBH::verify_sql($stmt);
+            if($result){
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                return DBH::response($result,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function get_shop_items(){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/get_shop_items.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute();
+            DBH::verify_sql($stmt);
+            if($result){
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                return DBH::response($result,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function get_item_info($items){
+        try {
+            //need to use a workaround for PDO
+            $placeholders = str_repeat('?, ', count($items) - 1) . '?';
+            $query = file_get_contents(__DIR__ . "/../sql/queries/get_items_by_stats.sql");
+            $query .= "($placeholders)";
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute($items);//not using associative array here
+            DBH::verify_sql($stmt);
+            if ($result) {
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return DBH::response($result,200, "success");
+            }
+            else{
+                return DBH::response($result,400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function save_order($data){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/get_max_order_id.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute();
+            DBH::verify_sql($stmt);
+            if($result){
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $max = (int)$result["max"];
+                $max += 1;
+                $query =  file_get_contents(__DIR__ . "/../sql/queries/insert_order_item.sql");
+                $stmt = DBH::getDB()->prepare($query);
+                $user_id = Common::get_user_id();
+                foreach($data as $item){
+                    $result = $stmt->execute([
+                        ":order_id"=>$max,
+                        ":item_id"=>$item["id"],
+                        ":user_id"=>$user_id,
+                        ":quantity"=>$item["quantity"],
+                        ":price"=>$item["cost"]
+                    ]);
+                }
+                return DBH::response($result,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function update_tank($tank){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/update_tank.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            error_log(var_export($tank, true));
+            $result = $stmt->execute([
+                ":id"=>$tank["id"],
+                ":uid"=>Common::get_user_id(),
+                ":speed"=>$tank["speed"],
+                ":range"=>$tank["range"],
+                ":turnSpeed"=>$tank["turnSpeed"],
+                ":fireRate"=>$tank["fireRate"],
+                ":health"=>$tank["health"],
+                ":damage"=>$tank["damage"]
+            ]);
+            DBH::verify_sql($stmt);
+            if($result){
+                return DBH::response(NULL,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function save_questionnaire($questionnaire){
+        try {
+            //Steps
+            //create questionnaire
+            /*
+             * $questionnaire = [
                     "name"=>$questionnaire_name,
                     "description"=>$questionnaire_desc,
                     "attempts_per_day"=>$attempts_per_day,
                     "max_attempts"=>$max_attempts,
                     "use_max"=>$use_max,
-                    "questions"=>$questions//contains answers
-                ];
-                $response = DBH::save_questionnaire($questionnaire);
-                if(Common::get($response, "status", 400) == 200){
-                    Common::flash("Successfully saved questionnaire", "success");
-                }
-                else{
-                    Common::flash("There was an error creating the questionnaire", "danger");
+                    "questions"=>$questions
+                    ];
+             */
+            $query = file_get_contents(__DIR__ . "/../sql/queries/create_questionnaire.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $stmt->execute([
+                ":name"=>Common::get($questionnaire, "name", null),
+                ":desc"=>Common::get($questionnaire, "description", null),
+                ":apd"=>Common::get($questionnaire, "attempts_per_day", 1),
+                ":ma"=>Common::get($questionnaire, "max_attempts", 1),
+                ":um"=>Common::get($questionnaire, "use_max", false)?1:0,//convert to tinyint
+                ":uid"=>Common::get_user_id()
+            ]);
+            DBH::verify_sql($stmt);
+            //get id
+            $questionnaire_id = DBH::getDB()->lastInsertId();
+            //batch insert questions
+            $query = file_get_contents(__DIR__ . "/../sql/queries/create_question.sql");
+            $params = [];
+            $questions = Common::get($questionnaire, "questions", []);
+            $qt = count($questions);
+            $params[":user_id"] = Common::get_user_id();
+            $params[":questionnaire_id"] = $questionnaire_id;
+            //this is the only placeholder we need to loop over
+            for($i = 0; $i < $qt; $i++){
+                $params[":question$i"] = Common::get($questions[$i], "question", '');
+                if(($i+1) < $qt) {
+                    $ni = $i + 1;
+                    $query .= ", (:question$ni, :user_id, :questionnaire_id)";
                 }
             }
+            error_log(var_export($query));
+            $stmt = DBH::getDB()->prepare($query);
+            $stmt->execute($params);
+            DBH::verify_sql($stmt);
+            //fetch ids
+            $query = file_get_contents(__DIR__ . "/../sql/queries/get_question_ids_for_questionnaire.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $stmt->execute([":qid"=>$questionnaire_id]);
+            DBH::verify_sql($stmt);
+            $question_ids = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            //batch insert answers
+            $qIndex = 0;
+            $params = [];
+            //$params[":user_id"] = Common::get_user_id();
+            $query = file_get_contents(__DIR__ . "/../sql/queries/create_answer.partial.sql");
+            foreach($questions as $question){
+                $answers = Common::get($question, "answers", []);
+                //$params[":question_id$qIndex"] = Common::get($results[$qIndex], "id", -1);
+                $aIndex = 0;
+                foreach($answers as $answer){
+                    //TODO attempted named params. This would work, but I felt it was a bit messier to setup
+                    // $params[":answer-$qIndex-$aIndex"] = Common::get($answer, "answer",'');
+                    //$params[":oe-$qIndex-$aIndex"] = Common::get($answer, "open_ended", false)?1:0;
+                    if($qIndex > 0 || $aIndex > 0){
+                        $query .= ",";
+                    }
+                    //TODO switched to using positional placeholders instead
+                    $query .= "(?, ?, ?, ?)";
+                    array_push($params,
+                        Common::get($answer, "answer",""),
+                        Common::get($answer, "open_ended", false)?1:0,
+                        Common::get_user_id(),
+                        Common::get($question_ids[$qIndex], "id", -1)
+                    );
+
+                    //$query .= "(:answer-$qIndex-$aIndex, :oe-$qIndex-$aIndex, :user_id, :question_id$qIndex)";
+                    $aIndex++;
+                }
+
+                $qIndex++;
+
+            }
+            error_log(var_export($query, true));
+            error_log(var_export($params, true));
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute($params);
+            DBH::verify_sql($stmt);
+            if($result){
+                return DBH::response(NULL,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
         }
-        else{
-            $is_valid = false;
-            Common::flash("A Questionnaire name must be provided", "danger");
-        }
-        if(!$is_valid){
-            //this will erase the form since it's a page refresh, but we need it to show the session messages
-            //this is a last resort as we should use JS/HTML5 for a better UX
-            die(header("Location: questionnaire.php"));
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
         }
     }
-    ?>
-    <script>
-        function update_names_and_ids($ele){
-            let $lis = $ele.children(".list-group-item");
-            //loop over all list-group-items of list-group
-            $lis.each(function(index, item){
-                let $fg = $(item).find(".form-group");
-                let liIndex = index;
-                //loop over all form-groups inside list-group-item
-                $fg.each(function(index, item){
-                    let $label = $(item).find("label");
-                    if(typeof($label) !== 'undefined' && $label != null){
-                        let forAttr = $label.attr("for");
-                        let pieces = forAttr.split('_');
-                        //Note this is different since it's a plain array not a jquery object
-                        pieces.forEach(function(item, index){
-                            if(!isNaN(item)){
-                                pieces[index] = liIndex;
-                            }
-                        });
-                        let updatedRef = pieces.join("_");
-                        $label.attr("for", updatedRef);
-                        let $input = $(item).find(":input");
-                        if(typeof($input) !== 'undefined' && $input != null){
-                            $input.attr("id", updatedRef);
-                            $input.attr("name", updatedRef);
-                        }
-                    }
-                });
-                //See if we have any children list-groups (this would be our answers)
-                let $child_lg = $(item).find(".list-group");//probably doesn't need an each loop but it's fine
-                $child_lg.each(function(index, item){
-                    let $childlis = $(item).find(".list-group-item");
-                    $childlis.each(function (index, item) {
-                        let $fg = $(item).find(".form-group");
-                        let childLiIndex = index;
-                        //loop over all form-groups inside list-group-item
-                        $fg.each(function(index, item){
-                            let $label = $(item).find("label");
-                            if(typeof($label) !== 'undefined' && $label != null){
-                                let forAttr = $label.attr("for");
-                                let pieces = forAttr.split('_');
-                                //Note this is different since it's a plain array not a jquery object
-                                let lastIndex = -1;
-                                pieces.forEach(function(item, index){
-                                    if(!isNaN(item)){
-                                        //question_#_answer_#
-                                        if(lastIndex == -1) {
-                                            //question_#
-                                            pieces[index] = liIndex;//replace the first # with the parent outer loop index
-                                            lastIndex = index;
-                                        }
-                                        else{
-                                            //question_#_answer_#
-                                            pieces[index] = childLiIndex;//replace the second # with the child loop index
-                                        }
-                                    }
-                                });
-                                let updatedRef = pieces.join("_");
-                                $label.attr("for", updatedRef);
-                                let $input = $(item).find(":input");
-                                if(typeof($input) !== 'undefined' && $input != null){
-                                    $input.attr("id", updatedRef);
-                                    $input.attr("name", updatedRef);
-                                }
-                            }
-                        });
-                    });
-                });
-            });
-        }
-        function cloneThis(ele){
-            let $lg = $(ele).siblings(".list-group");
-            let $li = $lg.find(".list-group-item:first");
-            let $clone = $li.clone();
-            $lg.append($clone);
-            update_names_and_ids($(".list-group:first"));
-        }
-        function deleteMe(ele){
-            let $li = $(ele).closest(".list-group-item");
-            let $lg = $li.closest(".list-group");
-            let $children = $lg.children(".list-group-item");
-            if($children.length > 1){
-                $li.remove();
-                update_names_and_ids($(".list-group:first"));
+    public static function get_available_surveys(){
+        try {
+            //need to use a workaround for PDO
+            $query = file_get_contents(__DIR__ . "/../sql/queries/get_available_questionnaires.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute([":uid"=>Common::get_user_id()]);//not using associative array here
+            DBH::verify_sql($stmt);
+            if ($result) {
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return DBH::response($result,200, "success");
+            }
+            else{
+                return DBH::response($result,400, "error");
             }
         }
-    </script>
-</div>
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function get_questionnaire_by_id($questionnaire_id){
+        try {
+            //need to use a workaround for PDO
+            $query = file_get_contents(__DIR__ . "/../sql/queries/get_full_questionnaire.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute([":questionnaire_id"=>$questionnaire_id]);//not using associative array here
+            DBH::verify_sql($stmt);
+            if ($result) {
+                //TODO check https://phpdelusions.net/pdo PDO::FETCH_GROUP for details
+                $result = $stmt->fetchAll(PDO::FETCH_GROUP);
+                error_log(var_export($result, true));
+                //TODO need to do some mapping
+                /*$questions = [];
+                foreach($result as $row){
+                    $q = Common::get($row, "question_id", -1);
+                    if($q > -1){
+                        $found = false;
+                        foreach($questions as $check){
+                            if(Common::get($check, "id", -1) == $q){
+                                $found = true;
+                                break;
+                            }
+                        }
+                        if(!$found){
+                            $questions
+                        }
+                    }
+                }*/
+                return DBH::response($result,200, "success");
+            }
+            else{
+                return DBH::response($result,400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function check_survey_status($questionnaire_id){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/check_survey.sql");
+
+            $user_id = Common::get_user_id();
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute([":qid"=>$questionnaire_id, ":uid"=>$user_id]);
+            DBH::verify_sql($stmt);
+            if($result){
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                return DBH::response($result,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+    public static function save_response($questionnaire_id, $response){
+        try {
+            $query = file_get_contents(__DIR__ . "/../sql/queries/insert_response.sql");
+            $first = true;
+            $params = [];
+            $user_id = Common::get_user_id();
+            foreach($response as $r){
+                if(!$first){
+                    $query .= ",";
+                }
+                $first = false;
+                $query .= "(?,?,?,?,?)";
+
+                array_push($params,
+                    $questionnaire_id,
+                    Common::get($r, "question_id", -1),
+                    Common::get($r, "answer_id", -1),
+                    Common::get($r, "user_input", null),
+                    $user_id
+                );
+            }
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute($params);
+            DBH::verify_sql($stmt);
+            if($result){
+                return DBH::response(null,200, "success");
+            }
+            else{
+                return DBH::response(NULL, 400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
+}
