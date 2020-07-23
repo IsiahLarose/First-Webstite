@@ -27,7 +27,7 @@ if(Common::get($response, "status", 400) == 200){
             </div>
         <?php endforeach; ?>
         <?php foreach($available as $s): ?>
-        <?php if(count($available) > 0):?>
+        <?php if(count($available) < 0):?>
             <div class="list-group-item">
                 <h6><?php echo Common::get($s, "name", ""); ?></h6>
                 <p><?php echo Common::get($s, "description", ""); ?></p>
