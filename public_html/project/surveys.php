@@ -36,8 +36,7 @@ if(Common::get($response, "status", 400) == 200){
 
 <?php
 $limit = 2;
-$query = "SELECT count(*) FROM kategori";
-
+$query =  file_get_contents(__DIR__ . "/../sql/queries/get_available_questionnaires.sql");
 $s = $db->query($query);
 $total_results = $s->fetchColumn();
 $total_pages = ceil($total_results/$limit);
