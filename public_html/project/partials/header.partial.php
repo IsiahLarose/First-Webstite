@@ -27,6 +27,9 @@ $logged_in = Common::is_logged_in(false);
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo Common::url_for("surveys");?>">Surveys</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo Common::url_for("TakenSurveys");?>">Surveys you've Taken</a>
+            </li>
         <?php endif; ?>
         <?php if(!$logged_in):?>
             <li class="nav-item">
