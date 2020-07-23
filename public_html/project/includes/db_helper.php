@@ -522,6 +522,26 @@ class DBH{
             return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
         }
     }
+    public static function get_not_available_surveys(){
+        try {
+            //need to use a workaround for PDO
+            $query = file_get_contents(__DIR__ . "/../sql/queries/get_not_available_questionnaires.sql");
+            $stmt = DBH::getDB()->prepare($query);
+            $result = $stmt->execute([":uid"=>Common::get_user_id()]);//not using associative array here
+            DBH::verify_sql($stmt);
+            if ($result) {
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return DBH::response($result,200, "success");
+            }
+            else{
+                return DBH::response($result,400, "error");
+            }
+        }
+        catch(Exception $e){
+            error_log($e->getMessage());
+            return DBH::response(NULL, 400, "DB Error: " . $e->getMessage());
+        }
+    }
     public static function get_questionnaire_by_id($questionnaire_id){
         try {
             //need to use a workaround for PDO
