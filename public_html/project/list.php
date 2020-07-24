@@ -3,7 +3,10 @@ include_once(__DIR__."header.partial.php");
 require("common.inc.php");
 $query = file_get_contents(__DIR__ . "/queries/Results.sql");
 if(isset($query) && !empty($query)){
+    require("config.php");
+    $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
     try {
+        $db = new PDO($connection_string, $dbuser, $dbpass);
         $stmt = getDB()->prepare($query);
         //we don't need to pass any arguments since we're not filtering the results
         $stmt->execute();
