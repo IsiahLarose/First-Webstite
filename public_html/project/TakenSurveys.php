@@ -25,7 +25,6 @@ if(Common::get($response, "status", 400) == 200){
                 <?php endif; ?>
                 <a href="survey.php?s=<?php echo Common::get($s, 'id', -1);?>" class="btn btn-secondary">Participate</a>
             </div>
-            <p><?php echo Common:: get($s,"Select sum(user_id) FROM Questionnaires") ?></>
         <?php endforeach; ?>
         <?php if(count($available) == 0):?>
             <div class="list-group-item">
