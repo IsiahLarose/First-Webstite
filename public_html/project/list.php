@@ -5,9 +5,7 @@ if(isset($query) && !empty($query)){
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
     try {
         $stmt = getDB()->prepare("Select * FROM Questionnaires");
-        //we don't need to pass any arguments since we're not filtering the results
         $stmt->execute();
-        //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     catch (Exception $e){
