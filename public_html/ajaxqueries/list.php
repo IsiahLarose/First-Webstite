@@ -13,3 +13,16 @@ if(isset($query) && !empty($query)){
     }
 }
 ?>
+<?php if(isset($results)):?>
+    <p>This shows when we have results</p>
+    <ul>
+        <!-- Here we'll loop over all our results and reuse a specific template for each iteration,
+        we're also using our helper function to safely return a value based on our key/column name.-->
+            <li>
+                <?php echo get($results, "name");?>
+                <?php echo get($results, "user_id");?>
+            </li>
+    </ul>
+<?php else:?>
+    <p>This shows when we don't have results</p>
+<?php endif;?>
