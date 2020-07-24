@@ -1,8 +1,8 @@
 <?php
 require(__DIR__ . "/includes/common.inc.php");
 $query = "Select * FROM Questionnaires";
+require("config.php");
 if(isset($query) && !empty($query)){
-    require("config.php");
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
     try {
         $stmt = getDB()->prepare($query);
