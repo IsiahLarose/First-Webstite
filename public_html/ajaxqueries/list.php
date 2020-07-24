@@ -21,10 +21,9 @@ if(isset($query) && !empty($query)){
     <ul>
         <!-- Here we'll loop over all our results and reuse a specific template for each iteration,
         we're also using our helper function to safely return a value based on our key/column name.-->
-        <?php foreach($results as $row):?>
+       <?php foreach($results as $row):?>
             <li>
-                <?php echo get($row, "question_id");?>
-                <?php echo get($row, "user_id");?>
+                <?php echo get($row, "name");?>
             </li>
         <?php endforeach;?>
     </ul>
