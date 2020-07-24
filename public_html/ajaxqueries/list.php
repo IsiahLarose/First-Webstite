@@ -1,10 +1,11 @@
 <?php
-require("common.inc.php");
+require(__DIR__ . "/includes/common.inc.php");
+$query = "Select * FROM Questionnaires";
+require("config.php");
 if(isset($query) && !empty($query)){
-    require("config.php");
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
     try {
-        $stmt = getDB()->prepare("Select * FROM Questionnaires");
+        $stmt = getDB()->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -21,7 +22,7 @@ if(isset($query) && !empty($query)){
     <ul>
         <!-- Here we'll loop over all our results and reuse a specific template for each iteration,
         we're also using our helper function to safely return a value based on our key/column name.-->
-       <?php foreach($results as $row):?>
+        <?php foreach($results as $row):?>
             <li>
                 <?php echo get($row, "name");?>
                 <?php echo get($row, "description");?>
