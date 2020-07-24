@@ -1,5 +1,4 @@
 <?php
-include_once(__DIR__."header.partial.php");
 require("common.inc.php");
 if(isset($query) && !empty($query)){
     require("config.php");
