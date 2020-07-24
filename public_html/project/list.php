@@ -5,7 +5,6 @@ if(isset($query) && !empty($query)){
     require("config.php");
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
     try {
-        $db = new PDO($connection_string, $dbuser, $dbpass);
         $stmt = getDB()->prepare("Select * FROM Questionnaires");
         //we don't need to pass any arguments since we're not filtering the results
         $stmt->execute();
@@ -27,7 +26,7 @@ if(isset($query) && !empty($query)){
         we're also using our helper function to safely return a value based on our key/column name.-->
         <?php foreach($results as $row):?>
             <li>
-                <?php echo get($row, "question_id")?>
+                <?php echo get($row, "question_id");?>
                 <?php echo get($row, "user_id");?>
             </li>
         <?php endforeach;?>
