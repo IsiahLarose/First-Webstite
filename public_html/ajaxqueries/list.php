@@ -19,8 +19,8 @@ if(isset($query) && !empty($query)){
         <!-- Here we'll loop over all our results and reuse a specific template for each iteration,
         we're also using our helper function to safely return a value based on our key/column name.-->
             <li>
-                <?php echo get($results, "name");?>
-                <?php echo get($results, "user_id");?>
+                <?php echo ("name");?>
+                <?php echo ("user_id");?>
             </li>
     </ul>
 <?php else:?>
