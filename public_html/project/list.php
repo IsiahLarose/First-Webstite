@@ -23,8 +23,8 @@ if(isset($query) && !empty($query)){
         we're also using our helper function to safely return a value based on our key/column name.-->
         <?php foreach($results as $row):?>
             <li>
-                <?php echo get($row, "question_id");?>
-                <?php echo get($row, "user_id");?>
+                <?php echo get($row, "name");?>
+                <?php echo get($row, "description");?>
             </li>
         <?php endforeach;?>
     </ul>
