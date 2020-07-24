@@ -1,15 +1,6 @@
-<head>
-    <title>Simple Survey</title>
-    <link rel="stylesheet" type="text/css" href="style3.css">
-    <p>
-        List of entries in database
-    </p>
-</head>
 <?php
 require("common.inc.php");
-$query = file_get_contents(__DIR__ . "/queries/SelectAll.sql");
 $query2 = file_get_contents(__DIR__ . "/queries/UsersTaken.sql");
-
 if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
     try {
         $stmt = getDB()->prepare($query);
@@ -29,7 +20,6 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
 }
 ?>
 
-
     <!--This part will introduce us to PHP templating,
     note the structure and the ":" -->
     <!-- note how we must close each check we're doing as well-->
@@ -38,18 +28,6 @@ if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
 <ul>
     <!-- Here we'll loop over all our results and reuse a specific template for each iteration,
     we're also using our helper function to safely return a value based on our key/column name.-->
-    <?php foreach($results as $row):?>
-        <li>
-            <?php echo get($row, "question")?>
-            <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
-        </li>
-    <?php endforeach;?>
-    <?php foreach($results2 as $row):?>
-        <li>
-            <?php echo get($row, "answer")?>
-            <a href="delete.php?answerId=<?php echo get($row, "id");?>">Delete</a>
-        </li>
-    <?php endforeach;?>
 </ul>
 <?php else:?>
     <p>This shows when we don't have results<p>
