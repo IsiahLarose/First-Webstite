@@ -1,5 +1,5 @@
 <?php
-require("common.inc.php");
+require(__DIR__ . "/includes/common.inc.php");
 if(isset($query) && !empty($query)){
     require("config.php");
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
