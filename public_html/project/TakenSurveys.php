@@ -18,30 +18,13 @@ if(Common::get($response, "status", 400) == 200){
             <div class="list-group-item">
                 <h6><?php echo Common::get($s, "name", ""); ?></h6>
                 <p><?php echo Common::get($s, "description", ""); ?></p>
+                <p><?php echo Common:: get($s,"Select sum(user_id) FROM Questionnaires") ?></>
                 <?php if(Common::get($s, "use_max", false)): ?>
                     <div>Max Attempts: <?php echo Common::get($s, "max_attempts", 0);?></div>
                 <?php else:?>
                     <div>Daily Attempts: <?php echo Common::get($s, "attempts_per_day", 0);?></div>
                 <?php endif; ?>
-
-                <?php
-                if($available) {
-                    require("config.php");
-                    $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-                    try {
-                        $db = new PDO($connection_string, $dbuser, $dbpass);
-                        $stmt = $db->prepare("Select sum(user_id) FROM Questionnaires");
-                        $result = $stmt->execute();
-                    }
-                    catch (Exception $e){
-                        echo $e->getMessage();
-                    }
-                    if($e[0] != "00000"){
-                        echo var_export($e, true);
-                    }
-                    }
-                ?>
-                <a>Users Participated</a>
+                <a href="survey.php?s=<?php echo Common::get($s, 'id', -1);?>" class="btn btn-secondary">Participate</a>
             </div>
         <?php endforeach; ?>
         <?php if(count($available) == 0):?>
