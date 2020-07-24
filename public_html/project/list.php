@@ -1,6 +1,6 @@
 <?php
 require("common.inc.php");
-$query2 = file_get_contents(__DIR__ . "/queries/UsersTaken.sql");
+$query2 = file_get_contents(__DIR__ . "/queries/Results.sql");
 if(isset($query) && !empty($query) && isset($query2) && !empty($query2)){
     try {
         $stmt = getDB()->prepare($query);

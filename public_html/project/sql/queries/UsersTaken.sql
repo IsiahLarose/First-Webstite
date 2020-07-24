@@ -1,1 +1,0 @@
-Select sum(user_id) FROM Questionnaires
