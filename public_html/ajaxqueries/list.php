@@ -4,7 +4,7 @@ if(isset($query) && !empty($query)){
     require("config.php");
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
     try {
-        $stmt = getDB()->prepare("Select * FROM Questionnaires id WHERE id >0");
+        $stmt = getDB()->prepare("Select * FROM Questionnaires");
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -24,7 +24,7 @@ if(isset($query) && !empty($query)){
        <?php foreach($results as $row):?>
             <li>
                 <?php echo get($row, "name");?>
-                <?php echo get($row, "user_id");?>
+                <?php echo get($row, "description");?>
             </li>
         <?php endforeach;?>
     </ul>
