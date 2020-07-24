@@ -14,7 +14,7 @@ if(Common::get($response, "status", 400) == 200){
 <div class="container-fluid">
     <h4>Surveys</h4>
     <div class="list-group">
-        <?php foreach($available  as $s): ?>
+        <?php foreach($available as $s): ?>
             <div class="list-group-item">
                 <h6><?php echo Common::get($s, "name", ""); ?></h6>
                 <p><?php echo Common::get($s, "description", ""); ?></p>
@@ -24,6 +24,7 @@ if(Common::get($response, "status", 400) == 200){
                     <div>Daily Attempts: <?php echo Common::get($s, "attempts_per_day", 0);?></div>
                 <?php endif; ?>
                 <a href="survey.php?s=<?php echo Common::get($s, 'id', -1);?>" class="btn btn-secondary">Participate</a>
+
             </div>
         <?php endforeach; ?>
         <?php if(count($available) == 0):?>
