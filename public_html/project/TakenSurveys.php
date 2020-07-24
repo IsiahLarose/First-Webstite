@@ -1,6 +1,5 @@
 <?php
 include_once(__DIR__."/partials/header.partial.php");
-include(__DIR__."/project/list.php");
 
 if(Common::is_logged_in()){
     //this will auto redirect if user isn't logged in
@@ -24,7 +23,7 @@ if(Common::get($response, "status", 400) == 200){
                 <?php else:?>
                     <div>Daily Attempts: <?php echo Common::get($s, "attempts_per_day", 0);?></div>
                 <?php endif; ?>
-                <a href="list.php=<?php echo Common::get($s, 'id', -1);?>" class="btn btn-secondary">Results</a>
+                <a href="list.php">View Survey Answers</a>
 
             </div>
         <?php endforeach; ?>
