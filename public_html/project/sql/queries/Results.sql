@@ -1,1 +1,1 @@
-Select * FROM Questionnaires name
+Select * FROM Questionnaires description where not NULL
