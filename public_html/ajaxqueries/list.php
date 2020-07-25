@@ -1,11 +1,12 @@
 <?php
 require("common.inc.php");
-$query = true;
+$query = file_get_contents(__DIR__ . "/queries/Results.sql");
 if(isset($query) && !empty($query)){
-    require("config.php");
     try {
-        $stmt = getDB()->prepare("Select * From Questionnaires");
+        $stmt = getDB()->prepare($query);
+        //we don't need to pass any arguments since we're not filtering the results
         $stmt->execute();
+        //Note the fetchAll(), we need to use it over fetch() if we expect >1 record
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     catch (Exception $e){
@@ -21,9 +22,9 @@ if(isset($query) && !empty($query)){
     <ul>
         <!-- Here we'll loop over all our results and reuse a specific template for each iteration,
         we're also using our helper function to safely return a value based on our key/column name.-->
-       <?php foreach($results as $row):?>
+        <?php foreach($results as $row):?>
             <li>
-                <?php echo get($row, "name");?>
+                <?php echo get($row, "name")?>
                 <?php echo get($row, "description");?>
             </li>
         <?php endforeach;?>
