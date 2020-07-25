@@ -2,6 +2,9 @@
 require(__DIR__ . "/includes/common.inc.php");
 $query = true;
 if(isset($query) && !empty($query)){
+    require(__DIR__ ."/includes/config.php");
+
+    require("config.php");
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
     try {
         $stmt = getDB()->prepare("Select * From Questionnaires");
