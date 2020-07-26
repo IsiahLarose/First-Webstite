@@ -16,13 +16,13 @@ body{
     background-color: #00203FFF;
 }
 p{
-    font-family: "Calibri";
+    font-family: "Lato";
     text-align: center;
     color: #00203FFF;
     font-size: 2em;
 }
 nav{
-    background-color: #00203FFF;
+    background-color: #ADEFD1FF;
     height: 35px;
 }
 nav::after{
