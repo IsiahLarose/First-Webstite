@@ -5,7 +5,7 @@ if(isset($_POST["search"])){
 }
 ?>
     <form method="POST">
-        <input type="text" name="search" placeholder="Search for Thing"
+        <input type="text" name="search" placeholder="Search for Survey"
                value="<?php echo $search;?>"/>
         <select name="col">
             <option value="name">Answer</option>
@@ -37,8 +37,8 @@ if(isset($search)) {
         if($col == "name"){
             $mapped_col = "name";
         }
-        else if($col == "quantity"){
-            $mapped_col = "quantity";
+        else if($col == "description"){
+            $mapped_col = "description";
         }
         else if($col == "created"){
             $mapped_col = "created";
@@ -46,7 +46,7 @@ if(isset($search)) {
         else if($col == "modified"){
             $mapped_col = "modified";
         }
-        $query = "SELECT * FROM Questionnaires where name like CONCAT('%', :name, '%') ORDER BY $mapped_col";
+        $query = "SELECT * FROM Questionnaires where description like CONCAT('%', :description, '%') ORDER BY $mapped_col";
         //same as above, safely map data from client to hard coded value to prevent sql injection
         if((int)$order == 1){
             $query .= " ASC";
