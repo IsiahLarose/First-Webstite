@@ -1,13 +1,11 @@
 <?php
 require(__DIR__ . "/includes/common.inc.php");
-$query = true;
+$query = file_get_contents(__DIR__."Results.sql");
 if(isset($query) && !empty($query)){
     require(__DIR__ ."/includes/config.php");
-
-    require("config.php");
     $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
     try {
-        $stmt = getDB()->prepare("Select * From Questionnaires");
+        $stmt = getDB()->prepare($query);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
