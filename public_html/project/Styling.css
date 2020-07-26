@@ -10,19 +10,19 @@ form {
     width:80%;
     margin: auto;
     text-align: center;
-    border-color: darkslateblue;
+    border-color: #00203FFF;
 }
 body{
-    background-color: #111c42;
+    background-color: #00203FFF;
 }
 p{
     font-family: "Calibri";
     text-align: center;
-    color: darkslateblue;
+    color: #00203FFF;
     font-size: 2em;
 }
 nav{
-    background-color: darkslateblue;
+    background-color: #00203FFF;
     height: 35px;
 }
 nav::after{
@@ -45,6 +45,6 @@ nav li{
     font-size: 20px;
 }
 a {
-    color: white;
-    background-color: darkslateblue;
+    color: #ADEFD1FF;
+    background-color: #00203FFF;
 }
