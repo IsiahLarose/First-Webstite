@@ -8,7 +8,7 @@ $logged_in = Common::is_logged_in(false);
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous">
 </script><!-- Include jQuery 3.5.1-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-warning">
     <ul class="navbar-nav mr-auto">
         <?php if($logged_in):?>
             <li class="nav-item">
