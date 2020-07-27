@@ -3,13 +3,13 @@ require_once (__DIR__."/../includes/common.inc.php");
 $logged_in = Common::is_logged_in(false);
 ?>
 <!-- Bootstrap 4 CSS only -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel = "stylesheet" href="Styling.css"
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous">
-</script><!-- Include jQuery 3.5.1-->
-<nav class="navbar navbar-expand-md navbar-dark bg-success">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<!-- Include jQuery 3.5.1-->
+<script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous"></script>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <ul class="navbar-nav mr-auto">
         <?php if($logged_in):?>
             <li class="nav-item">
@@ -25,9 +25,6 @@ $logged_in = Common::is_logged_in(false);
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo Common::url_for("TakenSurveys");?>">Surveys you've Taken</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo Common::url_for("search");?>">Search through Surveys</a>
             </li>
         <?php endif; ?>
         <?php if(!$logged_in):?>

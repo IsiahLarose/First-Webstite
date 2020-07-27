@@ -52,6 +52,7 @@ $last_updated = Common::get($_SESSION, "last_sync", false);
             </div>
         </div>
         <button class="btn btn-secondary" onclick="event.preventDefault(); cloneThis(this);">Add Question</button>
+
         <div class="form-group">
             <input type="submit" name="submit" class="btn btn-primary" value="Create Questionnaire"/>
         </div>
