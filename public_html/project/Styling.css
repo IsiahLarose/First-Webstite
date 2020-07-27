@@ -6,7 +6,7 @@ label {
     color: black;
     text-underline-color: black;
 }
-form {
+li {
     width:80%;
     margin: auto;
     text-align: center;
