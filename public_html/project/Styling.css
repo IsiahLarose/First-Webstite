@@ -6,7 +6,7 @@ label {
     color: black;
     text-underline-color: black;
 }
-li {
+ul {
     width:80%;
     margin: auto;
     text-align: center;
