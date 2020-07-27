@@ -13,10 +13,10 @@ form {
     border-color: #00203FFF;
 }
 body{
-    background-color: #00203FFF;
+    background-color: #f9fafc;
 }
 p{
-    font-family:"Lato", Lato, Sans-serif;
+    font-family:"Lato", Sans-serif;
     text-align: center;
     color: #00203FFF;
     font-size: 2em;
@@ -39,6 +39,7 @@ nav ul{
     color: black;
 }
 nav li{
+    font-family:"Lato", Sans-serif;
     float: left;
     display: inline-block;
     margin: 0 35px;
