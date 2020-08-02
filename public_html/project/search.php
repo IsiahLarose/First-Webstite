@@ -66,7 +66,7 @@ note the structure and the ":" -->
         <?php foreach($results as $row):?>
             <li>
                 <?php echo get($row, "question")?>
-                <a href="../ajaxqueries/delete.php?QuestionId=<?php echo get($row, ">Delete</a>
+                <a href="../ajaxqueries/delete.php?QuestionId=<?php echo get($row, "id");?>Delete</a>
             </li>
         <?php endforeach;?>
     </ul>
