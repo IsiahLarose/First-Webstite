@@ -1,5 +1,6 @@
 <?php
 include_once(__DIR__."/partials/header.partial.php");
+include "config.inc.php";
 
 if(Common::is_logged_in()){
     //this will auto redirect if user isn't logged in
@@ -10,6 +11,10 @@ $available = [];
 if(Common::get($response, "status", 400) == 200){
     $available = Common::get($response, "data", []);
 }
+$limit = 25;
+$page = isset($_GET['page']) ? $_GET['page']:1;
+$$star = ($page-1)*$limit;
+$result =
 ?>
 <div class="container-fluid">
     <h4>Surveys</h4>

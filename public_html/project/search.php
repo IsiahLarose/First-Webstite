@@ -1,6 +1,6 @@
 <head>
     <title>Simple Survey</title>
-    <link rel="stylesheet" type="text/css" href="style2.css">
+    <link rel="stylesheet" type="text/css" href="../ajaxqueries/style2.css">
     <p>
         Search Page
     </p>
@@ -66,7 +66,7 @@ note the structure and the ":" -->
         <?php foreach($results as $row):?>
             <li>
                 <?php echo get($row, "question")?>
-                <a href="delete.php?QuestionId=<?php echo get($row, "id");?>">Delete</a>
+                <a href="../ajaxqueries/delete.php?QuestionId=<?php echo get($row, ">Delete</a>
             </li>
         <?php endforeach;?>
     </ul>
