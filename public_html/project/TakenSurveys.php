@@ -14,10 +14,10 @@ if(Common::get($response, "status", 400) == 200){
 $limit = 25;
 $page = isset($_GET['page']) ? $_GET['page']:1;
 $start= ($page-1)*$limit;
-$query = ("Select from Questions LIMIT $start,$limit");
+$query = ("Select from Questionnaires LIMIT $start,$limit");
 $result = getDB()->prepare($query);
 $Questions = $result->fetch(PDO::FETCH_ASSOC);
-$total = $QuestionCount[0]['id'];
+$total = $Questionnaire[0]['id'];
 $pages = ceil($total / $limit);
 ?>
 <div class="container-fluid">
