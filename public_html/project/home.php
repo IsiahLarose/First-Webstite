@@ -6,6 +6,6 @@ if(Common::is_logged_in()){
 ?>
 <div>
     <p style="color:green;font-size:46px;">
-        Welcome, <?php echo Common::get_username();?>
+        Welcome, <?php echo Common::get_username();?> :)
     </p>
 </div>
