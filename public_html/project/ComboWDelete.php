@@ -1,8 +1,8 @@
 <?php
-require("config.php");
+require("includes/config.php");
 $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 $db = new PDO($connection_string, $dbuser, $dbpass);
-$QuestionId = -1;
+$QuestionnaireId = -1;
 $result = array();
 function get($arr, $key){
     if(isset($arr[$key])){
