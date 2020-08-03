@@ -43,3 +43,24 @@ $pages = ceil($total / $limit);
         <?php endif; ?>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-10">
+        <nav aria-label="Page Navigation">
+            <ul class="Pagination">
+                <li>
+                    <a href="#" aria-label="=Previous">
+                        <span aria-hidden="true">&laquo; Previous</span>
+                    </a>
+                </li>
+                <?php for($i -1; $i<= $pages; $i++)?>
+                <li> <a href="index.php?page=<?=$i;?>"><?=$i; ?></a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">NEXT &raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
