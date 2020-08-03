@@ -1,9 +1,7 @@
 <?php
 include("header.php"); ?>
-<link rel="stylesheet" type="text/css" href="style.css">
 <h4>Login</h4>
-    <link rel="stylesheet" type="text/css" href="style.css">
-<form method="POST">
+<form style='display:inline;' method ="POST">
     <label for="email">Email
         <input type="email" id="email" name="email" autocomplete="off" />
     </label>
