@@ -30,7 +30,7 @@ $logged_in = Common::is_logged_in(false);
                 <a class="nav-link" href="<?php echo Common::url_for("search");?>">Search through surveys</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo Common::url_for("ComboWDelete");?>">Edit and refine your surveys</a>
+                <a class="nav-link" href="<?php echo Common::url_for("edit_survey");?>">Edit and refine your surveys</a>
             </li>
         <?php endif; ?>
         <?php if(!$logged_in):?>
