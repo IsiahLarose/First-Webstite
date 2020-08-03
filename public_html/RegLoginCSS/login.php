@@ -1,7 +1,8 @@
 <?php
 include("header.php"); ?>
-<h4>Login</h4> 
-
+<link rel="stylesheet" type="text/css" href="style.css">
+<h4>Login</h4>
+    <link rel="stylesheet" type="text/css" href="style.css">
 <form method="POST">
     <label for="email">Email
         <input type="email" id="email" name="email" autocomplete="off" />
@@ -11,7 +12,6 @@ include("header.php"); ?>
     </label>
     <input type="submit" name="login" value="Login"/>
 </form>
-
 <?php
 //echo var_export($_GET, true);
 //echo var_export($_POST, true);
