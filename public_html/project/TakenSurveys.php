@@ -17,7 +17,7 @@ $start= ($page-1)*$limit;
 $query = ("Select from Questionnaires LIMIT $start,$limit");
 $result = getDB()->prepare($query);
 $Questions = $result->fetch(PDO::FETCH_ASSOC);
-$total = $Questionnaire[0]['id'];
+$total = $QuesCount[0]['id'];
 $pages = ceil($total / $limit);
 ?>
 <div class="container-fluid">
