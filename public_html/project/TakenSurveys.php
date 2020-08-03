@@ -11,14 +11,14 @@ $available = [];
 if(Common::get($response, "status", 400) == 200){
     $available = Common::get($response, "data", []);
 }
-$limit = 25;
+/*$limit = 25;
 $page = isset($_GET['page']) ? $_GET['page']:1;
 $start= ($page-1)*$limit;
 $query = ("Select from Questionnaires LIMIT $start,$limit");
 $result = getDB()->prepare($query);
 $Questions = $result->fetch(PDO::FETCH_ASSOC);
 $total = $QuesCount[0]['id'];
-$pages = ceil($total / $limit);
+$pages = ceil($total / $limit);*/
 ?>
 <div class="container-fluid">
     <h4>Surveys</h4>
@@ -44,23 +44,23 @@ $pages = ceil($total / $limit);
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-10">
-        <nav aria-label="Page Navigation">
-            <ul class="Pagination">
-                <li>
-                    <a href="#" aria-label="=Previous">
-                        <span aria-hidden="true">&laquo; Previous</span>
-                    </a>
-                </li>
-                <?php for($i -1; $i<= $pages; $i++)?>
-                <li> <a href="index.php?page=<?=$i;?>"><?=$i; ?></a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">NEXT &raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
+<!--/* <div class="row">-->
+<!--    <div class="col-md-10">-->
+<!--        <nav aria-label="Page Navigation">-->
+<!--            <ul class="Pagination">-->
+<!--                <li>-->
+<!--                    <a href="#" aria-label="=Previous">-->
+<!--                        <span aria-hidden="true">&laquo; Previous</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                --><?php //for($i -1; $i<= $pages; $i++)?>
+<!--                <li> <a href="index.php?page=--><?//=$i;?><!--">--><?//=$i; ?><!--</a></li>-->
+<!--                <li>-->
+<!--                    <a href="#" aria-label="Next">-->
+<!--                        <span aria-hidden="true">NEXT &raquo;</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+<!--    </div>-->
+<!--</div> */-->
